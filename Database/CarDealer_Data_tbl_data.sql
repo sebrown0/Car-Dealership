@@ -1,3 +1,6 @@
+/*
+** Initial data for the schema.
+*/
 -- Create departments
 -- SET foreign_key_checks = 0;
 INSERT INTO `departments` 
@@ -114,6 +117,7 @@ VALUES
     (8, 10000, 20000, 20, 0), -- Unskilled
     (9, 50001, 130000, 20, 0); -- CEO
     
+-- Initial values for the sales department.
 INSERT INTO `sales_dept`
 	(`sales_dept_id`, `sales_target_year`, `actual_sales_year`, `actual_sales_month`)
 VALUES

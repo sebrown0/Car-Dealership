@@ -1,10 +1,15 @@
+DELIMITER $$
+/*
+** Adds and employee to employees, human_resources employee_attendance and  tbls.
+** employee_attendance has holiday entitlement calculated form seniority.
+*/
 CREATE PROCEDURE `AddEmployee`(
-	IN d_name VARCHAR(45),
-    IN first_name VARCHAR(45),
-    IN last_name VARCHAR(45),
-    IN role_name VARCHAR(25),
-    IN seniority VARCHAR(25),
-    IN salary DECIMAL(10,2))
+	IN d_name VARCHAR(45),		-- Name of the department where the emp will work.
+    IN first_name VARCHAR(45),	-- Emp's first name
+    IN last_name VARCHAR(45),	-- Emp's last name
+    IN role_name VARCHAR(25),	-- Emp's role i.e. salesman
+    IN seniority VARCHAR(25),	-- Emp's seniority i.e. Associate, Manager etc
+    IN salary DECIMAL(10,2))	-- Salary
 BEGIN
 	DECLARE employee_id INT;
     DECLARE emp_role_id INT;
@@ -59,3 +64,4 @@ BEGIN
 		( employee_id, (select year(now())) , holiday_ent, 0 ,holiday_ent);
 	
 END;
+DELIMITER;

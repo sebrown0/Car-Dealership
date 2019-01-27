@@ -1,3 +1,7 @@
+DELIMITER $$
+/*
+** Get all empolyees' dept and manager.
+*/
 CREATE PROCEDURE `JoinEmployeesOnManagers`()
 BEGIN
 SELECT 
@@ -16,3 +20,4 @@ LEFT JOIN
 ON 
 	emp_manager.emp_id = dept.manager_id; 
 END;
+DELIMITER ;

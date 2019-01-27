@@ -1,8 +1,12 @@
+DELIMITER $$
 /*
 ** Update the department table with a valid manager/emp id.
 ** i.e. the employee's seniority must = 'Manager'
 */
-CREATE PROCEDURE `UpdateDepartmentManager`(IN employee_id INT, IN department_id INT)
+CREATE PROCEDURE `UpdateDepartmentManager`(
+	IN employee_id INT, 	-- Emp's unique id.
+    IN department_id INT	-- Department they will manage.
+    )
 BEGIN
 	DECLARE employee_seniority VARCHAR(25);
     SET employee_seniority = ( 
@@ -32,3 +36,4 @@ BEGIN
 				departments.dept_id = department_id;
 		END IF;
 END;
+DELIMITER ;

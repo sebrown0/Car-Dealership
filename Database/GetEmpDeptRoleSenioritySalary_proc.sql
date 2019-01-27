@@ -1,3 +1,7 @@
+DELIMITER $$
+/*
+** Get all empolyees' dept, role, seniority and salary.
+*/
 CREATE PROCEDURE `GetEmpDeptRoleSenioritySalary`()
 BEGIN
 	SELECT 
@@ -25,3 +29,4 @@ BEGIN
 	ON
 		sen.seniority_id = ras.seniority_id;
 END;
+DELIMITER ;

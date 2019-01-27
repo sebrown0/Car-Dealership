@@ -1,4 +1,6 @@
-
+/*
+** Ad-hoc development/testing querys
+*/
 select * from departments;
 select * from sales_dept;
 
