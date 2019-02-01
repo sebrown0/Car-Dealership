@@ -1,7 +1,11 @@
 package application;
 
-import stock_update.Stock;
-import stock_update.StockUpdate;
+import dao.FileDAO;
+import enums.Files;
+import file_handler.FileHandler;
+import stock_department.StockDelivery;
+import stock_department.StockDept;
+import stock_department.StockProcess;
 
 
 
@@ -13,10 +17,13 @@ public class App {
 		System.setProperty("hadoop.home.dir", "C:\\hadoop");
 		System.out.println("Starting App...............");
 
-
-		Stock stock = new StockUpdate();
-		stock.readStockFile();
+//		FileDAO checkForNewStock = new FileHandler();
+//		System.out.println(checkForNewStock.checkStock(Files.CAR_STOCK.filePath()));
+//		
+//		StockDAO stock = new NewStock();
+//		stock.readStockFile();
 		
+		StockDept sd = new StockDept();
 
 
 		System.out.println("Ending App...............");
