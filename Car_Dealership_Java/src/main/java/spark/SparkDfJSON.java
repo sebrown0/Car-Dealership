@@ -1,16 +1,31 @@
+
 package spark;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
 
 import dao.SparkDAO;
-import database.DataBase;
 
-public class SparkDfJSON implements SparkDAO {
+/**
+ * @author Steve Brown
+ * Creates a spark df from a JSON file.
+ * Use getDataFrame() to access the data frame. 
+ */
+public class SparkDfJSON extends Spark {
 
 	SparkDf dataFrame;
 	
+	public SparkDfJSON(String appName, String master, boolean createSession) {
+		super(appName, master, createSession);
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public SparkDfJSON(SparkDAO spark, String path) {
+		super();
+		createSparkDf(spark, path);	// Create the df at time of construction.
+	}
+
 	@Override
 	public void createSparkDf(SparkDAO spark, String path) {
 
@@ -24,33 +39,10 @@ public class SparkDfJSON implements SparkDAO {
 	}
 	
 	@Override
-	public SparkSession session() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void createNewSparkSession() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Dataset<Row> getDataFrame() {
 		return dataFrame.getDataFrame();
 	}
 
-	@Override
-	public void createSparkDf(SparkDAO spark, DataBase db) {
-		// TODO Auto-generated method stub
-		
-	}
-
-//	@Override
-//	public Dataset<Row> getDataFrame() {
-//		// TODO Auto-generated method stub
-//		return this.getDataFrame();
-//	}
 
 	
 

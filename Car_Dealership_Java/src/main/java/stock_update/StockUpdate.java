@@ -29,11 +29,9 @@ public class StockUpdate implements Stock{
 	public ErrorCode readStockFile() {
 
 		
-		// Read the new stock file into a Spark DF
+		// Read the new stock file into a Spark DF		
 		SparkDAO spark = new Spark("Spark1", "local", true);
-		SparkDAO dfCars = new SparkDfJSON();
-
-		dfCars.createSparkDf(spark, Files.CAR_STOCK.filePath());
+		SparkDAO dfCars = new SparkDfJSON(spark, Files.CAR_STOCK.filePath());
 
 		// Get local ref to car df.
 		Dataset<Row> carStockDf = dfCars.getDataFrame(); 
@@ -90,10 +88,9 @@ public class StockUpdate implements Stock{
 	// Prepare the model details for writing
 	private Dataset<Row> prepareModelDetails(Dataset<Row> carStockDf, SparkDAO spark) {
 
-		SparkDAO manDf = new SparkDfTable();
-		
 		mySql.dBPropValue("dbtable", TableNames.MANUFACTURER.tblName());
-		manDf.createSparkDf(spark, mySql);
+		
+		SparkDAO manDf = new SparkDfTable(spark, mySql);
 				
 		// Get the manufacturer_id to go with the manufacturer.
 		// Prepare the model df for appending to the model tbl.

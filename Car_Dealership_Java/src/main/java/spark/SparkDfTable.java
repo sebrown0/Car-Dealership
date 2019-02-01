@@ -6,19 +6,26 @@ import org.apache.spark.sql.SparkSession;
 
 import dao.SparkDAO;
 import database.DataBase;
-import enums.CD_Schema;
-import enums.MySqlConn;
 
-public class SparkDfTable implements SparkDAO{
+/**
+ * @author Steve Brown
+ * Creates a spark df from a data base table.
+ * Use getDataFrame() to access the data frame. 
+ */
+public class SparkDfTable extends Spark{
 
 	SparkDf dataFrame;
 	
+	public SparkDfTable(SparkDAO spark, DataBase mySql) {
+		createSparkDf(spark, mySql);
+	}
+
 	@Override
 	public void createSparkDf(SparkDAO spark, DataBase db) {
 		dataFrame = new SparkDf();
 		
 		Dataset<Row> df = spark.session().read()
-				  .format(db.dBPropValue("format")) //jdbc
+				  .format(db.dBPropValue("format")) 
 				  .option("url", db.dBPropValue("url"))
 				  .option("dbtable", db.dBPropValue("dbtable"))
 				  .option("user", db.dBPropValue("username"))
@@ -29,47 +36,9 @@ public class SparkDfTable implements SparkDAO{
 	}
 	
 	@Override
-	public void createSparkDf(SparkDAO spark, String table) {
-
-		System.out.println("!!!!!!!!!!!!!!!!! CREATING DF WITH TABLE");
-		
-//		MySqlDB mySql = new MySqlDB(
-//				//MySqlConn.URL.value(),
-//				MySqlConn.USERNAME.value(), 
-//				MySqlConn.PASSWORD.value());
-		
-//		dataFrame = new SparkDf();
-//		
-//		Dataset<Row> df = spark.session().read()
-//				  .jdbc(MySqlConn.URL.value(),
-//						  CD_Schema.SCHEMA.value() + "." + table, 
-//						  MySqlConn.USERNAME.value(),MySqlConn.PASSWORD.value());
-//
-//
-//		dataFrame.setDataFrame(df);
-	}
-	
-	@Override
-	public void createNewSparkSession() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public SparkSession session() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Dataset<Row> getDataFrame() {
-		// TODO Auto-generated method stub
 		return dataFrame.getDataFrame();
 	}
 
-	
-
-	
-	
 
 }

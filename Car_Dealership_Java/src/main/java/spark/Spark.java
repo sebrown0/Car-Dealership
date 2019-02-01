@@ -20,6 +20,10 @@ public class Spark implements SparkDAO{
 	private String master;
 	private boolean activeSession = false;
 
+	public Spark() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Spark(String appName, String master, boolean createSession) {
 		super();
 		this.appName = appName;
@@ -47,11 +51,6 @@ public class Spark implements SparkDAO{
 		return spark;
 	}
 	
-	@Override
-	public void createSparkDf(SparkDAO sparkSession, String path) {
-		// TODO Auto-generated method stub
-	}
-
 	public String getAppName() {
 		return appName;
 	}
@@ -68,6 +67,18 @@ public class Spark implements SparkDAO{
 
 	@Override
 	public void createSparkDf(SparkDAO spark, DataBase db) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createSparkDf(String table) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createSparkDf(SparkDAO spark, String table) {
 		// TODO Auto-generated method stub
 		
 	}

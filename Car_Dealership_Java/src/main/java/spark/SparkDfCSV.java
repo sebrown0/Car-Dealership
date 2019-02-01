@@ -2,12 +2,14 @@ package spark;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
 
 import dao.SparkDAO;
-import database.DataBase;
-
-public class SparkDfCSV implements SparkDAO{
+/**
+ * @author Steve Brown
+ * Creates a spark df from a CSV file.
+ * Use getDataFrame() to access the data frame. 
+ */
+public class SparkDfCSV extends Spark{
 	
 	SparkDf dataFrame;
 
@@ -24,29 +26,9 @@ public class SparkDfCSV implements SparkDAO{
 	}
 
 	@Override
-	public void createNewSparkSession() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public SparkSession session() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public Dataset<Row> getDataFrame() {
 		// TODO Auto-generated method stub
 		return dataFrame.getDataFrame();
 	}
-
-	@Override
-	public void createSparkDf(SparkDAO spark, DataBase db) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 
 }

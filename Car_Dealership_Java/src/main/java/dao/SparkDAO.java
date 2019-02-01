@@ -14,6 +14,7 @@ import database.MySqlDB;
 
 public interface SparkDAO {
 	public void createNewSparkSession();
+	public void createSparkDf(String table); 					// Create df using the table name given.
 	public void createSparkDf(SparkDAO spark, String table); 	// Create df using the table name given.
 	public void createSparkDf(SparkDAO spark, DataBase db);		// Create df using from the DB given.
 	public SparkSession session();								// Get the spark session.
