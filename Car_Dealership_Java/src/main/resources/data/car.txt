@@ -1,0 +1,9 @@
+id,make,model,horsepower,colour,price,date_available,stock_item
+1,VW,Golf,1400,red,20000,01-01-2019,y
+2,VW,Golf,1600,red,20500,11-01-2019,y
+3,VW,Golf,1400,blue,20000,11-01-2019,y
+4,VW,Golf,3000,red,40000,01-01-2020,n
+5,VW,Golf,1400,black,22000,16-01-2019,y
+6,VW,Up,1000,white,20000,01-02-2019,y
+7,Ford,Focus,1400,yellow,24300,24-01-2019,y
+8,Ford,Focus,1100,black,19800,25-01-2019,y

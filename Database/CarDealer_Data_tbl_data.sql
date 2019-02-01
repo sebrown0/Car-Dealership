@@ -118,10 +118,11 @@ VALUES
     (9, 50001, 130000, 20, 0); -- CEO
     
 -- Initial values for the sales department.
+-- dept_id is set to defualt 2
 INSERT INTO `sales_dept`
-	(`sales_dept_id`, `sales_target_year`, `actual_sales_year`, `actual_sales_month`)
+	(`sales_target_year`, `actual_sales_year`, `actual_sales_month`)
 VALUES
-	(2,400000,0,0);  
+	(400000,0,0);  
     
 -- Add (INSERT) to the employees table 
 -- dept name
@@ -181,3 +182,34 @@ call BookHoliday(11,'2019-09-11','2019-09-24');
 
 -- Someone's already had a sickie!
 call UpdateEmployeeSickness(2,'2019-02-07','2019-02-14');
+
+/**************** CAR DATA ****************/
+INSERT INTO `manufacturer`
+	(`manufacturer_name`)
+VALUES
+	('Ford'),
+    ('Volkswagen');
+    
+INSERT INTO `model`
+	(`model_vin`,`manufacturer_id`, `model_name`, `retail_price`, `date_of_manufacture`)
+VALUES
+	('FD95219PKV', 1, 'Focus', 22000, '2019-01-01');			-- Ford
+    
+INSERT INTO `model_attributes`
+	(`model_vin`, `colour`, `transmission`, `horsepower`)
+VALUES
+	('FD95219PKV', 'Red', 'Auto', 2000);	
+    
+INSERT INTO `model_enhancements`
+	(`model_vin`, `sunroof`, `alloy_wheels`, `ac`)
+VALUES
+	('FD95219PKV', 0, 1, 1);	
+
+INSERT INTO `stock_status`
+	(`status`)
+VALUES
+	('Awaiting Preparation'),	-- Car has just arrived so can't be viewed or sold
+    ('Forecourt'),				-- Can be sold
+    ('Test'),					-- On a test drive
+    ('Sold'),					-- Sold awaiting delivery
+    ('Delivered');				-- Car has been delivered to customer

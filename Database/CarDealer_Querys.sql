@@ -16,6 +16,12 @@ select * from role_and_seniority;
 select * from salary_bands;
 select * from seniorities;
 
+select * from manufacturer;
+select * from model;
+select * from model_attributes;
+select * from model_enhancements;
+
+select * from stock_status;
 select DATE(now());
 
 -- call AddEmployee(args);
@@ -25,10 +31,12 @@ call JoinEmployeesOnManagers();
 call UpdateDepartmentManager (6,3); -- ( man_id,dept_id)
 call BookHoliday(1,'2019-01-01','2019-01-04');
 
-call BookHoliday_e(4,'2019-11-01','2019-11-04');
-call BookHoliday_e(4,'2019-02-07','2019-04-14');
-select * from employee_holiday;
+call BookHoliday(4,'2019-11-01','2019-11-04');
+call BookHoliday(4,'2019-02-07','2019-04-14');
 
+call GetModelDetails('Ford', 'Focus');
 
-DELETE from employees WHERE employees.emp_id = 6;
+delete from model;
+select * from model;
+-- DELETE from employees WHERE employees.emp_id = 6;
 
