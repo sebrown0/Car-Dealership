@@ -213,3 +213,11 @@ VALUES
     ('Test'),					-- On a test drive
     ('Sold'),					-- Sold awaiting delivery
     ('Delivered');				-- Car has been delivered to customer
+
+INSERT INTO `stock_updates`
+	(`update_id`, `file_name`)
+VALUES
+	(0,  'car_stock_0.json');		
+    
+
+

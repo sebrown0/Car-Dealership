@@ -1,9 +1,9 @@
 package stock_department;
 
-import enums.ErrorCode;
+import enums.ErrorCodes;
 
 public interface StockProcess {
-	ErrorCode checkForNewStock();
-	ErrorCode readStockFile();
-	ErrorCode updateStockList();
+	ErrorCodes checkForNewStock();
+	ErrorCodes readStockFile();
+	ErrorCodes updateStockList();
 }

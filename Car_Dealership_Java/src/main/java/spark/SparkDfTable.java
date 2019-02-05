@@ -1,8 +1,9 @@
 package spark;
 
+import java.sql.SQLException;
+
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
 
 import dao.SparkDAO;
 import database.DataBase;
@@ -16,12 +17,14 @@ public class SparkDfTable extends Spark{
 
 	SparkDf dataFrame;
 	
-	public SparkDfTable(SparkDAO spark, DataBase mySql) {
+	public SparkDfTable(SparkDAO spark, DataBase mySql) throws Throwable {
 		createSparkDf(spark, mySql);
 	}
 
 	@Override
-	public void createSparkDf(SparkDAO spark, DataBase db) {
+	public void createSparkDf(SparkDAO spark, DataBase db)
+			throws SQLException {
+		
 		dataFrame = new SparkDf();
 		
 		Dataset<Row> df = spark.session().read()
@@ -33,6 +36,7 @@ public class SparkDfTable extends Spark{
 				  .load();
 
 		dataFrame.setDataFrame(df);		
+	
 	}
 	
 	@Override

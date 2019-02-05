@@ -8,15 +8,12 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 
-import dao.DB_DAO;
-import dao.SparkDAO;
 import enums.CD_Schema;
 import enums.MySqlConn;
-import enums.TableNames;
 
 /**
  * @author Steve Brown
- * Used mainly to write a data frame.
+ * Used mainly to write a data frame to a MySQL DB.
  */
 public class MySqlDB extends DataBase{
 
@@ -55,7 +52,7 @@ public class MySqlDB extends DataBase{
 			.option("user", this.dBPropValue("username"))
 			.option("password", this.dBPropValue("password"))
 			.save();
-		
+
 		return true;
 	}
 	

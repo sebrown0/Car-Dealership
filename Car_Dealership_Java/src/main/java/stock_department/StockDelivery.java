@@ -2,35 +2,36 @@ package stock_department;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+
 import dao.SparkDAO;
 import database.DataBase;
-import database.MySqlDB;
-import enums.ErrorCode;
-import enums.Files;
+import enums.ErrorCodes;
+import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
-import spark.Spark;
 import spark.SparkDfJSON;
 import spark.SparkDfTable;
 
 /**
  * @author Steve Brown
- * Check for new stock (JSON file) and add new stock to the database. 
+ * Read new stock (JSON file) and add new stock to the database. 
  */
 public class StockDelivery{
 
-	private DataBase mySql;
+	private SparkDAO spark;
+	private DataBase dataBase;
+	private Dataset<Row> deliveryDf;
 	
-	public StockDelivery() {
-		//Default MySql DAO. Have to set db table before using.
-		mySql = new MySqlDB(TableNames.MODEL.tblName());		
+	public StockDelivery(SparkDAO spark, DataBase db) {
+		this.spark = spark;
+		this.dataBase = db;
 	}
 	
-//	@Override
 	// Read the new stock file (in JSON format) and write new details to the DB.
-	public ErrorCode readStockFile() {
+	public ErrorCodes readStockFile(String stockFile) {
+		ErrorCodes eCode = ErrorCodes.NONE;
+		
 		// Read the new stock file into a Spark DF		
-		SparkDAO spark = new Spark("Spark1", "local", true);
-		SparkDAO dfCars = new SparkDfJSON(spark, Files.CAR_STOCK.filePath());
+		SparkDAO dfCars = new SparkDfJSON(spark, stockFile);
 
 		// Get local ref to car df.
 		Dataset<Row> carStockDf = dfCars.getDataFrame(); 
@@ -48,22 +49,39 @@ public class StockDelivery{
 				.drop(extrasDf.col("vin"))
 				.drop(carStockDf.col("extras"));
 
-		Dataset<Row> modelDf = prepareModelDetails(carStockDf, spark);
-		Dataset<Row> modelAttrDf = prepareModelAttrDetails(carStockDf);
-		Dataset<Row> modelEnhDf = prepareModelExtraDetails(carStockDf);
-			
 		try {
-			// Write all models' details, attributes and enhancements if previous successful. 			
-			if(mySql.writeDfToDBTable(modelDf, TableNames.MODEL.tblName()))
-				if(mySql.writeDfToDBTable(modelAttrDf, TableNames.MODEL_ATTR.tblName())) 
-					mySql.writeDfToDBTable(modelEnhDf, TableNames.MODEL_ENH.tblName());
+			eCode = writeData(carStockDf);
 		} catch (Throwable e) {
-			System.out.println("**-- Couldn't write to DB. Possible duplicate entry --**");
-			return ErrorCode.DUPLICATE_ENTRY;
+			eCode = ErrorCodes.DF_ERROR;//(ErrorHandler.checkError(ErrorCodes.DUPLICATE_ENTRY, e.getCause().toString()));
 		}
-		return ErrorCode.NONE;	
+				
+		return eCode;	
 	}
-
+			
+	private ErrorCodes writeData(Dataset<Row> carStockDf) throws Throwable{
+		
+		try {
+			deliveryDf = prepareModelDetails(carStockDf, spark);
+			Dataset<Row> modelAttrDf = prepareModelAttrDetails(carStockDf);
+			Dataset<Row> modelEnhDf = prepareModelExtraDetails(carStockDf);
+			try {
+				// Write all models' details, attributes and enhancements if previous successful. 			
+				if(dataBase.writeDfToDBTable(deliveryDf, TableNames.MODEL.tblName())) {
+					if(dataBase.writeDfToDBTable(modelAttrDf, TableNames.MODEL_ATTR.tblName())) 
+						dataBase.writeDfToDBTable(modelEnhDf, TableNames.MODEL_ENH.tblName());
+				}
+			} catch (Throwable e) {
+				// Check for the most probable error 
+				return (ErrorHandler.checkError(ErrorCodes.DUPLICATE_ENTRY, e.getCause().toString()));
+			}
+		} catch (Throwable e) {
+			// Check for the most probable error 
+			return (ErrorHandler.checkError(ErrorCodes.DF_ERROR, e.getCause().toString()));
+		}
+		
+		return ErrorCodes.NONE;			
+	}
+		
 	// Prepare the model extras for writing.
 	private Dataset<Row> prepareModelExtraDetails(Dataset<Row> carStockDf) {
 		
@@ -85,11 +103,11 @@ public class StockDelivery{
 	}
 		
 	// Prepare the model details for writing
-	private Dataset<Row> prepareModelDetails(Dataset<Row> carStockDf, SparkDAO spark) {
+	private Dataset<Row> prepareModelDetails(Dataset<Row> carStockDf, SparkDAO spark)throws Throwable {
 
-		mySql.dBPropValue("dbtable", TableNames.MANUFACTURER.tblName());
+		dataBase.dBPropValue("dbtable", TableNames.MANUFACTURER.tblName());
+		SparkDAO manDf = new SparkDfTable(spark, dataBase);
 		
-		SparkDAO manDf = new SparkDfTable(spark, mySql);
 				
 		// Get the manufacturer_id to go with the manufacturer.
 		// Prepare the model df for appending to the model tbl.
@@ -102,6 +120,10 @@ public class StockDelivery{
 				.withColumnRenamed("vin", "model_vin");
 		
 		return modelDf;
+	}
+	
+	public Dataset<Row> getDelivery(){
+		return this.deliveryDf;
 	}
 
 }

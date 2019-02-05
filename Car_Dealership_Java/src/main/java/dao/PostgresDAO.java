@@ -6,8 +6,6 @@ import java.sql.SQLIntegrityConstraintViolationException;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
-
-import database.DataBase;
 /**
  * @author Steve Brown
  * NOT COMPLETE OR USING AT THE MOMENT

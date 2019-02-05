@@ -2,7 +2,7 @@ package enums;
 
 public enum Files {
 
-	CAR_STOCK("src/main/resources/data/car_stock55.json");
+	CAR_STOCK_PATH("src/main/resources/data/");
 	
 	private String fPath;
 	

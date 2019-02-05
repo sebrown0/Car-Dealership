@@ -3,7 +3,12 @@
  */
 package stock_department;
 
-import enums.ErrorCode;
+import dao.SparkDAO;
+import database.DataBase;
+import database.MySqlDB;
+import enums.ErrorCodes;
+import enums.TableNames;
+import spark.Spark;
 
 /**
  * @author Brown
@@ -11,31 +16,42 @@ import enums.ErrorCode;
  */
 public class StockDept extends StockUpdate {
 
+	private SparkDAO spark;
+	private DataBase dataBase;
+	private StockCheck stockCheck;
+	private StockDelivery stockDelivery;
+	private StockList stockList;
+	
 	public StockDept() {
-		updateStock();
+		// Create new spark session to use throughout the update process.
+		spark = new Spark("Spark1", "local", true);
+		
+		//Default MySql DAO. Have to set db table before using.
+		dataBase = new MySqlDB(TableNames.NO_TABLE.tblName());
+		
+		// Start the process. <<<<<<<<<<<<<<<<doesn't have to be here>>>>>>>>>>>>>>>>>.
+		updateStock(); 
 	}
 	
 	@Override
-	public ErrorCode checkForNewStock() {
-		StockCheck sc = new StockCheck();
-		
-		return (sc.checkStockFile());
+	public ErrorCodes checkForNewStock() {
+		stockCheck = new StockCheck(spark, dataBase);
+		return (stockCheck.checkStockFile()); 
 	}
 
 	@Override
-	public ErrorCode readStockFile() {
+	public ErrorCodes readStockFile() {
 		
-		StockDelivery stock = new StockDelivery();
-		stock.readStockFile();
-		
-		return ErrorCode.NONE;
+		stockDelivery = new StockDelivery(spark, dataBase);
+		return (stockDelivery.readStockFile(this.stockCheck.getStockFile()));
 	}
 
 	@Override
-	public ErrorCode updateStockList() {
+	public ErrorCodes updateStockList() {
 
-		
-		return ErrorCode.NONE;
+		stockList = new StockList(spark, dataBase, stockCheck.getFileNum(), stockCheck.getStockFile());
+		stockList.update(stockDelivery.getDelivery());
+		return ErrorCodes.NONE;
 	}
 	
 

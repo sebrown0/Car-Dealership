@@ -1,6 +1,6 @@
 package dao;
 
-import enums.ErrorCode;
+import enums.ErrorCodes;
 
 /**
  * @author Steve Brown
@@ -8,5 +8,5 @@ import enums.ErrorCode;
  */
 	public interface FileDAO {
 	
-		ErrorCode checkStock(String filePath);	// Look for new stock file.
+		ErrorCodes checkStock(String filePath);	// Look for new stock file.
 	}

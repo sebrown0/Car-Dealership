@@ -2,6 +2,7 @@ package enums;
 
 public enum TableNames {
 		 
+	NO_TABLE(""),
 	DEPT("department"),
 	EMP_ATT("employee_attendance"),
 	EMP_DATA("employee_data"),
@@ -17,7 +18,10 @@ public enum TableNames {
 	ROLES("roles"),
 	SALARY_BANDS("salary_bands"),
 	SALES_DEPT("sales_dept"),
-	SENIORITY("seniorities");
+	SENIORITY("seniorities"),
+	STOCK_UPDATES("stock_updates"),
+	STOCK_LIST("stock_list"),
+	STOCK_STATUS("stock_status");
 			
 	private String tblName;
 	

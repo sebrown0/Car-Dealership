@@ -1,11 +1,9 @@
 package application;
 
-import dao.FileDAO;
-import enums.Files;
-import file_handler.FileHandler;
-import stock_department.StockDelivery;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import stock_department.StockDept;
-import stock_department.StockProcess;
 
 
 
@@ -24,7 +22,13 @@ public class App {
 //		stock.readStockFile();
 		
 		StockDept sd = new StockDept();
+	
+				
+//		ErrorCodes e = new Error_Handler(ErrorCodes.DUPLICATE_ENTRY, "duplicate entry 'VW17219IQJ-2' for key 'PRIMARY'");
 
+//		Error_Handler e = new Error_Handler();
+//		System.out.println(Error_Handler.checkError(ErrorCodes.DUPLICATE_ENTRY, "uplicate entry 'VW17219IQJ-2' for key 'PRIMARY'"));
+//		System.out.println("Error code ---> " + e.checkError());
 
 		System.out.println("Ending App...............");
 	}

@@ -1,5 +1,9 @@
 package spark;
 
+import java.sql.BatchUpdateException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -66,7 +70,8 @@ public class Spark implements SparkDAO{
 	}
 
 	@Override
-	public void createSparkDf(SparkDAO spark, DataBase db) {
+	public void createSparkDf(SparkDAO spark, DataBase db)
+			throws SQLException{
 		// TODO Auto-generated method stub
 		
 	}
