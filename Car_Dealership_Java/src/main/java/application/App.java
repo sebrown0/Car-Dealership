@@ -1,11 +1,6 @@
 package application;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import stock_department.StockDept;
-
-
+import sale_dept.SalesDept;
 
 public class App {
 
@@ -15,20 +10,12 @@ public class App {
 		System.setProperty("hadoop.home.dir", "C:\\hadoop");
 		System.out.println("Starting App...............");
 
-//		FileDAO checkForNewStock = new FileHandler();
-//		System.out.println(checkForNewStock.checkStock(Files.CAR_STOCK.filePath()));
-//		
-//		StockDAO stock = new NewStock();
-//		stock.readStockFile();
 		
-		StockDept sd = new StockDept();
-	
-				
-//		ErrorCodes e = new Error_Handler(ErrorCodes.DUPLICATE_ENTRY, "duplicate entry 'VW17219IQJ-2' for key 'PRIMARY'");
+//		StockDept sd = new StockDept();
 
-//		Error_Handler e = new Error_Handler();
-//		System.out.println(Error_Handler.checkError(ErrorCodes.DUPLICATE_ENTRY, "uplicate entry 'VW17219IQJ-2' for key 'PRIMARY'"));
-//		System.out.println("Error code ---> " + e.checkError());
+		SalesDept salesDept = new SalesDept();
+		salesDept.customerOrder();
+	
 
 		System.out.println("Ending App...............");
 	}

@@ -209,6 +209,7 @@ INSERT INTO `stock_status`
 	(`status`)
 VALUES
 	('Awaiting Preparation'),	-- Car has just arrived so can't be viewed or sold
+    ('Ordered'),				-- Car has been ordered and is awaiting delivery
     ('Forecourt'),				-- Can be sold
     ('Test'),					-- On a test drive
     ('Sold'),					-- Sold awaiting delivery

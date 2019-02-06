@@ -24,7 +24,7 @@ public class StockDept extends StockUpdate {
 	
 	public StockDept() {
 		// Create new spark session to use throughout the update process.
-		spark = new Spark("Spark1", "local", true);
+		spark = new Spark("StockDept", "local", true);
 		
 		//Default MySql DAO. Have to set db table before using.
 		dataBase = new MySqlDB(TableNames.NO_TABLE.tblName());

@@ -17,11 +17,21 @@ select * from salary_bands;
 select * from seniorities;
 
 select * from manufacturer;
+
 select * from model;
 select * from model_attributes;
 select * from model_enhancements;
-
+select * from stock_list;
 select * from stock_status;
+select * from order_list;
+
+
+delete from model;
+delete from model_attributes;
+delete from model_enhancements;
+delete from order_list;
+delete from stock_list;
+
 select DATE(now());
 
 -- call AddEmployee(args);
@@ -35,8 +45,5 @@ call BookHoliday(4,'2019-11-01','2019-11-04');
 call BookHoliday(4,'2019-02-07','2019-04-14');
 
 call GetModelDetails('Ford', 'Focus');
-
-delete from model;
-select * from model;
 -- DELETE from employees WHERE employees.emp_id = 6;
 
