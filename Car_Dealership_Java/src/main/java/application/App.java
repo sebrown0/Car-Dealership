@@ -1,6 +1,8 @@
 package application;
 
-import sale_dept.SalesDept;
+import enums.OrderStatus;
+import sales_deptartment.SalesDept;
+import stock_department.StockDept;
 
 public class App {
 
@@ -12,7 +14,9 @@ public class App {
 
 		
 //		StockDept sd = new StockDept();
+//		sd.updateStock();
 
+		
 		SalesDept salesDept = new SalesDept();
 		salesDept.customerOrder();
 	

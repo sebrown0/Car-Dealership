@@ -3,7 +3,7 @@
  */
 package order_deptartment;
 
-import pojos.CarOrderDetails;
+import pojos.Order;
 
 /**
  * @author Brown
@@ -11,8 +11,8 @@ import pojos.CarOrderDetails;
  */
 public class OrderDept {
 	
-	public void newOrder(CarOrderDetails carOrderDetails) {
-		NewOrder newOrder = new NewOrder(carOrderDetails);
-
+	public void newOrder(Order carOrderDetails) {
+		ProcessNewOrder newOrder = new ProcessNewOrder(carOrderDetails);
+		newOrder.begin();
 	}
 }

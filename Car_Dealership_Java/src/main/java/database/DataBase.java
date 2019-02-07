@@ -3,14 +3,14 @@ package database;
 import java.sql.Connection;
 import java.util.Properties;
 
-import dao.DB_DAO;
+import dao.SPARK_DB_DAO;
 import enums.CD_Schema;
 /**
  * @author Steve Brown
  * Super class that allows data base access.
  */
 
-public abstract class DataBase implements DB_DAO {
+public abstract class DataBase implements SPARK_DB_DAO {
 
 	private Properties dbProp;			// Properties needed to connect to the DB. 
 	private Connection dbConnection;	// DB Connection

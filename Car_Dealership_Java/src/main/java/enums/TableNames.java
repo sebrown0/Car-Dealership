@@ -21,7 +21,9 @@ public enum TableNames {
 	SENIORITY("seniorities"),
 	STOCK_UPDATES("stock_updates"),
 	STOCK_LIST("stock_list"),
-	STOCK_STATUS("stock_status");
+	STOCK_STATUS("stock_status"),
+	CUSTOMER("Customer"),
+	ORDER_LIST("order_list");
 			
 	private String tblName;
 	

@@ -24,6 +24,7 @@ select * from model_enhancements;
 select * from stock_list;
 select * from stock_status;
 select * from order_list;
+select * from stock_updates;
 
 
 delete from model;
@@ -31,6 +32,13 @@ delete from model_attributes;
 delete from model_enhancements;
 delete from order_list;
 delete from stock_list;
+
+delete from stock_updates;
+
+INSERT INTO `stock_updates`
+	(`update_id`, `file_name`)
+VALUES
+	(0,  'car_stock_0.json');		
 
 select DATE(now());
 

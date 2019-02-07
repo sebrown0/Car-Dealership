@@ -10,7 +10,7 @@ import org.apache.spark.sql.Row;
  * @author Steve Brown
  * NOT COMPLETE OR USING AT THE MOMENT
  */
-public class PostgresDAO implements DB_DAO{
+public class PostgresDAO implements SPARK_DB_DAO{
 
 	@Override
 	public boolean writeDfToDBTable(Dataset<Row> df, String table)

@@ -52,7 +52,7 @@ public class StockDelivery{
 		try {
 			eCode = writeData(carStockDf);
 		} catch (Throwable e) {
-			eCode = ErrorCodes.DF_ERROR;//(ErrorHandler.checkError(ErrorCodes.DUPLICATE_ENTRY, e.getCause().toString()));
+			eCode = (ErrorHandler.checkError(ErrorCodes.DUPLICATE_ENTRY, e.getMessage()));
 		}
 				
 		return eCode;	

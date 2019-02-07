@@ -208,8 +208,8 @@ VALUES
 INSERT INTO `stock_status`
 	(`status`)
 VALUES
+	('Order'),					-- New order
 	('Awaiting Preparation'),	-- Car has just arrived so can't be viewed or sold
-    ('Ordered'),				-- Car has been ordered and is awaiting delivery
     ('Forecourt'),				-- Can be sold
     ('Test'),					-- On a test drive
     ('Sold'),					-- Sold awaiting delivery
@@ -219,6 +219,12 @@ INSERT INTO `stock_updates`
 	(`update_id`, `file_name`)
 VALUES
 	(0,  'car_stock_0.json');		
+    
+INSERT INTO `Customers` 
+	(`first_name`,`last_name`)
+VALUES
+	('Steve','Brown');
+	
     
 
 

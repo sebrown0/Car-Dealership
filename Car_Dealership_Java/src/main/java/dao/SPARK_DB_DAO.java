@@ -11,7 +11,7 @@ import org.apache.spark.sql.Row;
  * Interface for DB.
  * We're using Postgres(not implemented yet) and MySql in this project
  */
-public interface DB_DAO {
+public interface SPARK_DB_DAO {
 	
 	boolean writeDfToDBTable(Dataset<Row> df, String table) 
 			throws  SQLException, BatchUpdateException, SQLIntegrityConstraintViolationException;

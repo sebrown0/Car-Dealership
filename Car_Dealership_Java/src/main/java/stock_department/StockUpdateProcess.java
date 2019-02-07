@@ -2,7 +2,7 @@ package stock_department;
 
 import enums.ErrorCodes;
 
-public interface StockProcess {
+public interface StockUpdateProcess {
 	ErrorCodes checkForNewStock();
 	ErrorCodes readStockFile();
 	ErrorCodes updateStockList();

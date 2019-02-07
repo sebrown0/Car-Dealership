@@ -13,12 +13,12 @@ import java.util.regex.Pattern;
  */
 public enum ErrorCodes {
 
-	NONE("none"), 						// No error.
-	DUPLICATE_ENTRY("#duplicate entry"), // Duplicate entry in DB (PK violation).
-	DB_CONN("db_conn"), 				// Error connecting to the DB.
-	NO_FILE("no_file"),					// No file found. Not necessarily an error, also a message.
+	NONE("none"), 								// No error.
+	DUPLICATE_ENTRY("#duplicate entry"), 		// Duplicate entry in DB (PK violation).
+	DB_CONN("db_conn"), 						// Error connecting to the DB.
+	NO_FILE("no_file"),							// No file found. Not necessarily an error, also a message.
 	DF_ERROR("table or column doesn't #exist"),	// Error occured whilst trying to create a data frame probable that tbl/col doesn't exist.
-	UNKNOWN_ERROR("unknown_error");		// We don't know what happend.
+	UNKNOWN_ERROR("unknown_error");				// We don't know what happend.
 	
 	private String eCode;
 	
