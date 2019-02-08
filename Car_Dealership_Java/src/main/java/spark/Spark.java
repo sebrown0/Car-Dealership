@@ -9,7 +9,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
 import dao.SparkDAO;
-import database.DataBase;
+import database.Database;
 
 
  /**
@@ -70,7 +70,7 @@ public class Spark implements SparkDAO{
 	}
 
 	@Override
-	public void createSparkDf(SparkDAO spark, DataBase db)
+	public void createSparkDf(SparkDAO spark, Database db)
 			throws SQLException{
 		// TODO Auto-generated method stub
 		

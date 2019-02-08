@@ -9,8 +9,9 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
 import containers.AppContainers.ListContainer;
+import dao.SPARK_DB_DAO;
 import dao.SparkDAO;
-import database.DataBase;
+import database.Database;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
@@ -25,11 +26,11 @@ import pojos.StockDetails.StockListTable;
  */
 public class StockList {
 	private SparkDAO spark;
-	private DataBase dataBase;
+	private Database dataBase;
 	private String StockUpdateTable;
 	private String fileNum;
 	
-	public StockList(SparkDAO spark, DataBase db, long fn, String StockUpdateTable) {
+	public StockList(SparkDAO spark, Database db, long fn, String StockUpdateTable) {
 		super();
 		this.spark = spark;
 		this.dataBase = db;

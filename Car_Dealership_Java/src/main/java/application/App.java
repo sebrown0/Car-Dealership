@@ -1,8 +1,20 @@
 package application;
 
-import enums.OrderStatus;
-import sales_deptartment.SalesDept;
-import stock_department.StockDept;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.mysql.cj.jdbc.CallableStatement;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import database.Database;
+import database.DbConnection;
+import database.DbConnectionInterface;
+import database.MySqlDB;
+import enums.CD_Schema;
+import enums.MySqlConn;
 
 public class App {
 
@@ -12,14 +24,28 @@ public class App {
 		System.setProperty("hadoop.home.dir", "C:\\hadoop");
 		System.out.println("Starting App...............");
 
-		
 //		StockDept sd = new StockDept();
 //		sd.updateStock();
-
-		
-		SalesDept salesDept = new SalesDept();
-		salesDept.customerOrder();
+//		
+//		SalesDept salesDept = new SalesDept();
+//		salesDept.customerOrder();
 	
+		Database mySqlDb  = new MySqlDB();
+		Connection mySqlConnection = mySqlDb.connection();
+
+		try {
+						
+			String query = "{ call " +  CD_Schema.SCHEMA.value() + ".`GetModelDetails`('Ford','Focus') }";
+			java.sql.CallableStatement stmt = mySqlConnection.prepareCall(query);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(rs.getString("Model"
+						));
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		System.out.println("Ending App...............");
 	}

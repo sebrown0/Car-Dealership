@@ -4,7 +4,7 @@
 package stock_department;
 
 import dao.SparkDAO;
-import database.DataBase;
+import database.Database;
 import database.MySqlDB;
 import enums.ErrorCodes;
 import enums.TableNames;
@@ -18,7 +18,7 @@ import spark.Spark;
 public class UpdateStock extends StockUpdate {
 	
 	private SparkDAO spark;
-	private DataBase dataBase;
+	private Database dataBase;
 	private StockCheck stockCheck;
 	private StockDelivery stockDelivery;
 	private StockList stockList;
@@ -29,6 +29,7 @@ public class UpdateStock extends StockUpdate {
 		
 		//Default MySql DAO. Have to set db table before using.
 		dataBase = new MySqlDB(TableNames.NO_TABLE.tblName());
+		
 	}
 	
 	public void beginUpdate() {

@@ -4,7 +4,7 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
 import dao.SparkDAO;
-import database.DataBase;
+import database.Database;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
@@ -18,10 +18,10 @@ import spark.SparkDfTable;
 public class StockDelivery{
 
 	private SparkDAO spark;
-	private DataBase dataBase;
+	private Database dataBase;
 	private Dataset<Row> deliveryDf;
 	
-	public StockDelivery(SparkDAO spark, DataBase db) {
+	public StockDelivery(SparkDAO spark, Database db) {
 		this.spark = spark;
 		this.dataBase = db;
 	}
@@ -105,7 +105,7 @@ public class StockDelivery{
 	// Prepare the model details for writing
 	private Dataset<Row> prepareModelDetails(Dataset<Row> carStockDf, SparkDAO spark)throws Throwable {
 
-		dataBase.dBPropValue("dbtable", TableNames.MANUFACTURER.tblName());
+		dataBase.setDbProperty("dbtable", TableNames.MANUFACTURER.tblName());
 		SparkDAO manDf = new SparkDfTable(spark, dataBase);
 		
 				

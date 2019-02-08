@@ -21,11 +21,9 @@ public class SalesDept {
 		bob.customersSalesPerson(steveB);
 		bob.customersRequirements(steveB);
 		
+		// GET ODRE AND PASS
 		Order customerOrder = bob.takeOrder(steveB, new Order());
 		
-		
-//		Order orderDetails = new Order();
-//		orderDetails.order(steveB);
 		OrderDept orderDept = new OrderDept();
 		orderDept.newOrder(customerOrder);
 	}

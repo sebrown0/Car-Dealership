@@ -12,7 +12,7 @@ import org.apache.spark.sql.Row;
 
 import containers.AppContainers.ListContainer;
 import dao.SparkDAO;
-import database.DataBase;
+import database.Database;
 import database.MySqlDB;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
@@ -31,7 +31,7 @@ import spark.Spark;
  */
 public class ProcessNewOrder extends OrderUpdate{
 	private SparkDAO spark;
-	private DataBase dataBase;
+	private Database dataBase;
 	private Order carOrderDetails;
 	
 	Dataset<Row> carDetailsDf;

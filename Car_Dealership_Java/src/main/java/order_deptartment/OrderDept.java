@@ -6,7 +6,7 @@ package order_deptartment;
 import pojos.Order;
 
 /**
- * @author Brown
+ * @author Steve Brown
  * Responsible for creating and monitoring orders. 
  */
 public class OrderDept {

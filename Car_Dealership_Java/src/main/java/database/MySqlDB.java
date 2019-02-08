@@ -1,8 +1,10 @@
 package database;
 
 import java.sql.BatchUpdateException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Properties;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -15,43 +17,49 @@ import enums.MySqlConn;
  * @author Steve Brown
  * Used mainly to write a data frame to a MySQL DB.
  */
-public class MySqlDB extends DataBase{
+public class MySqlDB extends Database{
 
-	public MySqlDB(String url, String urlSchema, String user, String password, String dbSchema, String tblName,
-			String format) {
-		super(url, urlSchema, user, password, dbSchema, tblName, format);
-		// USING THE DEFAULT MySQL CONNECTION (POSTGRES NOT IMPLEMENTED YET).
+	public MySqlDB() {
+		setDefaultProperties();
 	}
-
+	
 	// Setup default connection properties for MySql with JDBC
 	public MySqlDB(String tblName) {
 		super();
-		this.dBPropValue("url", MySqlConn.URL_AND_SCHEMA.value()); 
-		this.dBPropValue("url_schema", MySqlConn.URL_AND_SCHEMA.value());
-		this.dBPropValue("username", MySqlConn.USERNAME.value());
-		this.dBPropValue("password", MySqlConn.PASSWORD.value());
-		this.dBPropValue("schema", CD_Schema.SCHEMA.value());
-		this.dBPropValue("dbtable", tblName);
-		this.dBPropValue("format", "jdbc");
+		setDefaultProperties();
+	}
+	
+	// Implementation of methods common to THIS DBs - Start.
+	@Override
+	public void setDefaultProperties() {
+		this.setDbProperty("url", MySqlConn.URL_AND_SCHEMA.value());
+		this.setDbProperty("url_schema", MySqlConn.URL_AND_SCHEMA.value());
+		this.setDbProperty("username", MySqlConn.USERNAME.value());
+		this.setDbProperty("password", MySqlConn.PASSWORD.value());
+		this.setDbProperty("schema", CD_Schema.SCHEMA.value());
+		this.setDbProperty("dbtable", "");				// ++++++++++++ CHANGE THIS +++++++++++++++++++++++++
+		this.setDbProperty("format", "jdbc");
 		
 	}
 	
+	// Implementation of methods common to THIS DBs - End.
 
+	
 	@Override
 	// Write the given df to the given table.
 	public boolean writeDfToDBTable(Dataset<Row> df, String table)
 			throws SQLException, BatchUpdateException, SQLIntegrityConstraintViolationException {
 	
-		this.dBPropValue("dbtable", table);
-		
+		this.setDbProperty("dbtable", table);
+
 		df.write()
-			.mode(SaveMode.Append)
-			.format(this.dBPropValue("format"))
-			.option("url", this.dBPropValue("url"))
-			.option("dbtable", this.dBPropValue("dbtable"))
-			.option("user", this.dBPropValue("username"))
-			.option("password", this.dBPropValue("password"))
-			.save();
+		.mode(SaveMode.Append)
+		.format(this.getDbProperty("format"))
+		.option("url", this.getDbProperty("url"))
+		.option("dbtable", this.getDbProperty("dbtable"))
+		.option("user", this.getDbProperty("username"))
+		.option("password", this.getDbProperty("password"))
+		.save();
 
 		return true;
 	}
@@ -64,15 +72,18 @@ public class MySqlDB extends DataBase{
 		
 		df.write()
 			.mode(SaveMode.Append)
-			.format(this.dBPropValue("format"))
-			.option("url", this.dBPropValue("url_schema"))
-			.option("dbtable", this.dBPropValue("dbtable"))
-			.option("user", this.dBPropValue("username"))
-			.option("password", this.dBPropValue("password"))
+			.format(this.getDbProperty("format"))
+			.option("url", this.getDbProperty("url_schema"))
+			.option("dbtable", this.getDbProperty("dbtable"))
+			.option("user", this.getDbProperty("username"))
+			.option("password", this.getDbProperty("password"))
 			.save();
 
 		return true;	
 	}
+
+	
+
 	
 
 	// NOT USED AT PRESENT

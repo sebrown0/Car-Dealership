@@ -1,4 +1,3 @@
-DELIMITER $$
 /*
 ** Procedure to find all a model's details for a given man & model i.e. Ford Focus
 */
@@ -21,12 +20,11 @@ BEGIN
 	INNER JOIN
 		model_attributes attr
 	ON 
-		attr.model_id = md.model_id
+		attr.model_vin = md.model_vin
 	INNER JOIN
 		model_enhancements enh
 	ON 
-		enh.model_id = md.model_id
+		enh.model_vin = md.model_vin
 	WHERE
 		man.manufacturer_name = manufacturer AND md.model_name = model_name;
 END;
-DELIMITER ;
