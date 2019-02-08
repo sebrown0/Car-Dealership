@@ -11,6 +11,7 @@ import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SaveMode;
 
 import enums.CD_Schema;
+import enums.DbProperties;
 import enums.MySqlConn;
 
 /**
@@ -32,33 +33,32 @@ public class MySqlDB extends Database{
 	// Implementation of methods common to THIS DBs - Start.
 	@Override
 	public void setDefaultProperties() {
-		this.setDbProperty("url", MySqlConn.URL_AND_SCHEMA.value());
-		this.setDbProperty("url_schema", MySqlConn.URL_AND_SCHEMA.value());
-		this.setDbProperty("username", MySqlConn.USERNAME.value());
-		this.setDbProperty("password", MySqlConn.PASSWORD.value());
-		this.setDbProperty("schema", CD_Schema.SCHEMA.value());
-		this.setDbProperty("dbtable", "");				// ++++++++++++ CHANGE THIS +++++++++++++++++++++++++
-		this.setDbProperty("format", "jdbc");
+		this.setDbProperty(DbProperties.URL.value(), MySqlConn.URL_AND_SCHEMA.value());
+		this.setDbProperty(DbProperties.URL_AND_SCHEMA.value(), MySqlConn.URL_AND_SCHEMA.value());
+		this.setDbProperty(DbProperties.USER_NAME.value(), MySqlConn.USERNAME.value());
+		this.setDbProperty(DbProperties.PASSWORD.value(), MySqlConn.PASSWORD.value());
+		this.setDbProperty(DbProperties.SCHEMA.value(), CD_Schema.SCHEMA.value());
+		//TODO
+		this.setDbProperty(DbProperties.DB_TABLE.value(), "");				// ++++++++++++ CHANGE THIS +++++++++++++++++++++++++
+		this.setDbProperty(DbProperties.FORMAT.value(), "jdbc");
+		System.out.println(this.getDbProperty(DbProperties.PASSWORD.value()));
 		
 	}
 	
 	// Implementation of methods common to THIS DBs - End.
-
-	
 	@Override
 	// Write the given df to the given table.
 	public boolean writeDfToDBTable(Dataset<Row> df, String table)
 			throws SQLException, BatchUpdateException, SQLIntegrityConstraintViolationException {
 	
-		this.setDbProperty("dbtable", table);
-
+		this.setDbProperty(DbProperties.DB_TABLE.value(), table);
 		df.write()
 		.mode(SaveMode.Append)
-		.format(this.getDbProperty("format"))
-		.option("url", this.getDbProperty("url"))
-		.option("dbtable", this.getDbProperty("dbtable"))
-		.option("user", this.getDbProperty("username"))
-		.option("password", this.getDbProperty("password"))
+		.format(this.getDbProperty(DbProperties.FORMAT.value()))
+		.option("url", this.getDbProperty(DbProperties.URL_AND_SCHEMA.value()))
+		.option("dbtable", this.getDbProperty(DbProperties.DB_TABLE.value()))
+		.option("user", this.getDbProperty(DbProperties.USER_NAME.value()))
+		.option("password", this.getDbProperty(DbProperties.PASSWORD.value()))
 		.save();
 
 		return true;
@@ -69,7 +69,7 @@ public class MySqlDB extends Database{
 	// Called with a DB Object which should have the 'dbtable' parameter set to the desired tbl. 
 	public boolean writeDfToDBTable(Dataset<Row> df)
 			throws SQLException, BatchUpdateException, SQLIntegrityConstraintViolationException {
-		
+		//TODO
 		df.write()
 			.mode(SaveMode.Append)
 			.format(this.getDbProperty("format"))

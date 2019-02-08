@@ -26,6 +26,7 @@ public class SalesPerson implements NewCustomer, CustomerOrder {
 
 	@Override
 	public void customersDetails(Customer customer) {
+		//TODO
 		long customerId = 1; // Have to get this from DB
 		
 		customer.getDetails().setCustomer_id(customerId);

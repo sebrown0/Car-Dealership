@@ -11,6 +11,7 @@ import org.apache.spark.sql.functions;
 
 import dao.SparkDAO;
 import database.Database;
+import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.Files;
@@ -65,7 +66,7 @@ public class StockCheck {
 	
 	private void nextStockFile() throws Throwable {
 		
-		dataBase.setDbProperty("dbtable", TableNames.STOCK_UPDATES.tblName());
+		dataBase.setDbProperty(DbProperties.DB_TABLE.value(), TableNames.STOCK_UPDATES.tblName());
 		SparkDAO stockUpdatesDf = new SparkDfTable(spark, dataBase);
 
 		Dataset<Row> idDf =  stockUpdatesDf.getDataFrame().agg(functions.max("update_id"));

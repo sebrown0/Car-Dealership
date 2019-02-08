@@ -81,12 +81,4 @@ public class StockList {
 		return ErrorCodes.NONE;
 	}
 		
-	/*
-	 * Used as getter and setter for Stock Table updates.
-	 */
-//	public interface StockUpdateTableDetails{
-//		public String getFileDetail();
-//		public void setFileDetail(String data);
-//	}
-		
 }

@@ -5,6 +5,7 @@ import org.apache.spark.sql.Row;
 
 import dao.SparkDAO;
 import database.Database;
+import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
@@ -72,11 +73,11 @@ public class StockDelivery{
 				}
 			} catch (Throwable e) {
 				// Check for the most probable error 
-				return (ErrorHandler.checkError(ErrorCodes.DUPLICATE_ENTRY, e.getCause().toString()));
+				return (ErrorHandler.checkError(ErrorCodes.DUPLICATE_ENTRY, e.getMessage()));
 			}
 		} catch (Throwable e) {
 			// Check for the most probable error 
-			return (ErrorHandler.checkError(ErrorCodes.DF_ERROR, e.getCause().toString()));
+			return (ErrorHandler.checkError(ErrorCodes.DF_ERROR, e.getMessage()));
 		}
 		
 		return ErrorCodes.NONE;			
@@ -105,7 +106,7 @@ public class StockDelivery{
 	// Prepare the model details for writing
 	private Dataset<Row> prepareModelDetails(Dataset<Row> carStockDf, SparkDAO spark)throws Throwable {
 
-		dataBase.setDbProperty("dbtable", TableNames.MANUFACTURER.tblName());
+		dataBase.setDbProperty(DbProperties.DB_TABLE.value(), TableNames.MANUFACTURER.tblName());
 		SparkDAO manDf = new SparkDfTable(spark, dataBase);
 		
 				

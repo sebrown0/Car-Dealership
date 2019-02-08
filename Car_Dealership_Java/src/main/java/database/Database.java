@@ -15,6 +15,7 @@ public abstract class Database implements SPARK_DB_DAO, DbPropertiesInterface {
 
 	private Properties dbProp;			// Properties needed to connect to the DB.
 	private DbConnection dbConnection;	// DB Connection
+	private StoredProcedure dbSoredProcedure;
 
 			
 	public Database() {
@@ -24,10 +25,7 @@ public abstract class Database implements SPARK_DB_DAO, DbPropertiesInterface {
 	
 	// Implementation of methods common to all DBs - Start.
 	@Override
-	public void setDbProperty(String key, String value) {
-		
-		System.out.println("@Override - public void setDbProperty(String key, String value) {");
-		
+	public void setDbProperty(String key, String value) {		
 		if(key == "dbtable") { 	// Add the schema name to be sure of correct tbl.
 			this.dbProp.setProperty(key,
 					CD_Schema.SCHEMA.value() + "." + value);
@@ -51,6 +49,10 @@ public abstract class Database implements SPARK_DB_DAO, DbPropertiesInterface {
 			String format) {
 		// Using default.
 		
+	}
+	
+	public DbConnectionInterface dbConnection() {
+		return dbConnection;
 	}
 	
 	public Connection connection() {

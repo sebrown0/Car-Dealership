@@ -1,26 +1,22 @@
 package application;
 
-import java.sql.DriverManager;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.mysql.cj.jdbc.CallableStatement;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import database.Database;
-import database.DbConnection;
 import database.DbConnectionInterface;
 import database.MySqlDB;
+import database.StoredProcedure;
 import enums.CD_Schema;
-import enums.MySqlConn;
+import sales_deptartment.SalesDept;
+import stock_department.StockDept;
 
 public class App {
 
 	public static void main(String[] args) {
 
-		// ++++++++++++++++++++++++++++++++++CHANGE THIS TO BE IN THE PATH++++++++++++++++++++++++++++++++++
+		// TODO
 		System.setProperty("hadoop.home.dir", "C:\\hadoop");
 		System.out.println("Starting App...............");
 
@@ -31,21 +27,25 @@ public class App {
 //		salesDept.customerOrder();
 	
 		Database mySqlDb  = new MySqlDB();
-		Connection mySqlConnection = mySqlDb.connection();
+//		DbConnectionInterface mySqlConnection = mySqlDb.dbConnection();
+//		Connection mySqlConnection = mySqlDb.connection();
+		
+		String query = "{ call " +  CD_Schema.SCHEMA.value() + ".`GetModelDetails`('Ford','Focus') }";
+		StoredProcedure sp = new StoredProcedure(query, mySqlDb);
+		sp.execute();
 
-		try {
-						
-			String query = "{ call " +  CD_Schema.SCHEMA.value() + ".`GetModelDetails`('Ford','Focus') }";
-			java.sql.CallableStatement stmt = mySqlConnection.prepareCall(query);
-			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
-				System.out.println(rs.getString("Model"
-						));
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			System.out.println("Query: ");
+//			String query = "{ call " +  CD_Schema.SCHEMA.value() + ".`GetModelDetails`('Ford','Focus') }";
+//			java.sql.CallableStatement stmt = mySqlConnection.prepareCall(query);
+//			ResultSet rs = stmt.executeQuery();
+//			while(rs.next()) {
+//				System.out.println(rs.getString("Model"));
+//			}
+//		} catch (SQLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 
 		System.out.println("Ending App...............");
 	}

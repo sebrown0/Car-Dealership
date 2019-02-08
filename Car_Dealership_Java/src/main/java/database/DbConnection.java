@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.MySqlConn;
@@ -21,14 +22,11 @@ public class DbConnection implements DbConnectionInterface {
 
 	@Override
 	public ErrorCodes connect(Properties dbProp) {
-		System.out.println("Trying to connect to DB");
 		try {
 			this.conn = DriverManager.getConnection(
-					dbProp.getProperty("url_schema"),
-					dbProp.getProperty("username"),
-					dbProp.getProperty("password"));
-//					MySqlConn.URL_AND_SCHEMA.value(), MySqlConn.USERNAME.value(),
-//					MySqlConn.PASSWORD.value());
+					dbProp.getProperty(DbProperties.URL_AND_SCHEMA.value()),
+					dbProp.getProperty(DbProperties.USER_NAME.value()),
+					dbProp.getProperty(DbProperties.PASSWORD.value()));
 			
 		} catch (SQLException e) {
 			ErrorHandler.checkError(ErrorCodes.DB_CONN, e.getMessage());
@@ -39,6 +37,7 @@ public class DbConnection implements DbConnectionInterface {
 
 	@Override
 	public Connection connection() {
+		//TODO - error codes 
 		if (conn == null)
 			System.out.println("No DB Connection");
 

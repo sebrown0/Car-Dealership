@@ -7,7 +7,7 @@ import dao.SparkDAO;
 import database.Database;
 
 /**
- * @author Brown
+ * @author Steve Brown
  * Retrives order numbers from the DB.
  */
 public class OrderNumbers {
