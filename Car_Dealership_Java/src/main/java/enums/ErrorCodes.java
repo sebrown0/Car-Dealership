@@ -18,6 +18,7 @@ public enum ErrorCodes {
 	DB_CONN("db_conn"), 						// Error connecting to the DB.
 	NO_FILE("no_file"),							// No file found. Not necessarily an error, also a message.
 	DF_ERROR("table or column doesn't #exist"),	// Error occured whilst trying to create a data frame probable that tbl/col doesn't exist.
+	STORED_PROCEDURE("SQL syntax"),				// Error trying to execute a store procedure.
 	UNKNOWN_ERROR("unknown_error");				// We don't know what happend.
 	
 	private String eCode;
@@ -31,12 +32,20 @@ public enum ErrorCodes {
 	}
 		
 	public static class ErrorHandler {
-
+		//TODO - Always more error handling to do.
 		public static ErrorCodes checkError(ErrorCodes suspectedError, String errorMsg) {
 			ErrorCodes eCode = ErrorCodes.UNKNOWN_ERROR;
 			
-			// Switch not necessary but allows different actions for each error if required. 
+			// Switch not necessary if every error is parsed. 
 			switch (suspectedError) {
+			case DB_CONN:
+				System.out.println("DB Connection errror.");
+				break;
+			
+			case STORED_PROCEDURE:
+				System.out.println("Couldn't execute the store procedure.");
+				break;
+			
 			case DUPLICATE_ENTRY:
 				eCode = parseErrorMsg(suspectedError, errorMsg);
 				break;

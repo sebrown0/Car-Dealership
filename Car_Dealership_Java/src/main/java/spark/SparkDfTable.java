@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-import dao.SparkDAO;
+import dao.SparkSessionDAO;
 import database.Database;
 
 /**
@@ -13,19 +13,19 @@ import database.Database;
  * Creates a spark df from a data base table.
  * Use getDataFrame() to access the data frame. 
  */
-public class SparkDfTable extends Spark{
+public class SparkDfTable extends SparkDataframe{
 
-	SparkDf dataFrame;
+//	SparkDataframe dataFrame;
 	
-	public SparkDfTable(SparkDAO spark, Database mySql) throws Throwable {
-		createSparkDf(spark, mySql);
+	public SparkDfTable(SparkSessionDAO spark, Database db) throws Throwable {
+		createSparkDf(spark, db);
 	}
 
 	@Override
-	public void createSparkDf(SparkDAO spark, Database db)
+	public void createSparkDf(SparkSessionDAO spark, Database db)
 			throws SQLException {
 		
-		dataFrame = new SparkDf();
+//		dataFrame = new SparkDataframe();
 
 		Dataset<Row> df = spark.session().read()
 				  .format(db.getDbProperty("format")) 
@@ -34,21 +34,16 @@ public class SparkDfTable extends Spark{
 				  .option("user", db.getDbProperty("username"))
 				  .option("password", db.getDbProperty("password"))
 				  .load();
-//		Dataset<Row> df = spark.session().read()
-//				  .format(db.dBPropValue("format")) 
-//				  .option("url", db.dBPropValue("url"))
-//				  .option("dbtable", db.dBPropValue("dbtable"))
-//				  .option("user", db.dBPropValue("username"))
-//				  .option("password", db.dBPropValue("password"))
-//				  .load();
 
-		dataFrame.setDataFrame(df);		
+//		dataFrame.setDataFrame(df);		
+		this.setDataFrame(df);
 	
 	}
 	
 	@Override
 	public Dataset<Row> getDataFrame() {
-		return dataFrame.getDataFrame();
+		return this.getDataFrame();
+//		return dataFrame.getDataFrame();
 	}
 
 

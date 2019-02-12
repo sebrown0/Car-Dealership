@@ -1,6 +1,8 @@
-package pojos;
+package order_deptartment;
 
+import customer.Customer;
 import enums.OrderStatus;
+import stock_department.CarDetails;
 
 /*
  * Wrapper class for orders: OrderListTable.

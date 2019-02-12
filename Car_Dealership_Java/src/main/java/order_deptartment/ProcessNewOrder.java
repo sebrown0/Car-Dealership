@@ -11,27 +11,29 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
 import containers.AppContainers.ListContainer;
-import dao.SparkDAO;
+import dao.DatabaseDAO;
+import dao.SparkSessionDAO;
 import database.Database;
 import database.MySqlDB;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
+import order_deptartment.Order.OrderListTable;
 import enums.TableNames;
-import pojos.CarDetails;
-import pojos.CarDetails.CarAttributesTable;
-import pojos.CarDetails.CarDetailsTable;
-import pojos.CarDetails.CarEnhancementsTable;
-import pojos.Order;
-import pojos.Order.OrderListTable;
 import spark.Spark;
+import spark.SparkDfWriteInterface;
+import spark.SparkDfWriter;
+import stock_department.CarDetails;
+import stock_department.CarDetails.CarAttributesTable;
+import stock_department.CarDetails.CarDetailsTable;
+import stock_department.CarDetails.CarEnhancementsTable;
 
 /**
  * @author Brown
  * Creates a new order from the details given by the sales dept.
  */
 public class ProcessNewOrder extends OrderUpdate{
-	private SparkDAO spark;
-	private Database dataBase;
+	private SparkSessionDAO spark;
+	private DatabaseDAO dataBase;
 	private Order carOrderDetails;
 	
 	Dataset<Row> carDetailsDf;
@@ -81,13 +83,14 @@ public class ProcessNewOrder extends OrderUpdate{
 
 	@Override
 	public void placeOrder() {
-		System.out.println("Placing order");
+		System.out.println("Placing order"); // TODO - logger
 		
 		try {
-			dataBase.writeDfToDBTable(carDetailsDf, TableNames.MODEL.tblName());
-			dataBase.writeDfToDBTable(carAttrDf, TableNames.MODEL_ATTR.tblName());
-			dataBase.writeDfToDBTable(carEnhDf, TableNames.MODEL_ENH.tblName());
-			dataBase.writeDfToDBTable(orderListDf, TableNames.ORDER_LIST.tblName());
+			SparkDfWriteInterface dfWrite = new SparkDfWriter();
+			dfWrite.writeDfToDbTable(carDetailsDf, dataBase, TableNames.MODEL.tblName());
+			dfWrite.writeDfToDbTable(carAttrDf, dataBase, TableNames.MODEL_ATTR.tblName());
+			dfWrite.writeDfToDbTable(carEnhDf, dataBase, TableNames.MODEL_ENH.tblName());
+			dfWrite.writeDfToDbTable(orderListDf, dataBase, TableNames.ORDER_LIST.tblName());
 		} catch (SQLIntegrityConstraintViolationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

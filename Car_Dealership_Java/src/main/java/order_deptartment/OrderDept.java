@@ -3,8 +3,6 @@
  */
 package order_deptartment;
 
-import pojos.Order;
-
 /**
  * @author Steve Brown
  * Responsible for creating and monitoring orders. 

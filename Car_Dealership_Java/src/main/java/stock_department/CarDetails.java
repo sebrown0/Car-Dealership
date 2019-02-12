@@ -1,11 +1,12 @@
 /**
  * 
  */
-package pojos;
+package stock_department;
 
 /**
- * @author Brown
+ * @author Steve Brown
  *
+ * Wrapper class containing the beans that hold info about a Car.
  */
 public class CarDetails {
 	private CarDetailsTable carDetailsTable = new CarDetailsTable();

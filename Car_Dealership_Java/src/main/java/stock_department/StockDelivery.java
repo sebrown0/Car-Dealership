@@ -3,14 +3,16 @@ package stock_department;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
-import dao.SparkDAO;
+import dao.SparkSessionDAO;
 import database.Database;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
-import spark.SparkDfJSON;
-import spark.SparkDfTable;
+import spark.SparkDfReadInterface;
+import spark.SparkDfReader;
+import spark.SparkDfWriteInterface;
+import spark.SparkDfWriter;
 
 /**
  * @author Steve Brown
@@ -18,21 +20,22 @@ import spark.SparkDfTable;
  */
 public class StockDelivery{
 
-	private SparkDAO spark;
+	private SparkSessionDAO spark;
 	private Database dataBase;
 	private Dataset<Row> deliveryDf;
 	
-	public StockDelivery(SparkDAO spark, Database db) {
+	public StockDelivery(SparkSessionDAO spark, Database db) {
 		this.spark = spark;
 		this.dataBase = db;
 	}
 	
-	// Read the new stock file (in JSON format) and write new details to the DB.
+	// Read the new stock file and write new details to the DB.
 	public ErrorCodes readStockFile(String stockFile) {
 		ErrorCodes eCode = ErrorCodes.NONE;
 		
 		// Read the new stock file into a Spark DF		
-		SparkDAO dfCars = new SparkDfJSON(spark, stockFile);
+		SparkDfReadInterface dfCars = new SparkDfReader(spark);
+		dfCars.readFile(stockFile, "json");
 
 		// Get local ref to car df.
 		Dataset<Row> carStockDf = dfCars.getDataFrame(); 
@@ -66,10 +69,10 @@ public class StockDelivery{
 			Dataset<Row> modelAttrDf = prepareModelAttrDetails(carStockDf);
 			Dataset<Row> modelEnhDf = prepareModelExtraDetails(carStockDf);
 			try {
-				// Write all models' details, attributes and enhancements if previous successful. 			
-				if(dataBase.writeDfToDBTable(deliveryDf, TableNames.MODEL.tblName())) {
-					if(dataBase.writeDfToDBTable(modelAttrDf, TableNames.MODEL_ATTR.tblName())) 
-						dataBase.writeDfToDBTable(modelEnhDf, TableNames.MODEL_ENH.tblName());
+				SparkDfWriteInterface dfWrite = new SparkDfWriter();
+				if(dfWrite.writeDfToDbTable(deliveryDf, dataBase, TableNames.MODEL.tblName())) {
+					if(dfWrite.writeDfToDbTable(modelAttrDf, dataBase, TableNames.MODEL_ATTR.tblName())) 
+						dfWrite.writeDfToDbTable(modelEnhDf, dataBase, TableNames.MODEL_ENH.tblName());
 				}
 			} catch (Throwable e) {
 				// Check for the most probable error 
@@ -104,12 +107,13 @@ public class StockDelivery{
 	}
 		
 	// Prepare the model details for writing
-	private Dataset<Row> prepareModelDetails(Dataset<Row> carStockDf, SparkDAO spark)throws Throwable {
+	private Dataset<Row> prepareModelDetails(Dataset<Row> carStockDf, SparkSessionDAO spark) throws Throwable {
 
 		dataBase.setDbProperty(DbProperties.DB_TABLE.value(), TableNames.MANUFACTURER.tblName());
-		SparkDAO manDf = new SparkDfTable(spark, dataBase);
+		SparkDfReadInterface manDf = new SparkDfReader(spark);
+		manDf.readTable(spark, dataBase);
 		
-				
+
 		// Get the manufacturer_id to go with the manufacturer.
 		// Prepare the model df for appending to the model tbl.
 		Dataset<Row> modelDf = carStockDf

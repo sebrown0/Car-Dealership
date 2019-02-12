@@ -3,7 +3,7 @@
  */
 package order_deptartment;
 
-import dao.SparkDAO;
+import dao.SparkSessionDAO;
 import database.Database;
 
 /**
@@ -11,7 +11,7 @@ import database.Database;
  * Retrives order numbers from the DB.
  */
 public class OrderNumbers {
-	private SparkDAO spark;
+	private SparkSessionDAO spark;
 	private Database dataBase;
 	
 	

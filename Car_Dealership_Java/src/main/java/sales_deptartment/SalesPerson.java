@@ -3,32 +3,42 @@
  */
 package sales_deptartment;
 
-import pojos.CarDetails;
-import pojos.Customer;
-import pojos.Order;
+import customer.Customer;
+import customer.CustomerOrder;
+import customer.NewCustomer;
+import hr_department.Employee;
+import order_deptartment.Order;
+import stock_department.CarDetails;
 
 /**
  * @author Brown
  * Represents a salesperson  in the sales department.
  * Responsible for dealing with customers.
  */
-public class SalesPerson implements NewCustomer, CustomerOrder {
 
-	private long id;
-	private String firstName;
-	private String lastName;
+public class SalesPerson extends Employee implements NewCustomer, CustomerOrder {
 	
-	public SalesPerson(long id, String firstName, String lastName) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public SalesPerson(long id, String firstName, String lastName, String role) {
+		super(id, firstName, lastName, role);
+		// TODO - Remove
+	}
+
+	public SalesPerson(String firstName, String lastName) {
+		super(firstName, lastName);
+		// TODO - Remove
+	}
+
+	@Override
+	public void duty() {
+		// TODO - Remove
+		System.out.println("A salesperson duties are:");
 	}
 
 	@Override
 	public void customersDetails(Customer customer) {
 		//TODO
 		long customerId = 1; // Have to get this from DB
-		
+		// Update the DB Here.	
 		customer.getDetails().setCustomer_id(customerId);
 	}
 	
@@ -48,25 +58,10 @@ public class SalesPerson implements NewCustomer, CustomerOrder {
 	public void customersSalesPerson(Customer customer) {
 		customer.setSalesPerson(this);
 	}
-	
+
 	@Override
 	public Order takeOrder(Customer customer, Order customersOrder) {
 		return customersOrder.order(customer);
-	}
-
-	// Getters 
-	public long getId() {
-		return id;
-	}
-
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-
-	public String getLastName() {
-		return lastName;
 	}
 
 

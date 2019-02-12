@@ -9,14 +9,14 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
 import containers.AppContainers.ListContainer;
-import dao.SPARK_DB_DAO;
-import dao.SparkDAO;
-import database.Database;
+import dao.DatabaseDAO;
+import dao.SparkSessionDAO;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
-import pojos.StockDetails;
-import pojos.StockDetails.StockListTable;
+import spark.SparkDfWriteInterface;
+import spark.SparkDfWriter;
+import stock_department.StockDetails.StockListTable;
 
 /**
  * @author Steve Brown
@@ -25,12 +25,14 @@ import pojos.StockDetails.StockListTable;
  * Stock_Updates holds data about the delivery.
  */
 public class StockList {
-	private SparkDAO spark;
-	private Database dataBase;
+	private SparkSessionDAO spark;
+//	private Database dataBase;
+	private DatabaseDAO dataBase;
 	private String StockUpdateTable;
 	private String fileNum;
 	
-	public StockList(SparkDAO spark, Database db, long fn, String StockUpdateTable) {
+	// TODO - Database or Database DAO???????
+	public StockList(SparkSessionDAO spark, DatabaseDAO db, long fn, String StockUpdateTable) {
 		super();
 		this.spark = spark;
 		this.dataBase = db;
@@ -55,7 +57,7 @@ public class StockList {
 				.withColumnRenamed("stockStatus", "status_id");
 				
 		// Prepare the list for the Stock List tbl before converting to DF.	
-		ListContainer<pojos.StockDetails.StockUpdateTable> lcStockUpdate = 
+		ListContainer<stock_department.StockDetails.StockUpdateTable> lcStockUpdate = 
 				new ListContainer<StockDetails.StockUpdateTable>(stockDetails.getStockUpdateTable());
 		
 		// Create DF with Bean
@@ -72,8 +74,12 @@ public class StockList {
 		
 
 		try { // Update the tables.
-			dataBase.writeDfToDBTable(fileDf, TableNames.STOCK_UPDATES.tblName());
-			dataBase.writeDfToDBTable(stockListDf, TableNames.STOCK_LIST.tblName());
+			SparkDfWriteInterface writeDf = new SparkDfWriter();
+			writeDf.writeDfToDbTable(fileDf, dataBase, TableNames.STOCK_UPDATES.tblName());
+			writeDf.writeDfToDbTable(stockListDf, dataBase, TableNames.STOCK_LIST.tblName());
+
+//			dataBase.writeDfToDBTable(fileDf, TableNames.STOCK_UPDATES.tblName());
+//			dataBase.writeDfToDBTable(stockListDf, TableNames.STOCK_LIST.tblName());
 		} catch (SQLException e) {
 			ErrorHandler.checkError(ErrorCodes.DF_ERROR, e.getMessage());
 		}

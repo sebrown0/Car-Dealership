@@ -3,45 +3,61 @@
  */
 package database;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import enums.CD_Schema;
+import enums.ErrorCodes;
+import enums.ErrorCodes.ErrorHandler;
 
 /**
- * @author Brown
- * Handles/executes a stored procedure. Returns a results set.
+ * @author Steve Brown 
+ * Handles/executes a stored procedure.
+ * Inputs: 
+ * 1. Database object.
+ * 2. Database connection interface.
+ * 3. Database connection. 
+ * 
+ * Returns a Storedprocedure object with Error code (if any) and result set if successful.
  */
 public class StoredProcedure {
 
 	private String query = "";
-	private Database database = null;
 	private ResultSet rs = null;
-	
+	private Connection conn = null;
+	private ErrorCodes eCode = ErrorCodes.NONE;
+
 	public StoredProcedure(String query, Database database) {
-		super();
 		this.query = query;
-		this.database = database;
+		this.conn = database.dbConnection().connection();
 	}
 
-	public ResultSet execute() {
-		
-		try {
-			System.out.println("Query: " + query);
+	public StoredProcedure(String query, DbConnectionInterface dbIt) {
+		this.query = query;
+		this.conn = dbIt.connection();
+	}
 
-//			java.sql.CallableStatement stmt = mySqlConnection.prepareCall(query);
-			java.sql.CallableStatement stmt = database.connection().prepareCall(query);
+	public StoredProcedure(String query, Connection conn) {
+		this.query = query;
+		this.conn = conn;
+	}
+
+	public StoredProcedure execute() {
+		try {
+			CallableStatement stmt = conn.prepareCall(query);
 			rs = stmt.executeQuery();
-			while(rs.next()) {
-				System.out.println(rs.getString("Model"));
-			}
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+		} catch (SQLException e) {			
+			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
+		} 
+		return this;
+	}
+
+	public ResultSet getRs() {
 		return rs;
 	}
-	
-	
+
+	public ErrorCodes geteCode() {
+		return eCode;
+	}	
 }

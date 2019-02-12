@@ -1,11 +1,12 @@
 /**
  * 
  */
-package pojos;
+package stock_department;
 
 /**
  * @author Brown
  *
+ * Wrapper class for beans used in stock updates.
  */
 public class StockDetails {
 	

@@ -2,6 +2,12 @@ package stock_department;
 
 import enums.ErrorCodes;
 
+/**
+ * @author Steve Brown
+ * 
+ * Dictates the order of the stock update process.
+ */
+
 public abstract class StockUpdate implements StockUpdateProcess{
 
 	// Force the order of implementation.

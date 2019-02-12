@@ -11,26 +11,38 @@ import java.util.Properties;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
-import enums.MySqlConn;
 
 /**
- * @author Brown Provides a DB connection for the calling class.
+ * @author Steve Brown 
+ * 
+ * Provides a DB connection for the calling class.
+ * Inputs:
+ * 	Properties - db connection properties.
+ * 
+ * Returns:
+ * 	ErrorCodes - Status of a connection attempt (see enums.Errorcodes).
+ * 	Connection - The database connection.
+ * 	boolean - Non specific connection status.
+ * 	
  */
 public class DbConnection implements DbConnectionInterface {
 
 	private Connection conn = null;
-
+	private boolean dbConnected = false;
+	
 	@Override
 	public ErrorCodes connect(Properties dbProp) {
-		try {
-			this.conn = DriverManager.getConnection(
-					dbProp.getProperty(DbProperties.URL_AND_SCHEMA.value()),
-					dbProp.getProperty(DbProperties.USER_NAME.value()),
-					dbProp.getProperty(DbProperties.PASSWORD.value()));
-			
-		} catch (SQLException e) {
-			ErrorHandler.checkError(ErrorCodes.DB_CONN, e.getMessage());
-			return ErrorCodes.DB_CONN;
+		if (!dbConnected) {
+			try {
+				this.conn = DriverManager.getConnection(
+						dbProp.getProperty(DbProperties.URL_AND_SCHEMA.value()),
+						dbProp.getProperty(DbProperties.USER_NAME.value()),
+						dbProp.getProperty(DbProperties.PASSWORD.value()));
+				dbConnected = true;
+			} catch (SQLException e) {
+				ErrorHandler.checkError(ErrorCodes.DB_CONN, e.getMessage());
+				return ErrorCodes.DB_CONN;
+			}
 		}
 		return ErrorCodes.NONE;
 	}
@@ -38,10 +50,15 @@ public class DbConnection implements DbConnectionInterface {
 	@Override
 	public Connection connection() {
 		//TODO - error codes 
-		if (conn == null)
+		if (!dbConnected)
 			System.out.println("No DB Connection");
 
 		return conn;
+	}
+
+	@Override
+	public boolean checkConnection() {
+		return dbConnected;
 	}
 
 }

@@ -9,14 +9,17 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.functions;
 
-import dao.SparkDAO;
+//import dao.SparkDfWrite;
+import dao.SparkSessionDAO;
 import database.Database;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.Files;
 import enums.TableNames;
-import spark.SparkDfTable;
+import spark.SparkDfReadInterface;
+import spark.SparkDfReader;
+//import spark.SparkDfTable;
 
 /**
  * @author Brown
@@ -30,12 +33,12 @@ import spark.SparkDfTable;
  */
 public class StockCheck {
 
-	private SparkDAO spark;
+	private SparkSessionDAO spark;
 	private Database dataBase;
 	private String stockFile;
 	private long fileNum;
 	
-	public StockCheck(SparkDAO spark, Database db) {
+	public StockCheck(SparkSessionDAO spark, Database db) {
 		super();
 		this.spark = spark;
 		this.dataBase = db;
@@ -47,7 +50,7 @@ public class StockCheck {
 		
 		try {
 			nextStockFile();
-			System.out.println("File to check for:" + stockFile);
+			System.out.println("File to check for:" + stockFile); // TODO - Logger
 			if(!stockFile.isEmpty()) {
 				if(FileHandler.checkStock(stockFile) == ErrorCodes.NONE) {
 					System.out.println("New file to check:" + stockFile);
@@ -67,7 +70,8 @@ public class StockCheck {
 	private void nextStockFile() throws Throwable {
 		
 		dataBase.setDbProperty(DbProperties.DB_TABLE.value(), TableNames.STOCK_UPDATES.tblName());
-		SparkDAO stockUpdatesDf = new SparkDfTable(spark, dataBase);
+		SparkDfReadInterface stockUpdatesDf = new SparkDfReader(spark);
+		stockUpdatesDf.readTable(spark, dataBase);
 
 		Dataset<Row> idDf =  stockUpdatesDf.getDataFrame().agg(functions.max("update_id"));
 		fileNum = idDf.head().getLong(0) + 1;
@@ -84,7 +88,7 @@ public class StockCheck {
 	}
 	
 	private static class FileHandler{
-		//DELETE OLD FILES??????
+		//TODO - DELETE OLD FILES??????
 		
 		// Check to see if a 'new' stock file has arrived. 
 		public static ErrorCodes checkStock(String filePath) {

@@ -1,21 +1,30 @@
 /**
  * 
  */
-package pojos;
+package customer;
 
+import hr_department.Person;
 import sales_deptartment.SalesPerson;
+import stock_department.CarDetails;
 
 /**
  * @author Steve Brown
  * Wrapper class for Customer details.
  */
-public class Customer {
+public class Customer extends Person{
 
 	private Details details = new Details();
 	private Requirements customerRequirements = new Requirements();
 	private SalesPerson salesPerson;
 	
+//	public Customer(String firstName, String lastName) {
+//		this.details.setFirst_name(firstName);
+//		this.details.setLast_name(lastName);
+//	}
+	
 	public Customer(String firstName, String lastName) {
+		super(firstName, lastName);
+		// TODO Auto-generated constructor stub
 		this.details.setFirst_name(firstName);
 		this.details.setLast_name(lastName);
 	}

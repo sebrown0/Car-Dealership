@@ -1,23 +1,17 @@
 package spark;
 
-import java.sql.BatchUpdateException;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 
-import dao.SparkDAO;
-import database.Database;
+import dao.SparkSessionDAO;
 
 
  /**
  * @author Steve Brown
+ * 
  * Creates a spark session.
  * Use getSparkSession() to access the session/object. 
  */
-public class Spark implements SparkDAO{
+public class Spark implements SparkSessionDAO{
 
 	private SparkSession spark;
 	private String appName;
@@ -43,18 +37,13 @@ public class Spark implements SparkDAO{
 		if (!activeSession) {
 			spark = SparkSession.builder().appName("appName").master(master).getOrCreate();
 			activeSession = true;
-//			System.out.println("Spark session:  " + appName + " created.");
+			System.out.println("Spark session:  " + appName + " created.");			// TODO - logger
 		} else {
 			System.out.println("Spark session:  " + appName + " already running!");
 		}
 
 	}
 
-	@Override
-	public SparkSession session() {
-		return spark;
-	}
-	
 	public String getAppName() {
 		return appName;
 	}
@@ -64,29 +53,8 @@ public class Spark implements SparkDAO{
 	}
 
 	@Override
-	public Dataset<Row> getDataFrame() {
-		// TODO Auto-generated method stub
-		return null;
+	public SparkSession session() {
+		return spark;
 	}
-
-	@Override
-	public void createSparkDf(SparkDAO spark, Database db)
-			throws SQLException{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void createSparkDf(String table) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void createSparkDf(SparkDAO spark, String table) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

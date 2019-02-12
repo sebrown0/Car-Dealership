@@ -3,7 +3,7 @@
  */
 package stock_department;
 
-import dao.SparkDAO;
+import dao.SparkSessionDAO;
 import database.Database;
 import database.MySqlDB;
 import enums.ErrorCodes;
@@ -17,7 +17,7 @@ import spark.Spark;
  */
 public class UpdateStock extends StockUpdate {
 	
-	private SparkDAO spark;
+	private SparkSessionDAO spark;
 	private Database dataBase;
 	private StockCheck stockCheck;
 	private StockDelivery stockDelivery;

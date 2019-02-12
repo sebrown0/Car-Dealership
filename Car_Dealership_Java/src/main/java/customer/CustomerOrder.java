@@ -1,8 +1,7 @@
 
-package sales_deptartment;
+package customer;
 
-import pojos.Customer;
-import pojos.Order;
+import order_deptartment.Order;
 
 /**
  * @author Steve Brown
