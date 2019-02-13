@@ -9,22 +9,19 @@ import stock_department.CarDetails;
 
 /**
  * @author Steve Brown
- * Wrapper class for Customer details.
+ * Wrapper class for Customer.
+ * 
+ * Holds info about the customer and their order/requirements.
  */
 public class Customer extends Person{
 
 	private Details details = new Details();
 	private Requirements customerRequirements = new Requirements();
-	private SalesPerson salesPerson;
-	
-//	public Customer(String firstName, String lastName) {
-//		this.details.setFirst_name(firstName);
-//		this.details.setLast_name(lastName);
-//	}
+	private SalesPerson salesPerson;	// Salesperson assigned to this customer.
 	
 	public Customer(String firstName, String lastName) {
 		super(firstName, lastName);
-		// TODO Auto-generated constructor stub
+		// TODO - Maybe change having details and customer?
 		this.details.setFirst_name(firstName);
 		this.details.setLast_name(lastName);
 	}
@@ -53,6 +50,9 @@ public class Customer extends Person{
 		this.details = details;
 	}
 
+	/*
+	 * Customer's personal details.
+	 */
 	public static class Details{
 		
 		private long customer_id;
@@ -81,7 +81,9 @@ public class Customer extends Person{
 		}
 	}
 	
-
+	/*
+	 * Customer's requirements when looking for a car.
+	 */
 	public class Requirements{
 		private double budget;
 		private CarDetails carDetails;

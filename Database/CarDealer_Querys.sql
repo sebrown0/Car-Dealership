@@ -31,18 +31,21 @@ select * from stock_updates;
 select * from order_list;
 
 -- RESET START
+
 delete from order_list;
 delete from stock_list;
 delete from model_attributes;
 delete from model_enhancements;
 delete from model;
 delete from stock_updates;
+delete from customers;
 
-INSERT INTO `stock_updates`
-	(`update_id`, `file_name`)
-VALUES
-	(0,  'car_stock_0.json');		
+INSERT INTO `stock_updates`	(`update_id`, `file_name`) VALUES (0,  'car_stock_0.json');		
+
+INSERT INTO `Customers` (`first_name`,`last_name`) VALUES ('Steve','Brown');    
 -- RESET END
+
+
 select DATE(now());
 
 -- call AddEmployee(args);
@@ -56,9 +59,8 @@ call BookHoliday(4,'2019-11-01','2019-11-04');
 call BookHoliday(4,'2019-02-07','2019-04-14');
 
 call GetModelDetails('Ford', 'Focus');
+
+call NewCustomer("Tony", "el Tigro");
 -- DELETE from employees WHERE employees.emp_id = 6;
 
-INSERT INTO `Customers` 
-	(`first_name`,`last_name`)
-VALUES
-	('Steve','Brown');
+

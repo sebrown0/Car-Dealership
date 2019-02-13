@@ -16,7 +16,7 @@ public class App {
 //		sd.updateStock();
 //		
 		SalesDept salesDept = new SalesDept();
-		salesDept.customerOrder();
+		salesDept.newLead();
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
 		

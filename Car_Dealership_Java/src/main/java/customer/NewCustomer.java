@@ -9,9 +9,15 @@ package customer;
  */
 public interface NewCustomer {
 
-	void customersDetails(Customer customer);			// Get the customer's details.
+	void customersDetails();			// Get the customer's details.
 
-	void customersRequirements(Customer customer);		// Capture the customer's requirements.
+	void customersRequirements();		// Capture the customer's requirements.
 
-	void customersSalesPerson(Customer customer);		// Assign a salesperson to the customer.
+	void customersSalesPerson();		// Assign a salesperson to the customer.
+//	
+//	void customersDetails(Customer customer);			// Get the customer's details.
+//
+//	void customersRequirements(Customer customer);		// Capture the customer's requirements.
+//
+//	void customersSalesPerson(Customer customer);		// Assign a salesperson to the customer.
 }

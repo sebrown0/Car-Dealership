@@ -13,12 +13,11 @@ import org.apache.spark.sql.Row;
 import containers.AppContainers.ListContainer;
 import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
-import database.Database;
 import database.MySqlDB;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
-import order_deptartment.Order.OrderListTable;
 import enums.TableNames;
+import order_deptartment.Order.OrderListTable;
 import spark.Spark;
 import spark.SparkDfWriteInterface;
 import spark.SparkDfWriter;
@@ -28,7 +27,7 @@ import stock_department.CarDetails.CarDetailsTable;
 import stock_department.CarDetails.CarEnhancementsTable;
 
 /**
- * @author Brown
+ * @author Steve Brown
  * Creates a new order from the details given by the sales dept.
  */
 public class ProcessNewOrder extends OrderUpdate{
@@ -36,14 +35,14 @@ public class ProcessNewOrder extends OrderUpdate{
 	private DatabaseDAO dataBase;
 	private Order carOrderDetails;
 	
-	Dataset<Row> carDetailsDf;
-	Dataset<Row> carEnhDf;
-	Dataset<Row> carAttrDf;
-	Dataset<Row> orderListDf;
+	private Dataset<Row> carDetailsDf;
+	private Dataset<Row> carEnhDf;
+	private Dataset<Row> carAttrDf;
+	private Dataset<Row> orderListDf;
 	
 	public ProcessNewOrder(Order carOrderDetails) {
 		// Create new spark session to use throughout the update process.
-		spark = new Spark("SalesDept", "local", true);
+		spark = new Spark("OrderDept", "local", true);
 		
 		//Default MySql DAO. Have to set db table before using.
 		dataBase = new MySqlDB(TableNames.NO_TABLE.tblName());
@@ -57,7 +56,7 @@ public class ProcessNewOrder extends OrderUpdate{
 	
 	@Override
 	public void processOrder() {
-		System.out.println("Processing order");
+		System.out.println("Processing order"); // TODO - Logger
 		CarDetails carD = carOrderDetails.getCarDetails();
 		
 		// Process the details for the car.
@@ -92,16 +91,15 @@ public class ProcessNewOrder extends OrderUpdate{
 			dfWrite.writeDfToDbTable(carEnhDf, dataBase, TableNames.MODEL_ENH.tblName());
 			dfWrite.writeDfToDbTable(orderListDf, dataBase, TableNames.ORDER_LIST.tblName());
 		} catch (SQLIntegrityConstraintViolationException e) {
-			// TODO Auto-generated catch block
+			// TODO - Error
 			e.printStackTrace();
 		} catch (BatchUpdateException e) {
-			// TODO Auto-generated catch block
+			// TODO - Error
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO - Error
 			ErrorHandler.checkError(ErrorCodes.DF_ERROR, e.getMessage());
 		}
-		
 	}
 
 }

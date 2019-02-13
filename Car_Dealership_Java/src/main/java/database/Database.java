@@ -67,7 +67,7 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 	@Override
 	public void setDefaultProperties() {
 		// TODO Auto-generated method stub
-		System.out.println("public void setDefaultProperties() {");
+		
 	}
 
 	@Override
