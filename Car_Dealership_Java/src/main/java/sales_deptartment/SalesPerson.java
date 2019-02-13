@@ -11,11 +11,13 @@ import customer.NewCustomer;
 import dao.DatabaseDAO;
 import database.StoredProcedure;
 import enums.ErrorCodes;
-import enums.StoredProcedures;
+import enums.SalesDeptSP;
 import hr_department.Employee;
 import order_deptartment.Order;
 import order_deptartment.OrderDept;
 import stock_department.CarDetails;
+import utils.Log;
+import utils.Logger;
 
 /**
  * @author Brown
@@ -28,6 +30,9 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 	private DatabaseDAO dbDAO = null;
 	private Customer customer = null;
 	
+	private Log log = new Logger(false);
+	private static final String objId = "<Sales-Dept: SalesPerson>";
+	
 	public SalesPerson(long id, String firstName, String lastName, String role) {
 		super(id, firstName, lastName, role);
 		// TODO - Remove
@@ -39,7 +44,10 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 	}
 
 	public void meetCustomer(Customer customer, DatabaseDAO dbDAO) {
-		//TODO - Logger
+		log.write(objId, 
+				this.getFirstName() + " " + this.getLastName()
+				+ " greets new lead " + customer.getFirstName());
+		
 		this.customer = customer;
 		this.dbDAO = dbDAO;
 		
@@ -49,10 +57,10 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 		customersDetails();
 		customersRequirements();
 		
-		// Take order from customer.
+		// Take order from customer. Making this the salesperson's responsibility (not the Order Dept).
 		Order customerOrder = takeOrder(customer, new Order());
 		
-		// Give order to Order dept.
+		// Give order to Order Dept.
 		OrderDept orderDept = new OrderDept();
 		orderDept.newOrder(customerOrder);
 
@@ -74,14 +82,14 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 		elements.add(customer.getLastName());
 		
 		dbDAO.dbConnect();
-		
-		String query = StoredProcedure.QueryBuilder.build(elements, StoredProcedures.NEW_CUSTOMER);
+
+		String query = StoredProcedure.QueryBuilder.build(elements, SalesDeptSP.NEW_CUSTOMER.value());
 		StoredProcedure sp = dbDAO.executeSP(query);
 		if(sp.errorCode() == ErrorCodes.NONE)
 			customerId = Long.valueOf(sp.getSingleValue());
-		
-		// Update the DB Here.	
-		customer.getDetails().setCustomer_id(customerId);
+			
+		customer.setId(customerId);
+
 	}
 	
 

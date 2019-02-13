@@ -17,7 +17,9 @@ public enum ErrorCodes {
 	DUPLICATE_ENTRY("#duplicate entry"), 		// Duplicate entry in DB (PK violation).
 	DB_CONN("db_conn"), 						// Error connecting to the DB.
 	NO_FILE("no_file"),							// No file found. Not necessarily an error, also a message.
-	DF_ERROR("table or column doesn't #exist"),	// Error occured whilst trying to create a data frame probable that tbl/col doesn't exist.
+	FILE_ERROR("file_error"),					// Error when performing a file operation.
+	FILE_DELETE("error deleting file"),			// Error occurred when trying to delete a file.
+	DF_ERROR("table or column doesn't #exist"),	// Error occurred whilst trying to create a data frame probable that tbl/col doesn't exist.
 	STORED_PROCEDURE("SQL syntax"),				// Error trying to execute a store procedure.
 	UNKNOWN_ERROR("unknown_error");				// We don't know what happend.
 	
@@ -42,6 +44,10 @@ public enum ErrorCodes {
 				System.out.println("DB Connection errror.");
 				break;
 			
+			case FILE_ERROR:
+				System.out.println("File error");
+				break;
+				
 			case STORED_PROCEDURE:
 				System.out.println("Couldn't execute the store procedure.");
 				break;

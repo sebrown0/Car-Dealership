@@ -1,22 +1,35 @@
 package application;
 
 import sales_deptartment.SalesDept;
+import stock_department.StockDept;
+import utils.Log;
+import utils.Logger;
 
 public class App {
-
+	private static final String objId = "<Application>";
+	
 	public static void main(String[] args) {
 
 		// TODO
 		System.setProperty("hadoop.home.dir", "C:\\hadoop");
 		System.out.println("Starting App...............");
 
+		Log l = new Logger(true);
+		l.write(objId, "App Started");
 		
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//		StockDept sd = new StockDept();
-//		sd.updateStock();
-//		
+		StockDept sd = new StockDept();
+		sd.updateStock();
+		
 		SalesDept salesDept = new SalesDept();
 		salesDept.newLead();
+		
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+		
+//		Logger log1 = new Logger();
+//		log1.write("Hello3rwre110000");
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
 		

@@ -3,6 +3,8 @@ package spark;
 import org.apache.spark.sql.SparkSession;
 
 import dao.SparkSessionDAO;
+import utils.Log;
+import utils.Logger;
 
 
  /**
@@ -18,6 +20,9 @@ public class Spark implements SparkSessionDAO{
 	private String master;
 	private boolean activeSession = false;
 
+	private Log log = new Logger(false);
+	private static final String objId = "<Spark>";
+	
 	public Spark() {
 		// TODO Auto-generated constructor stub
 	}
@@ -37,9 +42,9 @@ public class Spark implements SparkSessionDAO{
 		if (!activeSession) {
 			spark = SparkSession.builder().appName("appName").master(master).getOrCreate();
 			activeSession = true;
-			System.out.println("Spark session:  " + appName + " created.");			// TODO - logger
+			log.write(objId, "Spark session:  (" + appName + ") created.");			
 		} else {
-			System.out.println("Spark session:  " + appName + " already running!");
+			log.write(objId, "Spark session:  (" + appName + ") already running!");
 		}
 
 	}

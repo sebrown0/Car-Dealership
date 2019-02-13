@@ -13,8 +13,10 @@ import java.util.regex.Pattern;
 
 import enums.CD_Schema;
 import enums.ErrorCodes;
+import enums.SalesDeptSP;
 import enums.ErrorCodes.ErrorHandler;
-import enums.StoredProcedures;
+import utils.Log;
+import utils.Logger;
 
 /**
  * @author Steve Brown 
@@ -24,7 +26,7 @@ import enums.StoredProcedures;
  * 2. Database connection interface.
  * 3. Database connection. 
  * 
- * Returns a Storedprocedure object with Error code (if any) and result set if successful.
+ * Returns a Stored Procedure object with Error code (if any) and result set if successful.
  */
 public class StoredProcedure {
 
@@ -32,6 +34,9 @@ public class StoredProcedure {
 	private ResultSet rs = null;
 	private Connection conn = null;
 	private ErrorCodes eCode = ErrorCodes.NONE;
+
+	private Log log = new Logger(false);
+	private static final String objId = "<StoredProcedure>";
 
 	public StoredProcedure(String query, Database database) {
 		this.query = query;
@@ -55,6 +60,7 @@ public class StoredProcedure {
 			
 		} catch (SQLException e) {			
 			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
+			log.write(objId, "Error executing stored procedure: " + query);
 		} 
 		return this;
 	}
@@ -117,13 +123,12 @@ public class StoredProcedure {
 			return statement;
 		}
 		
-		public static String build(ArrayList<String> elements, StoredProcedures sp) {
+		public static String build(ArrayList<String> elements, String stmnt) {
 			
-			String query = parseStatement(elements, sp.value());
-			
-			System.out.println(query); // TODO - Logger
-			
+			String query = parseStatement(elements, stmnt);
+						
 			return query;
 		}
+		
 	}
 }

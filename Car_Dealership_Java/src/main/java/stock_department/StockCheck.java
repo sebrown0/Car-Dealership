@@ -15,11 +15,13 @@ import database.Database;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
-import enums.Files;
+import enums.FilePaths;
 import enums.TableNames;
 import spark.SparkDfReadInterface;
 import spark.SparkDfReader;
 //import spark.SparkDfTable;
+import utils.Log;
+import utils.Logger;
 
 /**
  * @author Brown
@@ -38,6 +40,9 @@ public class StockCheck {
 	private String stockFile;
 	private long fileNum;
 	
+	private Log log = new Logger(false);
+	private static final String objId = "<Stock-Dept: StockCheck>";
+	
 	public StockCheck(SparkSessionDAO spark, Database db) {
 		super();
 		this.spark = spark;
@@ -50,7 +55,7 @@ public class StockCheck {
 		
 		try {
 			nextStockFile();
-			System.out.println("File to check for:" + stockFile); // TODO - Logger
+			log.write(objId, "File to check for:" + stockFile); 
 			if(!stockFile.isEmpty()) {
 				if(FileHandler.checkStock(stockFile) == ErrorCodes.NONE) {
 					System.out.println("New file to check:" + stockFile);
@@ -75,7 +80,7 @@ public class StockCheck {
 
 		Dataset<Row> idDf =  stockUpdatesDf.getDataFrame().agg(functions.max("update_id"));
 		fileNum = idDf.head().getLong(0) + 1;
-		stockFile = Files.CAR_STOCK_PATH.filePath() + "car_stock_" + fileNum + ".json";
+		stockFile = FilePaths.CAR_STOCK_PATH.filePath() + "car_stock_" + fileNum + ".json";
 
 	}
 	

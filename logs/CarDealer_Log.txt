@@ -1,0 +1,10 @@
+2019-02-13T16:51:43.870 : <Logger> New File
+2019-02-13T16:51:43.870 : <Application> App Started
+2019-02-13T16:51:54.735 : <Spark> Spark session:  StockDept-UpdateStock created.
+2019-02-13T16:51:58.042 : <Stock-Dept: StockCheck> File to check for:src/main/resources/data/car_stock_1.json
+2019-02-13T16:52:03.769 : <Spark> Spark session:  SalesDept created.
+2019-02-13T16:52:03.769 : <Sales-Dept: SalesPerson> Homer Simpson greets new lead Daenerys
+2019-02-13T16:52:03.923 : <Spark> Spark session:  OrderDept created.
+2019-02-13T16:52:03.938 : <Order-Dept: Process New Order> Processing order: 13
+2019-02-13T16:52:03.954 : <Order-Dept: Process New Order> Placing New Order: 14
+2019-02-13T16:52:04.329 : <Sales-Dept> New lead: Daenerys Targaryen Mother of Dragons 011101

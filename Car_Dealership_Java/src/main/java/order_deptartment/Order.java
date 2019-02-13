@@ -13,7 +13,6 @@ public class Order {
 	private OrderListTable orderListTable = new OrderListTable();
 	private CarDetails carDetails;
 	private Customer customer;
-	private long orderId = 77533; // TODO - Get from DB
 	
 	public Customer getCustomer() {
 		return customer;
@@ -39,22 +38,28 @@ public class Order {
 		return ("Order." + customerId  + "." + saleId + "." + orderId);
 	}
 	
-	public void updateOrder(long customerId, long saleId) {
-		String modelVin = createModelVin(customerId, saleId, orderId);
-		
-		carDetails.updateModelVin(modelVin);
-		
-		orderListTable.setModel_id(modelVin);
-		orderListTable.setCustomer_id(customerId);
-		orderListTable.setOrder_status_id(OrderStatus.ORDER.ordinal()); 
-		orderListTable.setSales_id(saleId);		
-	}
+	/*
+	 * Concrete order has been placed.
+	 * 		Create unique order id.
+	 * 		Set the status of the order.
+	 * 		Update the interested parties, i.e. customer and salesperson. 
+	 */
+	public void updateOrder(long orderId) {
+		long customerId = this.customer.getId();
+		long saleId = this.customer.getSalesPerson().getId();
+		String modelVin = createModelVin(customerId, saleId , orderId);
 	
+		this.carDetails.updateModelVin(modelVin);
+	
+		this.orderListTable.setModel_id(modelVin);
+		this.orderListTable.setCustomer_id(customerId);
+		this.orderListTable.setOrder_status_id(OrderStatus.ORDER.ordinal()); 
+		this.orderListTable.setSales_id(saleId);		
+	}
+
 	public Order order(Customer customer) {
 		this.carDetails = customer.getCustomerRequirements().getCarDetails();
-		updateOrder(
-				customer.getDetails().getCustomer_id(), 
-				customer.getSalesPerson().getId()); //salesperson id
+		this.customer = customer;
 		
 		return this;
 	}

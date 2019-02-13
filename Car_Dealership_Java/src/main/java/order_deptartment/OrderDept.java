@@ -10,6 +10,7 @@ package order_deptartment;
 public class OrderDept {
 	
 	public void newOrder(Order carOrderDetails) {
+		
 		ProcessNewOrder newOrder = new ProcessNewOrder(carOrderDetails);
 		newOrder.begin();
 	}

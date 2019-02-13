@@ -1,5 +1,8 @@
 package hr_department;
 
+import utils.Log;
+import utils.Logger;
+
 /**
  * @author Steve Brown
  *
@@ -8,12 +11,15 @@ package hr_department;
  */
 
 public class HRDept implements NewEmployee{
+	
+	private Log log = new Logger(false);
+	private static final String objId = "<HR-Dept>";
 
 	
 	@Override
 	public void addEmployee(Person employee) {
-		// TODO - Logger
-		System.out.println("New employee: " + employee.getFirstName());
+		
+		log.write(objId, "New employee: " + employee.getFirstName());
 		
 		// Update DB Here
 		employee.setId(1);
