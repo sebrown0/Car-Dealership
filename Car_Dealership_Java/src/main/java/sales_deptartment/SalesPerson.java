@@ -23,6 +23,7 @@ import utils.Logger;
  * @author Brown
  * Represents a salesperson  in the sales department.
  * Responsible for dealing with customers.
+ * If a customer places an order the salesperson is responsible for 'giving' the order to the order department.
  */
 
 public class SalesPerson extends Employee implements NewCustomer, CustomerOrder {

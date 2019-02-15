@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
@@ -30,7 +31,7 @@ public final class Logger extends FileHandler implements Log{
 			File file = new File(logFile);
 			try {
 				if(Files.deleteIfExists(file.toPath())) {
-					write(objId, "New File");
+					writeNewFile();
 				}
 			} catch (IOException e) {
 				ErrorHandler.checkError(ErrorCodes.FILE_DELETE, e.getMessage());
@@ -40,10 +41,21 @@ public final class Logger extends FileHandler implements Log{
 	
 	/* 
 	 * Write a log entry to the log file. 
+	 * Assuming once a log is created it is for one day only. 
+	 * So don't write the date for each entry to keep it cleaner.
 	 */
 	@Override
 	public void write(String Id, String logEntry) {
-		
-		this.writeFile(this.logFile, (LocalDateTime.now() + " : " + Id + " " + logEntry));
+		LocalDateTime localDt = LocalDateTime.now();
+		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("HH:mm:ss(SSSS)");		
+		this.writeFile(this.logFile, (dtFormat.format(localDt) + " : " + Id + " -> " + logEntry));
+	}
+
+	@Override
+	public void writeNewFile() {
+		LocalDateTime localDt = LocalDateTime.now();
+		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		this.writeFile(this.logFile, (dtFormat.format(localDt)));
+		write("<Log>", "New File Started");
 	}
 }

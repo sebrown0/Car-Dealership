@@ -9,9 +9,9 @@ import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.functions;
 
+import dao.DatabaseDAO;
 //import dao.SparkDfWrite;
 import dao.SparkSessionDAO;
-import database.Database;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
@@ -35,20 +35,19 @@ import utils.Logger;
  */
 public class StockCheck {
 
-	private SparkSessionDAO spark;
-	private Database dataBase;
-	private String stockFile;
-	private long fileNum;
+	private static final String objId = "<Stock-Dept><StockCheck>";
 	
-	private Log log = new Logger(false);
-	private static final String objId = "<Stock-Dept: StockCheck>";
+	private SparkSessionDAO spark = null;
+	private DatabaseDAO dataBase = null;
+	private String stockFile = "";
+	private long fileNum = 0;
 	
-	public StockCheck(SparkSessionDAO spark, Database db) {
+	private Log log = new Logger(false);	// TODO - Logger
+	
+	public StockCheck(SparkSessionDAO spark, DatabaseDAO dataBase) {
 		super();
 		this.spark = spark;
-		this.dataBase = db;
-		this.stockFile = "";
-		this.fileNum = 0;
+		this.dataBase = dataBase;
 	}
 
 	public ErrorCodes checkStockFile(){

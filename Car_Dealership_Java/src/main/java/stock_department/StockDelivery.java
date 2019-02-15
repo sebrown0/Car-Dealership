@@ -3,6 +3,7 @@ package stock_department;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
+import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
 import database.Database;
 import enums.DbProperties;
@@ -20,11 +21,11 @@ import spark.SparkDfWriter;
  */
 public class StockDelivery{
 
-	private SparkSessionDAO spark;
-	private Database dataBase;
-	private Dataset<Row> deliveryDf;
+	private SparkSessionDAO spark = null;
+	private DatabaseDAO dataBase = null; 
+	private Dataset<Row> deliveryDf = null;
 	
-	public StockDelivery(SparkSessionDAO spark, Database db) {
+	public StockDelivery(SparkSessionDAO spark, DatabaseDAO db) {
 		this.spark = spark;
 		this.dataBase = db;
 	}

@@ -1,6 +1,6 @@
 package hr_department;
 
-public interface Workers {
+public interface Team {
 	
 	void addEmployee(Employee emp);
 	

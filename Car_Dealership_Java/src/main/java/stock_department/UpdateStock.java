@@ -3,12 +3,11 @@
  */
 package stock_department;
 
+import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
-import database.Database;
-import database.MySqlDB;
 import enums.ErrorCodes;
-import enums.TableNames;
-import spark.Spark;
+import utils.Log;
+import utils.Logger;
 
 /**
  * @author Brown
@@ -17,18 +16,25 @@ import spark.Spark;
  */
 public class UpdateStock extends StockUpdate {
 	
+	private final String objId;
+	
 	private SparkSessionDAO spark;
-	private Database dataBase;
+	private DatabaseDAO dataBase;
 	private StockCheck stockCheck;
 	private StockDelivery stockDelivery;
 	private StockList stockList;
 	
-	public UpdateStock() {
-		// Create new spark session to use throughout the update process.
-		spark = new Spark("StockDept-UpdateStock", "local", true);
+//	private Log log = new Logger(false);
+	
+	public UpdateStock(String objId, SparkSessionDAO spark, DatabaseDAO dataBase ) {
+		this.objId = objId + "<UpdateStock>";
+		this.spark = spark;
+		this.dataBase = dataBase;
+//		// Create new spark session to use throughout the update process. TODO - Remove
+//		spark = new Spark("StockDept-UpdateStock", "local", true);
 		
 		//Default MySql DAO. Have to set db table before using.
-		dataBase = new MySqlDB(TableNames.NO_TABLE.tblName());
+//		dataBase = new MySqlDB(TableNames.NO_TABLE.tblName());
 		
 	}
 	

@@ -71,9 +71,11 @@ public class ProcessNewOrder extends OrderUpdate{
 		dbDAO.dbConnect();
 		StoredProcedure sp = dbDAO.executeSP(OrderDeptSP.MAX_ORDER_NUMBER.value());
 		
-		if(sp.errorCode() == ErrorCodes.NONE)
-			this.orderId = Long.valueOf(sp.getSingleValue()) + 1;
-		
+		if(sp.errorCode() == ErrorCodes.NONE) {
+			String val = sp.getSingleValue();
+			this.orderId = (val == null) ?  1 : Long.valueOf(val) + 1;
+		}
+	
 		log.write(objId, "Processing order: " + orderId);
 		
 		carOrderDetails.updateOrder(orderId);	

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
+import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
 import database.Database;
 
@@ -34,7 +35,7 @@ public class SparkDfReader implements SparkDfReadInterface{
 	}
 
 	@Override
-	public void readTable(SparkSessionDAO spark, Database db) throws SQLException {
+	public void readTable(SparkSessionDAO spark, DatabaseDAO db) throws SQLException {
 		this.df = spark.session().read()
 			  .format(db.getDbProperty("format")) 
 			  .option("url", db.getDbProperty("url"))

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * A list of employees that are available for work.
  */
-public class EmployeePool implements Workers{
+public class EmployeePool implements Team{
 	
 	private List<Employee> emp;
 	
