@@ -3,6 +3,9 @@ package enums;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import utils.Log;
+import utils.Logger;
+
 /**
  * @author Brown
  * Error handling object. The string value of the error codes are used as part
@@ -13,18 +16,22 @@ import java.util.regex.Pattern;
  */
 public enum ErrorCodes {
 
-	NONE("none"), 								// No error.
-	DUPLICATE_ENTRY("#duplicate entry"), 		// Duplicate entry in DB (PK violation).
-	DB_CONN("db_conn"), 						// Error connecting to the DB.
-	NO_FILE("no_file"),							// No file found. Not necessarily an error, also a message.
-	FILE_ERROR("file_error"),					// Error when performing a file operation.
-	FILE_DELETE("error deleting file"),			// Error occurred when trying to delete a file.
-	DF_ERROR("table or column doesn't #exist"),	// Error occurred whilst trying to create a data frame probable that tbl/col doesn't exist.
-	STORED_PROCEDURE("SQL syntax"),				// Error trying to execute a store procedure.
-	UNKNOWN_ERROR("unknown_error");				// We don't know what happend.
+	NONE("none"), 									// No error.
+	DUPLICATE_ENTRY("#duplicate entry"), 			// Duplicate entry in DB (PK violation).
+	DB_CONN("db_conn"), 							// Error connecting to the DB.
+	NO_FILE("no_file"),								// No file found. Not necessarily an error, also a message.
+	FILE_ERROR("file_error"),						// Error when performing a file operation.
+	FILE_DELETE("error deleting file"),				// Error occurred when trying to delete a file.
+	DF_ERROR("table or column doesn't #exist"),		// Error occurred whilst trying to create a data frame probable that tbl/col doesn't exist.
+	STORED_PROCEDURE("SQL syntax"),					// Error trying to execute a store procedure.
+	TASK_CREATE_DEPTS("Error creating dept"),		// Error trying to complete the task.
+	TASK_ROLL_CALL("Error during roll call"),		// Error trying to complete the task.
+	TASK_NEW_LEAD("Error processing new lead"),		// Error trying to complete the task.
+	TASK_UPDATE_STOCK("Error updating stock"),		// Error trying to complete the task.
+	UNKNOWN_ERROR("unknown_error");					// We don't know what happend.
 	
 	private String eCode;
-	
+		
 	private ErrorCodes(String ec) {
 		this.eCode = ec;
 	}
@@ -34,6 +41,10 @@ public enum ErrorCodes {
 	}
 		
 	public static class ErrorHandler {
+		
+		private static Log log = new Logger(false);
+		private static String objId = "<ErrorHandler>";
+		
 		//TODO - Always more error handling to do.
 		public static ErrorCodes checkError(ErrorCodes suspectedError, String errorMsg) {
 			ErrorCodes eCode = ErrorCodes.UNKNOWN_ERROR;
@@ -41,15 +52,15 @@ public enum ErrorCodes {
 			// Switch not necessary if every error is parsed. 
 			switch (suspectedError) {
 			case DB_CONN:
-				System.out.println("DB Connection errror.");
+				log.logEntry(objId, "DB Connection errror.");
 				break;
 			
 			case FILE_ERROR:
-				System.out.println("File error");
+				log.logEntry(objId, "File error");
 				break;
 				
 			case STORED_PROCEDURE:
-				System.out.println("Couldn't execute the store procedure.");
+				log.logEntry(objId, "Couldn't execute the store procedure.");
 				break;
 			
 			case DUPLICATE_ENTRY:
@@ -57,16 +68,18 @@ public enum ErrorCodes {
 				break;
 
 			case DF_ERROR:
-				System.out.println("DF_ERROR");
+				log.logEntry(objId, "DF_ERROR");
 				eCode = parseErrorMsg(suspectedError, errorMsg);
 				break;
 				
 			default:
+				log.logEntry(objId, "Unknown Error");
 				break;
 			}
 			return eCode;
 		}
 		
+		// TODO - Explain method.
 		private static ErrorCodes parseErrorMsg(ErrorCodes suspectedError, String errorMsg) {
 
 			// Get the part of the error code that might be in the error message.

@@ -11,6 +11,8 @@ VALUES
 	('IT','Information Technology'),
     ('Accounts','Responsible for pay cheques, invoicing etc'),
 	('Garage Services','Resposible for car servicing, repairs etc'),
+    ('Stock','Resposible for updating stock'),
+    ('Order','Resposible for ordering stock'),
     ('None','An employee can belong to no department i.e. the CEO');
 -- SET foreign_key_checks = 1;   
 
@@ -173,15 +175,13 @@ VALUES
 	(14, '1033-ER-1972', '1922-05-27', (select DATE(now())),'Prince Philip', 'Female'),
     (15, '1199-CR-1990', '1990-03-05', (select DATE(now())),'', '');
     
--- Add some holidays for a few employees
+-- Add some holidays for a few employees WON'T WORK IF HISTORIC DATE
+-- USE INSERTS FOR HISTORIC DATES AS THE SP CHECK THIS.
 call BookHoliday(2,'2019-05-01','2019-05-04');
 call BookHoliday(2,'2019-06-01','2019-06-14');
-call BookHoliday(6,'2019-03-11','2019-03-21');
+call BookHoliday(6,'2019-03-11','2019-03-29');
 call BookHoliday(9,'2019-11-01','2019-11-09');
-call BookHoliday(11,'2019-09-11','2019-09-24');
-
--- Someone's already had a sickie!
-call UpdateEmployeeSickness(2,'2019-02-07','2019-02-14');
+call BookHoliday(11,'2019-02-18','2019-03-12');
 
 /**************** CAR DATA ****************/
 INSERT INTO `manufacturer`

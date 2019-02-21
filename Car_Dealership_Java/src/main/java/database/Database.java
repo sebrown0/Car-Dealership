@@ -18,7 +18,7 @@ import enums.ErrorCodes;
 
 public class Database implements DatabaseDAO, SparkSessionDAO {
 
-	private Properties dbProp; // Properties needed to connect to the DB.
+	private Properties dbProp; 					// Properties needed to connect to the DB.
 	private DbConnectionInterface dbConnection; // DB Connection
 
 //	private StoredProcedure dbStoredProcedure;
@@ -80,7 +80,6 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 	public StoredProcedure executeSP(String query) {
 		StoredProcedure sp = new StoredProcedure(query, dbConnection);
 		return sp.execute();
-
 	}
 
 	@Override

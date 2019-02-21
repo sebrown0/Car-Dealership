@@ -7,11 +7,10 @@ import enums.ErrorCodes;
  * 
  * Dictates the order of the stock update process.
  */
-
 public abstract class StockUpdate implements StockUpdateProcess{
-
+	
 	// Force the order of implementation.
-	public void updateStock() {
+	public void updateStock() {				
 		if(checkForNewStock() == ErrorCodes.NONE)
 			if(readStockFile() == ErrorCodes.NONE)
 				updateStockList();

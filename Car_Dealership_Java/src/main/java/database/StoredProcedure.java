@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -60,7 +62,7 @@ public class StoredProcedure {
 			
 		} catch (SQLException e) {			
 			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
-			log.write(objId, "Error executing stored procedure: " + query);
+			log.logEntry(objId, "Error executing stored procedure: " + query);
 		} 
 		return this;
 	}
@@ -75,6 +77,46 @@ public class StoredProcedure {
 		try {
 			if(rs.first()) 
 				result = rs.getString(1);
+		} catch (SQLException e) {
+			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
+		}
+		
+		return result;
+	}
+
+	/*
+	 * Returns a List from the executed SP.
+	 * It's up to the caller to validate or change the List.
+	 * Will throw SQLException if the column doesn't exist.
+	 */
+	public List<String> getListOfValues(String colOne) {
+		
+		List<String> result = new ArrayList<>();
+		
+		try {
+			while(rs.next()) {
+				result.add(rs.getString(colOne));
+			}
+		} catch (SQLException e) {
+			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
+		}
+		
+		return result;
+	}
+	
+	/*
+	 * Returns a ConcurrentHashMap (Likely that we'll use the result for threads) from the executed SP.
+	 * It's up to the caller to validate or change the List.
+	 * Will throw SQLException if the column doesn't exist.
+	 */
+	public ConcurrentHashMap<String, String> getMapOfValues(String colOne, String colTwo) {
+		
+		ConcurrentHashMap<String, String> result = new ConcurrentHashMap<>();
+		
+		try {
+			while(rs.next()) {
+				result.put(rs.getString(colOne), rs.getString(colTwo));
+			}
 		} catch (SQLException e) {
 			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
 		}
@@ -122,11 +164,29 @@ public class StoredProcedure {
 						
 			return statement;
 		}
+
+		private static String parseStatement(String element, String statement) {
+			
+			Pattern pattern = Pattern.compile("regex");
+			Matcher match = pattern.matcher(statement);
 		
+			if(match.find() && element != null) {			// TODO - Error handler
+				String s = match.replaceFirst(element);
+				statement = parseStatement(element, s);			
+			}
+						
+			return statement;
+		}
 		public static String build(ArrayList<String> elements, String stmnt) {
 			
 			String query = parseStatement(elements, stmnt);
 						
+			return query;
+		}
+
+		public static String build(String element, String stmnt) {
+			String query = parseStatement(element, stmnt);
+			
 			return query;
 		}
 		

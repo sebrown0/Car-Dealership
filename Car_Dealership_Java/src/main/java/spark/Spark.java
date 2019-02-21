@@ -42,9 +42,9 @@ public class Spark implements SparkSessionDAO{
 		if (!activeSession) {
 			spark = SparkSession.builder().appName("appName").master(master).getOrCreate();
 			activeSession = true;
-			log.write(objId, "Spark session:  (" + appName + ") created.");			
+			log.logEntry(objId, "Spark session:  (" + appName + ") created.");			
 		} else {
-			log.write(objId, "Spark session:  (" + appName + ") already running!");
+			log.logEntry(objId, "Spark session:  (" + appName + ") already running!");
 		}
 
 	}

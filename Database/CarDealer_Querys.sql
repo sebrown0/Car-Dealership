@@ -55,49 +55,25 @@ call JoinEmployeesOnManagers();
 call UpdateDepartmentManager (6,3); -- ( man_id,dept_id)
 call BookHoliday(1,'2019-01-01','2019-01-04');
 
-call BookHoliday(4,'2019-11-01','2019-11-04');
+call BookHoliday(12,'2019-02-17','2019-02-22');
 call BookHoliday(4,'2019-02-07','2019-04-14');
 
 call GetModelDetails('Ford', 'Focus');
 
 call NewCustomer("Tony", "el Tigro");
+
+call GetStockList();
+
+call MaxOrderNumber();
+
+call RollCall(3);
 -- DELETE from employees WHERE employees.emp_id = 6;
 
-SELECT  
-	mdl.model_vin AS vin, manufacturer_name AS manufacturer , model_name,
-    horsepower, colour, transmission, ac, sunroof, alloy_wheels
-FROM
-	stock_list sl	 
-JOIN
-	model mdl
-ON
-	mdl.model_vin = sl.model_vin
-JOIN
-	model_attributes attr
-ON
-	attr.model_vin = sl.model_vin
-JOIN
-	model_enhancements enh
-ON
-	enh.model_vin = sl.model_vin
-JOIN
-	manufacturer man
-ON
-	man.manufacturer_id = mdl.manufacturer_id
-
-	
-;
---
-
-
-
-
-
-
-
-
-
-
---
-
-
+-- SELECT * from employee_holiday;
+-- select date_format(curdate(), '%Y');
+/*
+INSERT INTO 
+	employee_holiday (`emp_hol_rec_id`, `hol_rec_year`, `hol_start_date`, `hol_end_date`)
+VALUES
+	('5',  '2019', '2019-02-15', '2019-02-28');
+*/

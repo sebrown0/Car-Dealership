@@ -14,9 +14,11 @@ import dao.SparkSessionDAO;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
-import spark.SparkDfWriteInterface;
+import spark.SparkDataFramefWriter;
 import spark.SparkDfWriter;
 import stock_department.StockDetails.StockListTable;
+import utils.Log;
+import utils.Logger;
 
 /**
  * @author Steve Brown
@@ -25,13 +27,15 @@ import stock_department.StockDetails.StockListTable;
  * Stock_Updates holds data about the delivery.
  */
 public class StockList {
+	
+	private static final String objId = "<Stock-Dept> <StockList>";
+	
+	private Log log = new Logger(false);
 	private SparkSessionDAO spark;
-//	private Database dataBase;
 	private DatabaseDAO dataBase;
 	private String StockUpdateTable;
 	private String fileNum;
 	
-	// TODO - Database or Database DAO???????
 	public StockList(SparkSessionDAO spark, DatabaseDAO db, long fn, String StockUpdateTable) {
 		super();
 		this.spark = spark;
@@ -45,7 +49,8 @@ public class StockList {
 	 * Create two lists to convert into DFs and then write them to the relevant table.
 	 */
 	public ErrorCodes update(Dataset<Row> deliveryDf) {
-		StockDetails stockDetails = new StockDetails(fileNum, "1", StockUpdateTable);
+		log.logEntry(objId, "Updating stock list");
+		StockDetails stockDetails = new StockDetails(fileNum, "1", StockUpdateTable); // TODO - Stock status = 1
 		
 		ListContainer<StockListTable> lcStockList = 
 				new ListContainer<StockDetails.StockListTable>(stockDetails.getStockListTable());
@@ -74,12 +79,10 @@ public class StockList {
 		
 
 		try { // Update the tables.
-			SparkDfWriteInterface writeDf = new SparkDfWriter();
+			SparkDataFramefWriter writeDf = new SparkDfWriter();
 			writeDf.writeDfToDbTable(fileDf, dataBase, TableNames.STOCK_UPDATES.tblName());
 			writeDf.writeDfToDbTable(stockListDf, dataBase, TableNames.STOCK_LIST.tblName());
 
-//			dataBase.writeDfToDBTable(fileDf, TableNames.STOCK_UPDATES.tblName());
-//			dataBase.writeDfToDBTable(stockListDf, TableNames.STOCK_LIST.tblName());
 		} catch (SQLException e) {
 			ErrorHandler.checkError(ErrorCodes.DF_ERROR, e.getMessage());
 		}

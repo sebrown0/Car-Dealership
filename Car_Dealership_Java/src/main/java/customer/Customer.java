@@ -4,7 +4,7 @@
 package customer;
 
 import hr_department.Person;
-import sales_deptartment.SalesPerson;
+import sales_department.SalesPerson;
 import stock_department.CarDetails;
 
 /**
@@ -104,4 +104,6 @@ public class Customer extends Person{
 			this.budget = budget;
 		}
 	}
+
+	
 }

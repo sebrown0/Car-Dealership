@@ -1,42 +1,61 @@
 package application;
 
-import department.DepartmentTasks;
-import department_tasks.NewLeadTask;
-import department_tasks.StockCheckTask;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
+
+import department.Department;
+import department.DepartmentMessanger;
 import department_tasks.Task;
-import sales_deptartment.SalesDept;
-import stock_department.StockDept;
+import department_tasks.TaskCreateDepartments;
+import department_tasks.TaskNewLead;
+import department_tasks.TaskRollCall;
+import department_tasks.TaskUpdateStock;
+import enums.DepartmentNames;
+import hr_department.StaffMember;
 import utils.Log;
 import utils.Logger;
 
 public class App {
 	private static final String objId = "<Application>";
+	private static final DepartmentNames departmentNames = null;
+
 	
 	public static void main(String[] args) {
 
+		// TODO - Do we need more than one spark session?
+		// TODO - Do we need more than one DB object?
 		// TODO - Hadoop path
 		System.setProperty("hadoop.home.dir", "C:\\hadoop");
-
-
+		
 		Log l = new Logger(true);
-		l.write(objId, "App Started");
+		l.logEntry(objId, "App Started");
 		
-		StockDept stockDept = new StockDept();
-		SalesDept salesDept = new SalesDept();
+		Task depts = new TaskCreateDepartments(new Department("0", "App")); 
+		depts.run();
 		
-		DepartmentTasks stockTask = new StockCheckTask(stockDept);
-		Task t1 = new Task(stockTask);
-		t1.run();
+		BlockingQueue<Department> departments = ((TaskCreateDepartments) depts).getDepartments();
 		
-		DepartmentTasks salesTask = new NewLeadTask(salesDept);
-		Task t2 = new Task(salesTask);
-		t2.run();
+		DepartmentMessanger deptMessanger = new DepartmentMessanger(departments);
+
+		TaskNewLead newLead = new TaskNewLead(deptMessanger.getDepartment(DepartmentNames.SALES.value()));
+		TaskUpdateStock stockCheck = new TaskUpdateStock(deptMessanger.getDepartment(DepartmentNames.STOCK.value()));
 		
+		/*
+		 * 	RUN TASKS SEQUENTIALLY
+		 */
+//		for(Department d: departments) {
+//					
+//			BlockingQueue<Task> deptTasks = d.getTaskList(); 
+//			
+//			for(Task t: deptTasks) {
+//				l.logEntry("<App>", "<Running> " + t.getClass().getSimpleName());
+//				t.run();
+//			}
+//		}
 		
-//		salesDept.newLead();
+//		Simulator.start();
 		
-		
-		l.write(objId, "App Ended");
+		l.logEntry(objId, "App Ended");
 		
 	}
 

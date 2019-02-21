@@ -24,7 +24,8 @@ import utils.Log;
 import utils.Logger;
 
 /**
- * @author Brown
+ * @author Steve Brown
+ * 
  * Check the stock file directory to see if there is a new 'delivery' of stock.
  * The expected format of the filename is: 
  * 		car_stock_DELIVERY_NUMBER.json 
@@ -35,12 +36,12 @@ import utils.Logger;
  */
 public class StockCheck {
 
-	private static final String objId = "<Stock-Dept><StockCheck>";
+	private static final String objId = "<Stock-Dept> <StockCheck>";
 	
 	private SparkSessionDAO spark = null;
 	private DatabaseDAO dataBase = null;
 	private String stockFile = "";
-	private long fileNum = 0;
+	private long fileNum = 1;				// Default to first file.
 	
 	private Log log = new Logger(false);	// TODO - Logger
 	
@@ -54,12 +55,11 @@ public class StockCheck {
 		
 		try {
 			nextStockFile();
-			log.write(objId, "File to check for:" + stockFile); 
 			if(!stockFile.isEmpty()) {
 				if(FileHandler.checkStock(stockFile) == ErrorCodes.NONE) {
-					System.out.println("New file to check:" + stockFile);
+					log.logEntry(objId, "New file to check:" + stockFile);
 				}else {
-					System.out.println("NO New file to check");
+					log.logEntry(objId, "NO New file to check");
 					return ErrorCodes.NO_FILE;
 				}				
 			}
@@ -78,7 +78,11 @@ public class StockCheck {
 		stockUpdatesDf.readTable(spark, dataBase);
 
 		Dataset<Row> idDf =  stockUpdatesDf.getDataFrame().agg(functions.max("update_id"));
-		fileNum = idDf.head().getLong(0) + 1;
+		try {
+			fileNum = idDf.head().getLong(0) + 1;
+		}catch (Exception e) {
+			// There's nothing in the table so use default value.
+		}
 		stockFile = FilePaths.CAR_STOCK_PATH.filePath() + "car_stock_" + fileNum + ".json";
 
 	}

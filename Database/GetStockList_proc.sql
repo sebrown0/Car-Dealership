@@ -1,3 +1,6 @@
+/*
+**	Get details of current stock.
+*/
 CREATE PROCEDURE `GetStockList` ()
 BEGIN
 SELECT  
@@ -21,4 +24,4 @@ JOIN
 	manufacturer man
 ON
 	man.manufacturer_id = mdl.manufacturer_id;
-END
+END;

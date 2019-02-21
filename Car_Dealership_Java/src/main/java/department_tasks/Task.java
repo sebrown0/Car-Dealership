@@ -3,31 +3,13 @@
  */
 package department_tasks;
 
-import department.DepartmentTasks;
-
 /**
  * @author Steve Brown
  *
+ *	Create a reference to a specific Task Instance.
  */
-public class Task  {
-
-	private DepartmentTasks dTask = null;	
-		
-	public Task(DepartmentTasks dTask) {
-		super();
-		this.dTask = dTask;
-	}
-
-	public DepartmentTasks departmentTask() {
-		return dTask;
-	}
+public interface Task {
 	
-	public void departmentTask(DepartmentTasks t) {
-		this.dTask = t;
-	}
-	
-	public void run() {
-		this.dTask.runTask();	
-	}
-	
+	void run();		// Runs the task that is THIS task.	
+//	void add();		// Add the task that is THIS task to the department's task list.
 }

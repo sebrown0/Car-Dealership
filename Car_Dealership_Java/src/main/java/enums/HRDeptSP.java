@@ -8,13 +8,14 @@ package enums;
  * 
  * Text to make up callable statements for stored procedures.
  */
-public enum SalesDeptSP {
+public enum HRDeptSP {
 
-	NEW_CUSTOMER( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`NewCustomer`('" + "regex" + "','" + "regex" + "') }");
+	DEPARTMENT_IDS( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`GetDepartments`() }"),
+	ROLL_CALL( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`RollCall`('" + "regex" +  "') }");
 	
 	private String statement = "";
 	
-	private SalesDeptSP(String stmt) {
+	private HRDeptSP(String stmt) {
 		this.statement = stmt;
 	}
 	

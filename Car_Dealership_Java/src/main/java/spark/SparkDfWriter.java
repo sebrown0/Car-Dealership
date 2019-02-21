@@ -18,7 +18,7 @@ import enums.DbProperties;
  * @author Brown
  *
  */
-public class SparkDfWriter implements SparkDfWriteInterface {
+public class SparkDfWriter implements SparkDataFramefWriter {
 
 	private boolean writeDf(Dataset<Row> df, DatabaseDAO db) {
 		// TODO - Error checking

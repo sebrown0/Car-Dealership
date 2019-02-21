@@ -17,7 +17,7 @@ import dao.DatabaseDAO;
  *
  * Rules for writing a spark df to specified db.
  */
-public interface SparkDfWriteInterface {
+public interface SparkDataFramefWriter {
 
 	boolean writeDfToDbTable(Dataset<Row> df, DatabaseDAO db, String table)		// Write a dataframe to the specified table. 
 			throws  SQLException, BatchUpdateException, SQLIntegrityConstraintViolationException; 

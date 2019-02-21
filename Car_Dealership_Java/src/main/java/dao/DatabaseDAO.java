@@ -36,5 +36,6 @@ public interface DatabaseDAO {
 	void dbConnect();
 	
 	// Execute a stored procedure on DB instance.
-	StoredProcedure executeSP(String query);
+	StoredProcedure executeSP(String query);	// TODO - Maybe change so the query is passed to the constructor.
+	
 }

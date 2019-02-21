@@ -3,9 +3,6 @@
  */
 package hr_department;
 
-import customer.Customer;
-import customer.NewCustomer;
-
 /**
  * @author Steve Brown
  * 
@@ -14,15 +11,17 @@ import customer.NewCustomer;
 public class Person{
 	
 	private long id;
+	private String deptId;		// TODO - Change
 	private String firstName;
 	private String lastName;
 	private String role;
 		
-	public Person(long id, String firstName, String lastName, String role) {
+	public Person(long id, String firstName, String lastName, String deptId, String role) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.deptId = deptId;
 		this.role = role;
 	}
 
@@ -54,6 +53,14 @@ public class Person{
 	}
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getDeptId() {
+		return deptId;
+	}
+
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
 	}
 	
 }

@@ -21,7 +21,7 @@ import enums.OrderDeptSP;
 import enums.TableNames;
 import order_deptartment.Order.OrderListTable;
 import spark.Spark;
-import spark.SparkDfWriteInterface;
+import spark.SparkDataFramefWriter;
 import spark.SparkDfWriter;
 import stock_department.CarDetails;
 import stock_department.CarDetails.CarAttributesTable;
@@ -35,9 +35,9 @@ import utils.Logger;
  * Creates a new order from the details given by the sales dept.
  */
 public class ProcessNewOrder extends OrderUpdate{
-	private SparkSessionDAO spark;
-	private DatabaseDAO dbDAO;
-	private Order carOrderDetails;
+	private SparkSessionDAO spark = null;
+	private DatabaseDAO dbDAO = null;
+	private Order carOrderDetails = null;
 	
 	private Dataset<Row> carDetailsDf;
 	private Dataset<Row> carEnhDf;
@@ -45,17 +45,18 @@ public class ProcessNewOrder extends OrderUpdate{
 	private Dataset<Row> orderListDf;
 	
 	private Log log = new Logger(false);
-	private static final String objId = "<Order-Dept: Process New Order>";
+	private static final String objId = "<Order-Dept> <Process New Order>";
 	
 	private long orderId = 0;
 	
-	
-	public ProcessNewOrder(Order carOrderDetails) {
+	public ProcessNewOrder(Order carOrderDetails, DatabaseDAO dbDAO, SparkSessionDAO spark) {
 		// Create new spark session to use throughout the update process.
-		spark = new Spark("OrderDept", "local", true);
+		this.spark = spark;
+//		spark = new Spark("Order$$$$$$Dept", "local", true); TODO - Remove
 		
 		//Default MySql DAO. Have to set db table before using.
-		dbDAO = new MySqlDB(TableNames.NO_TABLE.tblName());
+		this.dbDAO = dbDAO;
+//		dbDAO = new MySqlDB(TableNames.NO_TABLE.tblName()); TODO - Remove
 		
 		this.carOrderDetails = carOrderDetails;	
 	}
@@ -76,7 +77,7 @@ public class ProcessNewOrder extends OrderUpdate{
 			this.orderId = (val == null) ?  1 : Long.valueOf(val) + 1;
 		}
 	
-		log.write(objId, "Processing order: " + orderId);
+		log.logEntry(objId, "Processing order (number) " + orderId);
 		
 		carOrderDetails.updateOrder(orderId);	
 		
@@ -106,10 +107,10 @@ public class ProcessNewOrder extends OrderUpdate{
 	@Override
 	public void placeOrder() {
 		
-		log.write(objId, "Placing new order: " + orderId);
+		log.logEntry(objId, "Placing new order (number) " + orderId);
 		
 		try {
-			SparkDfWriteInterface dfWrite = new SparkDfWriter();
+			SparkDataFramefWriter dfWrite = new SparkDfWriter();
 			dfWrite.writeDfToDbTable(carDetailsDf, dbDAO, TableNames.MODEL.tblName());
 			dfWrite.writeDfToDbTable(carAttrDf, dbDAO, TableNames.MODEL_ATTR.tblName());
 			dfWrite.writeDfToDbTable(carEnhDf, dbDAO, TableNames.MODEL_ENH.tblName());

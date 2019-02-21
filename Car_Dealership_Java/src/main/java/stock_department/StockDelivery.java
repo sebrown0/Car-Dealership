@@ -12,8 +12,10 @@ import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
 import spark.SparkDfReadInterface;
 import spark.SparkDfReader;
-import spark.SparkDfWriteInterface;
+import spark.SparkDataFramefWriter;
 import spark.SparkDfWriter;
+import utils.Log;
+import utils.Logger;
 
 /**
  * @author Steve Brown
@@ -21,6 +23,9 @@ import spark.SparkDfWriter;
  */
 public class StockDelivery{
 
+	private static final String objId = "<Stock-Dept> <StockDelivery>";
+	
+	private Log log = new Logger(false);
 	private SparkSessionDAO spark = null;
 	private DatabaseDAO dataBase = null; 
 	private Dataset<Row> deliveryDf = null;
@@ -34,7 +39,8 @@ public class StockDelivery{
 	public ErrorCodes readStockFile(String stockFile) {
 		ErrorCodes eCode = ErrorCodes.NONE;
 		
-		// Read the new stock file into a Spark DF		
+		// Read the new stock file into a Spark DF
+		log.logEntry(objId, "Reading stock file");
 		SparkDfReadInterface dfCars = new SparkDfReader(spark);
 		dfCars.readFile(stockFile, "json");
 
@@ -70,7 +76,7 @@ public class StockDelivery{
 			Dataset<Row> modelAttrDf = prepareModelAttrDetails(carStockDf);
 			Dataset<Row> modelEnhDf = prepareModelExtraDetails(carStockDf);
 			try {
-				SparkDfWriteInterface dfWrite = new SparkDfWriter();
+				SparkDataFramefWriter dfWrite = new SparkDfWriter();
 				if(dfWrite.writeDfToDbTable(deliveryDf, dataBase, TableNames.MODEL.tblName())) {
 					if(dfWrite.writeDfToDbTable(modelAttrDf, dataBase, TableNames.MODEL_ATTR.tblName())) 
 						dfWrite.writeDfToDbTable(modelEnhDf, dataBase, TableNames.MODEL_ENH.tblName());

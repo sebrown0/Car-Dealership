@@ -45,7 +45,7 @@ public final class Logger extends FileHandler implements Log{
 	 * So don't write the date for each entry to keep it cleaner.
 	 */
 	@Override
-	public void write(String Id, String logEntry) {
+	public void logEntry(String Id, String logEntry) {
 		LocalDateTime localDt = LocalDateTime.now();
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("HH:mm:ss(SSSS)");		
 		this.writeFile(this.logFile, (dtFormat.format(localDt) + " : " + Id + " -> " + logEntry));
@@ -56,6 +56,6 @@ public final class Logger extends FileHandler implements Log{
 		LocalDateTime localDt = LocalDateTime.now();
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		this.writeFile(this.logFile, (dtFormat.format(localDt)));
-		write("<Log>", "New File Started");
+		logEntry("<Log>", "New File Started");
 	}
 }

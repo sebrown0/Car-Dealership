@@ -1,6 +1,7 @@
 package hr_department;
 
 import department.Department;
+import sales_department.SalesPerson;
 
 /**
  * @author Steve Brown
@@ -9,24 +10,16 @@ import department.Department;
  * 
  */
 
-public class HRDept extends Department implements NewEmployee{
-	
-	private static final String objId = "<HR-Dept>";
-	
-	public HRDept() {
-		super(objId);
-		// TODO Auto-generated constructor stub
+public class HRDept extends Department {
+
+	public HRDept(String deptId, String deptName) {
+		super(deptId, deptName);
 	}
 
-
-
+	
 	@Override
-	public void addEmployee(Person employee) {
-		
-		log().write(objId, "New employee: " + employee.getFirstName());
-		
-		// Update DB Here
-		employee.setId(1);
+	public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role) {			
+		staff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role)); // TODO - Change to proper employee
 	}
 
 }

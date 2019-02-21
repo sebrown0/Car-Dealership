@@ -4,10 +4,10 @@
 package hr_department;
 
 /**
- * @author Brown
+ * @author Steve Brown
  *
  */
 public interface NewEmployee {
-	
-	void addEmployee(Person employee);
+	void staffMember(long empId, String firstName, String lastName, String deptId, String role);
+//	void staffMember(StaffMember staffMember);
 }

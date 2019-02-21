@@ -10,21 +10,21 @@ import org.apache.spark.sql.Row;
 
 import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
-import database.Database;
 
 /**
  * @author Steve Brown
  *
  * Rules for reading a data source and converting it into a spark data frame.
  */
+// TODO - Not sure we need this interface.
 public interface SparkDfReadInterface {
 	
-	public void readFile(String path, String format); 				// Read Spark supported file format into a df, i.e. JSON.
+	public void readFile(String path, String format); 						// Read Spark supported file format into a df, i.e. JSON.
 
 	public void readTable(SparkSessionDAO spark, DatabaseDAO dataBase)		// Create df using properties from the DB.
 			throws SQLException;
 
-	public Dataset<Row> getDataFrame();								// Get the result of any of the above.
+	public Dataset<Row> getDataFrame();										// Get the result of any of the above.
 	
 
 }

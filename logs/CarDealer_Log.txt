@@ -1,15 +1,89 @@
-15/02/2019
-10:44:37(7630) : <Log> -> New File Started
-10:44:37(7630) : <Application> -> App Started
-10:44:48(6110) : <Spark> -> Spark session:  (<Stock-Dept>) created.
-10:44:49(0980) : <Spark> -> Spark session:  (<Sales-Dept>) created.
-10:44:49(0980) : <Stock-Dept><StockCheckTask> -> Updating stock
-10:44:52(0920) : <Stock-Dept><StockCheck> -> File to check for:src/main/resources/data/car_stock_1.json
-10:44:54(5430) : <Sales-Dept><NewLeadTask> -> New Lead
-10:44:54(5930) : <Sales-Dept: SalesPerson> -> Homer Simpson greets new lead Daenerys
-10:44:54(6550) : <Spark> -> Spark session:  (<Order-Dept>) created.
-10:44:54(6810) : <Spark> -> Spark session:  (OrderDept) created.
-10:44:54(7010) : <Order-Dept: Process New Order> -> Processing order: 1
-10:44:54(7210) : <Order-Dept: Process New Order> -> Placing new order: 1
-10:44:55(0840) : <Sales-Dept><NewLead> -> New lead: Daenerys Targaryen Mother of Dragons and all that 99
-10:44:55(1350) : <Application> -> App Ended
+21/02/2019
+15:08:04(7880) : <Log> -> New File Started
+15:08:04(7930) : <Application> -> App Started
+15:08:15(8990) : <Spark> -> Spark session:  () created.
+15:08:15(9130) : <App 0> -> Adding task <TaskCreateDepartments> to task list
+15:08:15(9260) : <App> <TaskCreateDepartments> -> Creating Departments
+15:08:15(9370) : <TaskProducer> -> Adding TaskCreateDepartments to the thread pool
+15:08:15(9470) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskCreateDepartments
+15:08:15(9520) : <App> <TaskCreateDepartments> -> Creating Departments
+15:08:16(8030) : <App> <TaskCreateDepartments> -> Creating HR department
+15:08:16(8030) : <App> <TaskCreateDepartments> -> Creating HR department
+15:08:17(4710) : <Spark> -> Spark session:  () created.
+15:08:17(4720) : <Spark> -> Spark session:  () created.
+15:08:17(4770) : <HR 1> -> Adding task <TaskRollCall> to task list
+15:08:17(4770) : <HR 1> -> Adding task <TaskRollCall> to task list
+15:08:17(4810) : <App> <TaskCreateDepartments> -> Creating Sales department
+15:08:17(4810) : <App> <TaskCreateDepartments> -> Creating Sales department
+15:08:17(4810) : <TaskProducer> -> Adding TaskRollCall to the thread pool
+15:08:17(4820) : <TaskProducer> -> Adding TaskRollCall to the thread pool
+15:08:17(4860) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
+15:08:17(4860) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
+15:08:17(4860) : <Spark> -> Spark session:  () created.
+15:08:17(4870) : <Spark> -> Spark session:  () created.
+15:08:17(4910) : <HR> <TaskRollCall> -> Starting roll call for HR department
+15:08:17(4920) : <HR> <TaskRollCall> -> Starting roll call for HR department
+15:08:17(4920) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 1
+15:08:17(4920) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 1
+15:08:17(4980) : <Sales 2> -> Adding task <TaskRollCall> to task list
+15:08:17(5170) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
+15:08:17(5170) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
+15:08:17(5170) : <Sales 2> -> Adding task <TaskRollCall> to task list
+15:08:17(5260) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
+15:08:17(5260) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
+15:08:17(5270) : <App> <TaskCreateDepartments> -> Creating IT department
+15:08:17(5280) : <App> <TaskCreateDepartments> -> Creating IT department
+15:08:17(5280) : <TaskProducer> -> Adding TaskRollCall to the thread pool
+15:08:17(5290) : <TaskProducer> -> Adding TaskRollCall to the thread pool
+15:08:17(5340) : <App> <TaskCreateDepartments> -> Creating Accounts department
+15:08:17(5350) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
+15:08:17(5350) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
+15:08:17(5350) : <App> <TaskCreateDepartments> -> Creating Accounts department
+15:08:17(5420) : <Sales> <TaskRollCall> -> Starting roll call for Sales department
+15:08:17(5420) : <Sales> <TaskRollCall> -> Starting roll call for Sales department
+15:08:17(5420) : <App> <TaskCreateDepartments> -> Creating Garage Services department
+15:08:17(5420) : <App> <TaskCreateDepartments> -> Creating Garage Services department
+15:08:17(5470) : <App> <TaskCreateDepartments> -> Creating Stock department
+15:08:17(5470) : <App> <TaskCreateDepartments> -> Creating Stock department
+15:08:17(5650) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
+15:08:17(5660) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
+15:08:17(5700) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
+15:08:17(5700) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
+15:08:17(5720) : <Spark> -> Spark session:  () created.
+15:08:17(5710) : <Spark> -> Spark session:  () created.
+15:08:17(5830) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
+15:08:17(5830) : <Stock 6> -> Adding task <TaskRollCall> to task list
+15:08:17(5830) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
+15:08:17(5840) : <Stock 6> -> Adding task <TaskRollCall> to task list
+15:08:17(5880) : <App> <TaskCreateDepartments> -> Creating Order department
+15:08:17(5880) : <App> <TaskCreateDepartments> -> Creating Order department
+15:08:17(5880) : <TaskProducer> -> Adding TaskRollCall to the thread pool
+15:08:17(5890) : <TaskProducer> -> Adding TaskRollCall to the thread pool
+15:08:17(5930) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
+15:08:17(5930) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
+15:08:17(5940) : <Spark> -> Spark session:  () created.
+15:08:17(5940) : <Spark> -> Spark session:  () created.
+15:08:17(5980) : <Order 8> -> Adding task <TaskRollCall> to task list
+15:08:17(5980) : <Stock> <TaskRollCall> -> Starting roll call for Stock department
+15:08:17(5980) : <Stock> <TaskRollCall> -> Starting roll call for Stock department
+15:08:17(5980) : <Order 8> -> Adding task <TaskRollCall> to task list
+15:08:17(6050) : <Sales 2> -> Adding task <TaskNewLead> to task list
+15:08:17(6150) : <TaskProducer> -> Adding TaskRollCall to the thread pool
+15:08:17(6160) : <TaskProducer> -> Adding TaskRollCall to the thread pool
+15:08:17(6210) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
+15:08:17(6210) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
+15:08:17(6220) : <Stock 6> -> Adding task <TaskUpdateStock> to task list
+15:08:17(6230) : <TaskProducer> -> Adding TaskNewLead to the thread pool
+15:08:17(6280) : <Application> -> App Ended
+15:08:17(6270) : <Order> <TaskRollCall> -> Starting roll call for Order department
+15:08:17(6270) : <Order> <TaskRollCall> -> Starting roll call for Order department
+15:08:17(6280) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskNewLead
+15:08:17(6280) : <TaskProducer> -> Adding TaskUpdateStock to the thread pool
+15:08:17(6320) : <SalesPerson> -> Salesperson performing duty
+15:08:17(6320) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskUpdateStock
+15:08:17(6580) : <Stock> <TaskUpdateStock> -> Updating Stock
+15:08:17(6580) : <SalesPerson> -> New lead: Daenerys Targaryen Mother of Dragons 1
+15:08:17(6630) : <SalesPerson> -> Clint Eastwood greets new lead Daenerys
+15:08:20(9830) : <Stock-Dept> <StockCheck> -> New file to check:src/main/resources/data/car_stock_2.json
+15:08:20(9930) : <Stock-Dept> <StockDelivery> -> Reading stock file
+15:08:23(0390) : <Stock-Dept> <StockList> -> Updating stock list
