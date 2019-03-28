@@ -48,6 +48,8 @@ public class Person{
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+	// TODO - Roles and Departments should not be here!!!!!!!!!!
 	public String getRole() {
 		return role;
 	}

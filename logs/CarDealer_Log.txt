@@ -1,89 +1,35 @@
-21/02/2019
-15:08:04(7880) : <Log> -> New File Started
-15:08:04(7930) : <Application> -> App Started
-15:08:15(8990) : <Spark> -> Spark session:  () created.
-15:08:15(9130) : <App 0> -> Adding task <TaskCreateDepartments> to task list
-15:08:15(9260) : <App> <TaskCreateDepartments> -> Creating Departments
-15:08:15(9370) : <TaskProducer> -> Adding TaskCreateDepartments to the thread pool
-15:08:15(9470) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskCreateDepartments
-15:08:15(9520) : <App> <TaskCreateDepartments> -> Creating Departments
-15:08:16(8030) : <App> <TaskCreateDepartments> -> Creating HR department
-15:08:16(8030) : <App> <TaskCreateDepartments> -> Creating HR department
-15:08:17(4710) : <Spark> -> Spark session:  () created.
-15:08:17(4720) : <Spark> -> Spark session:  () created.
-15:08:17(4770) : <HR 1> -> Adding task <TaskRollCall> to task list
-15:08:17(4770) : <HR 1> -> Adding task <TaskRollCall> to task list
-15:08:17(4810) : <App> <TaskCreateDepartments> -> Creating Sales department
-15:08:17(4810) : <App> <TaskCreateDepartments> -> Creating Sales department
-15:08:17(4810) : <TaskProducer> -> Adding TaskRollCall to the thread pool
-15:08:17(4820) : <TaskProducer> -> Adding TaskRollCall to the thread pool
-15:08:17(4860) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
-15:08:17(4860) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
-15:08:17(4860) : <Spark> -> Spark session:  () created.
-15:08:17(4870) : <Spark> -> Spark session:  () created.
-15:08:17(4910) : <HR> <TaskRollCall> -> Starting roll call for HR department
-15:08:17(4920) : <HR> <TaskRollCall> -> Starting roll call for HR department
-15:08:17(4920) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 1
-15:08:17(4920) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 1
-15:08:17(4980) : <Sales 2> -> Adding task <TaskRollCall> to task list
-15:08:17(5170) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
-15:08:17(5170) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
-15:08:17(5170) : <Sales 2> -> Adding task <TaskRollCall> to task list
-15:08:17(5260) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
-15:08:17(5260) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
-15:08:17(5270) : <App> <TaskCreateDepartments> -> Creating IT department
-15:08:17(5280) : <App> <TaskCreateDepartments> -> Creating IT department
-15:08:17(5280) : <TaskProducer> -> Adding TaskRollCall to the thread pool
-15:08:17(5290) : <TaskProducer> -> Adding TaskRollCall to the thread pool
-15:08:17(5340) : <App> <TaskCreateDepartments> -> Creating Accounts department
-15:08:17(5350) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
-15:08:17(5350) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
-15:08:17(5350) : <App> <TaskCreateDepartments> -> Creating Accounts department
-15:08:17(5420) : <Sales> <TaskRollCall> -> Starting roll call for Sales department
-15:08:17(5420) : <Sales> <TaskRollCall> -> Starting roll call for Sales department
-15:08:17(5420) : <App> <TaskCreateDepartments> -> Creating Garage Services department
-15:08:17(5420) : <App> <TaskCreateDepartments> -> Creating Garage Services department
-15:08:17(5470) : <App> <TaskCreateDepartments> -> Creating Stock department
-15:08:17(5470) : <App> <TaskCreateDepartments> -> Creating Stock department
-15:08:17(5650) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
-15:08:17(5660) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
-15:08:17(5700) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
-15:08:17(5700) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
-15:08:17(5720) : <Spark> -> Spark session:  () created.
-15:08:17(5710) : <Spark> -> Spark session:  () created.
-15:08:17(5830) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
-15:08:17(5830) : <Stock 6> -> Adding task <TaskRollCall> to task list
-15:08:17(5830) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
-15:08:17(5840) : <Stock 6> -> Adding task <TaskRollCall> to task list
-15:08:17(5880) : <App> <TaskCreateDepartments> -> Creating Order department
-15:08:17(5880) : <App> <TaskCreateDepartments> -> Creating Order department
-15:08:17(5880) : <TaskProducer> -> Adding TaskRollCall to the thread pool
-15:08:17(5890) : <TaskProducer> -> Adding TaskRollCall to the thread pool
-15:08:17(5930) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
-15:08:17(5930) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
-15:08:17(5940) : <Spark> -> Spark session:  () created.
-15:08:17(5940) : <Spark> -> Spark session:  () created.
-15:08:17(5980) : <Order 8> -> Adding task <TaskRollCall> to task list
-15:08:17(5980) : <Stock> <TaskRollCall> -> Starting roll call for Stock department
-15:08:17(5980) : <Stock> <TaskRollCall> -> Starting roll call for Stock department
-15:08:17(5980) : <Order 8> -> Adding task <TaskRollCall> to task list
-15:08:17(6050) : <Sales 2> -> Adding task <TaskNewLead> to task list
-15:08:17(6150) : <TaskProducer> -> Adding TaskRollCall to the thread pool
-15:08:17(6160) : <TaskProducer> -> Adding TaskRollCall to the thread pool
-15:08:17(6210) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
-15:08:17(6210) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskRollCall
-15:08:17(6220) : <Stock 6> -> Adding task <TaskUpdateStock> to task list
-15:08:17(6230) : <TaskProducer> -> Adding TaskNewLead to the thread pool
-15:08:17(6280) : <Application> -> App Ended
-15:08:17(6270) : <Order> <TaskRollCall> -> Starting roll call for Order department
-15:08:17(6270) : <Order> <TaskRollCall> -> Starting roll call for Order department
-15:08:17(6280) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskNewLead
-15:08:17(6280) : <TaskProducer> -> Adding TaskUpdateStock to the thread pool
-15:08:17(6320) : <SalesPerson> -> Salesperson performing duty
-15:08:17(6320) : <Simulator> <Consumer> -> Executing task -> department_tasks.TaskUpdateStock
-15:08:17(6580) : <Stock> <TaskUpdateStock> -> Updating Stock
-15:08:17(6580) : <SalesPerson> -> New lead: Daenerys Targaryen Mother of Dragons 1
-15:08:17(6630) : <SalesPerson> -> Clint Eastwood greets new lead Daenerys
-15:08:20(9830) : <Stock-Dept> <StockCheck> -> New file to check:src/main/resources/data/car_stock_2.json
-15:08:20(9930) : <Stock-Dept> <StockDelivery> -> Reading stock file
-15:08:23(0390) : <Stock-Dept> <StockList> -> Updating stock list
+28/02/2019
+17:30:08(2960) : <Log> -> New File Started
+17:30:08(3040) : <Day> -> Starting a new day.
+17:30:08(3160) : <dept.deptName()> <CreateDepartments> -> Creating Departments
+17:30:08(9090) : <dept.deptName()> <CreateDepartments> -> Creating HR department
+17:30:10(5620) : <Spark> -> Spark session:  () created.
+17:30:10(5660) : <dept.deptName()> <CreateDepartments> -> Creating Sales department
+17:30:11(1310) : <Spark> -> Spark session:  () created.
+17:30:11(1390) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 22
+17:30:11(1430) : <dept.deptName()> <CreateDepartments> -> Creating IT department
+17:30:11(1510) : <dept.deptName()> <CreateDepartments> -> Creating Accounts department
+17:30:11(1550) : <dept.deptName()> <CreateDepartments> -> Creating Garage Services department
+17:30:11(1590) : <dept.deptName()> <CreateDepartments> -> Creating Stock department
+17:30:11(1670) : <Spark> -> Spark session:  () created.
+17:30:11(1710) : <dept.deptName()> <CreateDepartments> -> Creating Order department
+17:30:11(1790) : <Spark> -> Spark session:  () created.
+17:30:11(1830) : <HR 1> -> New task received
+17:30:11(1910) : 	null -> Emp ID: 0 Emp: Car Dealership Caretaker Role: null
+17:30:11(1990) : <HR> <TaskRollCall> -> Starting roll call for HR department
+17:30:11(2310) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
+17:30:11(2430) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
+17:30:11(2470) : <Sales 2> -> New task received
+17:30:11(2550) : 	null -> Emp ID: 0 Emp: Car Dealership Caretaker Role: null
+17:30:11(2590) : <Sales> <TaskRollCall> -> Starting roll call for Sales department
+17:30:11(2830) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
+17:30:11(2910) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
+17:30:11(2990) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
+17:30:11(3030) : <Stock 6> -> New task received
+17:30:11(3070) : 	null -> Emp ID: 0 Emp: Car Dealership Caretaker Role: null
+17:30:11(3150) : <Stock> <TaskRollCall> -> Starting roll call for Stock department
+17:30:11(3390) : 	6 -> Emp ID: 16 Emp: John Wayne Role: role
+17:30:11(3430) : <Order 7> -> New task received
+17:30:11(3510) : 	null -> Emp ID: 0 Emp: Car Dealership Caretaker Role: null
+17:30:11(3550) : <Order> <TaskRollCall> -> Starting roll call for Order department
+17:30:11(3750) : 	7 -> Emp ID: 17 Emp: Queen Victoria Role: role

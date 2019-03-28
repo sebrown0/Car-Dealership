@@ -1,6 +1,48 @@
 /*
 ** Initial data for the schema.
 */
+/**************** CAR DATA ****************/
+INSERT INTO `manufacturer`
+	(`manufacturer_name`)
+VALUES
+	('Ford'),
+    ('Volkswagen');
+    
+INSERT INTO `model`
+	(`model_vin`,`manufacturer_id`, `model_name`, `retail_price`, `date_of_manufacture`)
+VALUES
+	('FD95219PKV', 1, 'Focus', 22000, '2019-01-01');			-- Ford
+    
+INSERT INTO `model_attributes`
+	(`model_vin`, `colour`, `transmission`, `horsepower`)
+VALUES
+	('FD95219PKV', 'Red', 'Auto', 2000);	
+    
+INSERT INTO `model_enhancements`
+	(`model_vin`, `sunroof`, `alloy_wheels`, `ac`)
+VALUES
+	('FD95219PKV', 0, 1, 1);	
+
+INSERT INTO `stock_status`
+	(`status`)
+VALUES
+	('Order'),					-- New order
+	('Awaiting Preparation'),	-- Car has just arrived so can't be viewed or sold
+    ('Forecourt'),				-- Can be sold
+    ('Test'),					-- On a test drive
+    ('Sold'),					-- Sold awaiting delivery
+    ('Delivered');				-- Car has been delivered to customer
+
+INSERT INTO `stock_updates`
+	(`update_id`, `file_name`)
+VALUES
+	(0,  'car_stock_0.json');		
+    
+INSERT INTO `Customers` 
+	(`first_name`,`last_name`)
+VALUES
+	('Steve','Brown');
+
 -- Create departments
 -- SET foreign_key_checks = 0;
 INSERT INTO `departments` 
@@ -31,6 +73,8 @@ VALUES
     ('Mechanic',''),
     ('Valet',''),
     ('PA',''),
+    ('Storeperson',''),
+    ('Clerk',''),
     ('CEO',''); 
     
 -- Add seniority levels for each role
@@ -97,7 +141,15 @@ VALUES
     (9, 'PA', 2), -- PA Associate
     (9, 'PA', 3), -- PA Senior Associate
     
-    (10, 'CEO', 9); -- CEO
+    (10, 'Storeperson', 1), -- Storeperson Junior Associate
+    (10, 'Storeperson', 2), -- Storeperson Associate
+    (10, 'Storeperson', 3), -- Storeperson Senior Associate
+    
+    (11, 'Clerk', 1), 		-- Clerk Junior Associate
+    (11, 'Clerk', 2), 		-- Clerk Associate
+    (11, 'Clerk', 3), 		-- Storeperson Senior Associate
+    
+    (12, 'CEO', 9); -- CEO
     
 -- Add salary band for each level of seniority
 -- salary_band_id - auto num
@@ -145,10 +197,11 @@ call AddEmployee('Garage Services', 'The', 'Rock','Valet', 'Unskilled', 11000);
 call AddEmployee('Garage Services', 'Bart', 'Simpson','Mechanic', 'Manager', 31000);    
 call AddEmployee('Sales', 'Clint', 'Eastwood','Salesperson', 'Senior Associate', 24000);
 call AddEmployee('Sales', 'Maggie', 'Smith','Salesperson', 'Manager', 42343);
-call AddEmployee('Sales', 'Homer', 'Simpson','Receptionist', 'Associate', 17633);   
+call AddEmployee('Sales', 'Homer', 'Simpson','Receptionist', 'Associate', 17999);   
 call AddEmployee('None', 'Queen', 'Elizabeth','CEO', 'CEO', 80000);
 call AddEmployee('None', 'Cleo', 'Rocos','PA', 'Associate', 19000);
-
+call AddEmployee('Stock', 'John', 'Wayne','Storeperson', 'Junior Associate', 14000);
+call AddEmployee('Order', 'Queen', 'Victoria','Clerk', 'Associate', 17500);   
 -- Add some managers to departments
 call UpdateDepartmentManager (2,1); -- ( man_id,dept_id)
 call UpdateDepartmentManager (4,2); -- ( man_id,dept_id)
@@ -173,58 +226,15 @@ VALUES
 	(11, '1213-CE-1956', '1956-10-22', (select DATE(now())),'', ''),
 	(13, '7600-HS-1977', '1977-04-11', (select DATE(now())),'Marge Simpson','Male'),
 	(14, '1033-ER-1972', '1922-05-27', (select DATE(now())),'Prince Philip', 'Female'),
-    (15, '1199-CR-1990', '1990-03-05', (select DATE(now())),'', '');
+    (15, '1199-CR-1990', '1990-03-05', (select DATE(now())),'', ''),
+    (16, '8912-JW-1940', '1940-03-25', (select DATE(now())),'', ''),
+    (17, '1222-QV-1900', '1900-09-05', (select DATE(now())),'', '');
     
 -- Add some holidays for a few employees WON'T WORK IF HISTORIC DATE
 -- USE INSERTS FOR HISTORIC DATES AS THE SP CHECK THIS.
-call BookHoliday(2,'2019-05-01','2019-05-04');
+/*call BookHoliday(2,'2019-05-01','2019-05-04');
 call BookHoliday(2,'2019-06-01','2019-06-14');
 call BookHoliday(6,'2019-03-11','2019-03-29');
 call BookHoliday(9,'2019-11-01','2019-11-09');
 call BookHoliday(11,'2019-02-18','2019-03-12');
-
-/**************** CAR DATA ****************/
-INSERT INTO `manufacturer`
-	(`manufacturer_name`)
-VALUES
-	('Ford'),
-    ('Volkswagen');
-    
-INSERT INTO `model`
-	(`model_vin`,`manufacturer_id`, `model_name`, `retail_price`, `date_of_manufacture`)
-VALUES
-	('FD95219PKV', 1, 'Focus', 22000, '2019-01-01');			-- Ford
-    
-INSERT INTO `model_attributes`
-	(`model_vin`, `colour`, `transmission`, `horsepower`)
-VALUES
-	('FD95219PKV', 'Red', 'Auto', 2000);	
-    
-INSERT INTO `model_enhancements`
-	(`model_vin`, `sunroof`, `alloy_wheels`, `ac`)
-VALUES
-	('FD95219PKV', 0, 1, 1);	
-
-INSERT INTO `stock_status`
-	(`status`)
-VALUES
-	('Order'),					-- New order
-	('Awaiting Preparation'),	-- Car has just arrived so can't be viewed or sold
-    ('Forecourt'),				-- Can be sold
-    ('Test'),					-- On a test drive
-    ('Sold'),					-- Sold awaiting delivery
-    ('Delivered');				-- Car has been delivered to customer
-
-INSERT INTO `stock_updates`
-	(`update_id`, `file_name`)
-VALUES
-	(0,  'car_stock_0.json');		
-    
-INSERT INTO `Customers` 
-	(`first_name`,`last_name`)
-VALUES
-	('Steve','Brown');
-	
-    
-
-
+*/

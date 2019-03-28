@@ -15,11 +15,15 @@ import dao.DatabaseDAO;
 import enums.DbProperties;
 
 /**
- * @author Brown
+ * @author Steve Brown
  *
+ * Writes a dataframe to the database.
  */
 public class SparkDfWriter implements SparkDataFramefWriter {
 
+	/*
+	 * Write the df to the database using the database properties.
+	 */
 	private boolean writeDf(Dataset<Row> df, DatabaseDAO db) {
 		// TODO - Error checking
 		df.write()

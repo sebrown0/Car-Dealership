@@ -16,16 +16,24 @@ import utils.Logger;
 public class TaskProducer implements Runnable {
 
 	private static Log log = new Logger(false);
-	private final static String objId = "<TaskProducer>";
+	private final static String objId = "<Producer>";
 	
-	private BlockingQueue<Task> taskQueue;
-	private Task task;
+	private BlockingQueue<Task_OLD> taskQueue = null;
+	private Task_OLD task = null;
 
-	public TaskProducer(BlockingQueue<Task> taskQueue, Task task) {	
+	public TaskProducer(BlockingQueue<Task_OLD> taskQueue) {	
 		this.taskQueue = taskQueue;
+	}
+	
+//	public TaskProducer(BlockingQueue<Task> taskQueue, Task task) {	
+//		this.taskQueue = taskQueue;
+//		this.task = task;
+//	}
+	
+	public void addTask(Task_OLD task) {
 		this.task = task;
 	}
-		
+	
 	@Override
 	public void run() {
 		try {

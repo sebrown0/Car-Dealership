@@ -37,6 +37,7 @@ public class Spark implements SparkSessionDAO{
 		}
 	}
 
+	@Override
 	public void createNewSparkSession() {
 		// We only want 1 session per instance
 		if (!activeSession) {

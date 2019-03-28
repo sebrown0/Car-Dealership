@@ -4,15 +4,14 @@
 package hr_department;
 
 import department.Department;
-import sales_department.SalesDept;
 
 /**
- * @author Brown
+ * @author Steve Brown
  *
  */
 public interface StaffDuty {
 
-	void performDuty(Department department);
+	// Staff member executes a task specific to them.
+	void performDuty(Department aDepartment);
 
-	void performDuty(SalesDept department);
 }

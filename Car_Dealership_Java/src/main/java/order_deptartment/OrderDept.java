@@ -4,10 +4,9 @@
 package order_deptartment;
 
 import department.Department;
-import hr_department.Employee;
-import hr_department.NewEmployee;
-import hr_department.StaffMember;
-import sales_department.SalesPerson;
+import department_tasks.Task;
+import employees.Employee;
+import employees.SalesPerson;
 
 /**
  * @author Steve Brown
@@ -24,13 +23,21 @@ public class OrderDept extends Department  {
 
 	public void newOrder(Order carOrderDetails) {
 		
-		ProcessNewOrder newOrder = new ProcessNewOrder(carOrderDetails, dataBase(), spark());
+		// TODO - Add this as a task.
+		
+		TaskProcessNewOrder newOrder = new TaskProcessNewOrder(carOrderDetails, dataBase(), spark());
 		newOrder.begin();
 	}
 
 	@Override
 	public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role) {				
-		staff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role)); // TODO - Change to proper employee
+		idleStaff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role)); // TODO - Change to proper employee
+	}
+
+	@Override
+	public void delegateTask(Task task) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -7,8 +7,8 @@ import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 
 import department.Department;
-import department_tasks.TaskNewLead;
-import department_tasks.Task;
+import department_tasks.MeetCustomer;
+import department_tasks.Task_OLD;
 import department_tasks.TaskUpdateStock;
 
 /**
@@ -22,13 +22,13 @@ public class ContinuousTasksProducer implements Runnable {
 	private final static String objId = "<Simulator> <Producer>";
 	
 	private final static String [] continuousTasks = {"<None>", "<NewLeadTask>", "<StockCheckTask>"};
-	BlockingQueue<Task> taskQueue;
+	BlockingQueue<Task_OLD> taskQueue;
 	
 	private Department salesDept;
 	private Department stockDept;
 		
 	// TODO - Pass departments. Each department has its own BlockingQueue.
-	public ContinuousTasksProducer(BlockingQueue<Task> taskQueue, Department saleDept, Department stockDept) {	
+	public ContinuousTasksProducer(BlockingQueue<Task_OLD> taskQueue, Department saleDept, Department stockDept) {	
 		this.taskQueue = taskQueue;
 		this.salesDept = saleDept;
 		this.stockDept = stockDept;
@@ -46,7 +46,7 @@ public class ContinuousTasksProducer implements Runnable {
 					switch (continuousTasks[dice]) {
 					case "<NewLeadTask>":
 						log.logEntry(objId, "New Lead");
-						taskQueue.put(new TaskNewLead(salesDept));
+						taskQueue.put(new MeetCustomer(salesDept));
 						break;
 						
 					case "<StockCheckTask>":

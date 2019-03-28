@@ -24,9 +24,9 @@ public class Staff {
 		team = new ArrayList<StaffMember>();
 	}
 	
-	public StaffMember getStaffMember() {
-		return team.get(0);
-	}
+//	public StaffMember getStaffMember() {
+//		return team.get(0);
+//	}
 
 	public void addDepStaffMember(StaffMember tm) {
 		log.logEntry("\t" + tm.deptId(), 

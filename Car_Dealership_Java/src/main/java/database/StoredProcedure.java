@@ -13,22 +13,24 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import enums.CD_Schema;
 import enums.ErrorCodes;
-import enums.SalesDeptSP;
 import enums.ErrorCodes.ErrorHandler;
 import utils.Log;
 import utils.Logger;
 
 /**
  * @author Steve Brown 
- * Handles/executes a stored procedure.
- * Inputs: 
- * 1. Database object.
- * 2. Database connection interface.
- * 3. Database connection. 
  * 
- * Returns a Stored Procedure object with Error code (if any) and result set if successful.
+ * Handles/executes a stored procedure.
+ * 
+ * Inputs: 
+ * 	1. Database object.
+ * 	2. Database connection interface.
+ * 	3. Database connection. 
+ * 
+ * Returns:
+ *  1. Stored Procedure object with Error code (if any).
+ *  2. A result set if successful.
  */
 public class StoredProcedure {
 
@@ -36,14 +38,8 @@ public class StoredProcedure {
 	private ResultSet rs = null;
 	private Connection conn = null;
 	private ErrorCodes eCode = ErrorCodes.NONE;
-
 	private Log log = new Logger(false);
 	private static final String objId = "<StoredProcedure>";
-
-	public StoredProcedure(String query, Database database) {
-		this.query = query;
-		this.conn = database.dbConnection().connection();
-	}
 
 	public StoredProcedure(String query, DbConnectionInterface dbIt) {
 		this.query = query;
@@ -55,6 +51,9 @@ public class StoredProcedure {
 		this.conn = conn;
 	}
 
+	/*
+	 * 
+	 */
 	public StoredProcedure execute() {
 		try {
 			CallableStatement stmt = conn.prepareCall(query);
@@ -131,6 +130,9 @@ public class StoredProcedure {
 		return rs;
 	}
 
+	/*
+	 * Return any error code. None is the default.
+	 */
 	public ErrorCodes errorCode() {
 		return eCode;
 	}	
@@ -140,31 +142,37 @@ public class StoredProcedure {
 	 * 
 	 * Build is a static method called with the inputs below.
 	 * 
-	 * The statement is parsed recursively until all the elements are exhausted.
+	 * The statement is parsed recursively until all the elements (parameters) are exhausted.
 	 * 
 	 * Inputs:
-	 * 		1. ArrayList<String> elements
+	 * 		1. ArrayList<String> stmntParameter
 	 * 			A list of values to use as inputs to the statement.
 	 * 			The "regex" part of the statement is replaced by the next element in the list.
 	 * 		2. StoredProcedures sp
 	 * 			The name (value) of the stored procedure.
 	 */
-	public static class QueryBuilder{
+	public static class QueryBuilder{ 
 				
-		private static String parseStatement(ArrayList<String> elements, String statement) {
+		/*
+		 *  Recursively parses the statement replacing "regex" with the current parameter in the list.
+		 */
+		private static String parseStatement(ArrayList<String> stmntParameter, String statement) {
 	
-			Pattern pattern = Pattern.compile("regex");
+			Pattern pattern = Pattern.compile("regex");			// Place holder for the parameter we want to substitute.
 			Matcher match = pattern.matcher(statement);
 		
-			if(match.find() && !elements.isEmpty()) {			// TODO - Error handler
-				String s = match.replaceFirst(elements.get(0));
-				elements.remove(0);
-				statement = parseStatement(elements, s);			
+			if(match.find() && !stmntParameter.isEmpty()) {			// TODO - Error handler
+				String s = match.replaceFirst(stmntParameter.get(0));
+				stmntParameter.remove(0);
+				statement = parseStatement(stmntParameter, s);			
 			}
 						
 			return statement;
 		}
 
+		/*
+		 *  Recursively parses the statement replacing "regex" with the "element".
+		 */
 		private static String parseStatement(String element, String statement) {
 			
 			Pattern pattern = Pattern.compile("regex");
@@ -177,13 +185,20 @@ public class StoredProcedure {
 						
 			return statement;
 		}
-		public static String build(ArrayList<String> elements, String stmnt) {
+		
+		/*
+		 *  Build a query/statement for the passed statement with multiple parameters.
+		 */
+		public static String build(ArrayList<String> stmntParameter, String stmnt) {
 			
-			String query = parseStatement(elements, stmnt);
+			String query = parseStatement(stmntParameter, stmnt);
 						
 			return query;
 		}
 
+		/*
+		 *  Build a query/statement for the passed statement with the one parameter.
+		 */
 		public static String build(String element, String stmnt) {
 			String query = parseStatement(element, stmnt);
 			

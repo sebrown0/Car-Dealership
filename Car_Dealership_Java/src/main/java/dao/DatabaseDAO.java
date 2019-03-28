@@ -9,8 +9,9 @@ import database.DbConnectionInterface;
 import database.StoredProcedure;
 
 /**
- * @author Brown
- * Rules for getting and setting the properties for a specific instance of a Db.
+ * @author Steve Brown
+ * 
+ *  Rules for getting and setting the properties for a specific instance of a Db.
  */
 public interface DatabaseDAO {
 	// Sets hard coded values for a DB instance.

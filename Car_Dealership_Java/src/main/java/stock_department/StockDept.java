@@ -4,7 +4,8 @@
 package stock_department;
 
 import department.Department;
-import sales_department.SalesPerson;
+import department_tasks.Task;
+import employees.SalesPerson;
 
 /**
  * @author Steve Brown
@@ -20,7 +21,13 @@ public class StockDept extends Department {
 
 	@Override
 	public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role) {
-		staff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role)); // TODO - Change to proper employee
+		idleStaff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role)); // TODO - Change to proper employee
+	}
+
+	@Override
+	public void delegateTask(Task task) {
+		// TODO Auto-generated method stub
+		
 	}
 
 //	private UpdateStock updateStock;

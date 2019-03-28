@@ -17,8 +17,11 @@ public abstract class StockUpdate implements StockUpdateProcess{
 	}
 
 	// Force the implementation onto sub class (UpdateStock).
+	@Override
 	public abstract ErrorCodes checkForNewStock();
+	@Override
 	public abstract ErrorCodes readStockFile();
+	@Override
 	public abstract ErrorCodes updateStockList();
 	
 }

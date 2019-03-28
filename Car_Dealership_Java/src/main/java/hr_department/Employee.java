@@ -3,15 +3,12 @@
  */
 package hr_department;
 
-import department.Department;
-import sales_department.SalesDept;
-
 /**
  * @author Steve Brown
  *
  */
 //TODO - Do with interface instead?????
-public abstract class Employee extends Person implements StaffMember{
+public abstract class Employee extends Person {
 
 	private boolean empWorking = false;
 	
@@ -32,27 +29,27 @@ public abstract class Employee extends Person implements StaffMember{
 		this.empWorking = empWorking;
 	}
 
-	@Override
-	public long id() {
-		return getId();
-	}
+//	@Override
+//	public long id() {
+//		return getId();
+//	}
 
-	@Override
-	public String firstName() {
-		return getFirstName();
-	}
+//	@Override
+//	public String firstName() {
+//		return getFirstName();
+//	}
 
-	@Override
-	public String lastName() {
-		return getLastName();
-	}
+//	@Override
+//	public String lastName() {
+//		return getLastName();
+//	}
 
-	@Override
+	
 	public String role() {
 		return getRole();
 	}
 
-	@Override
+	
 	public String deptId() {
 		return getDeptId();
 	}

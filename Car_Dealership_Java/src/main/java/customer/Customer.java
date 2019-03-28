@@ -3,8 +3,8 @@
  */
 package customer;
 
+import employees.SalesPerson;
 import hr_department.Person;
-import sales_department.SalesPerson;
 import stock_department.CarDetails;
 
 /**

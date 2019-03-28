@@ -8,7 +8,6 @@ import org.apache.spark.sql.Row;
 
 import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
-import database.Database;
 
 /**
  * @author Steve Brown

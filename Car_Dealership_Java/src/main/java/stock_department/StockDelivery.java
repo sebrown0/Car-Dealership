@@ -5,7 +5,6 @@ import org.apache.spark.sql.Row;
 
 import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
-import database.Database;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
@@ -77,9 +76,14 @@ public class StockDelivery{
 			Dataset<Row> modelEnhDf = prepareModelExtraDetails(carStockDf);
 			try {
 				SparkDataFramefWriter dfWrite = new SparkDfWriter();
+				log.logEntry(objId, "Attempting to write model details to the database");
+				deliveryDf.show();
 				if(dfWrite.writeDfToDbTable(deliveryDf, dataBase, TableNames.MODEL.tblName())) {
-					if(dfWrite.writeDfToDbTable(modelAttrDf, dataBase, TableNames.MODEL_ATTR.tblName())) 
+					log.logEntry(objId, "Attempting to write model attributes to the database");
+					if(dfWrite.writeDfToDbTable(modelAttrDf, dataBase, TableNames.MODEL_ATTR.tblName())) {
+						log.logEntry(objId, "Attempting to write model enhancements to the database");
 						dfWrite.writeDfToDbTable(modelEnhDf, dataBase, TableNames.MODEL_ENH.tblName());
+					}
 				}
 			} catch (Throwable e) {
 				// Check for the most probable error 

@@ -15,7 +15,7 @@ import stock_department.StockUpdate;
  * Updates the stock if there is a new stock file.
  * Uses the 'rules' in StockUpdate and it's interface.
  */
-public class TaskUpdateStock extends StockUpdate implements Task{
+public class TaskUpdateStock extends StockUpdate implements Task_OLD{
 	
 	private final String objId;
 	private Department department = null;
@@ -26,7 +26,6 @@ public class TaskUpdateStock extends StockUpdate implements Task{
 	public TaskUpdateStock(Department dept) {
 		this.department = dept;
 		this.objId = "<" + dept.deptName() + ">" + " <" + this.getClass().getSimpleName() + ">";
-		department.addTask(this);	// Add the task that is THIS task to the department's task list.
 	}
 	
 	@Override
@@ -56,5 +55,16 @@ public class TaskUpdateStock extends StockUpdate implements Task{
 	@Override
 	public void run() {
 		stockCheck();		
+	}
+
+	@Override
+	public boolean blocking() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void add() {
+		department.addTask(this);	// Add the task that is THIS task to the department's task list.		
 	}
 }

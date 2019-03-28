@@ -7,36 +7,37 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
+import dao.DatabaseDAO;
+import database.MySqlDB;
 import database.StoredProcedure;
 import department.Department;
-import enums.DepartmentNames;
 import enums.ErrorCodes;
 import enums.HRDeptSP;
 import hr_department.HRDept;
 import order_deptartment.OrderDept;
 import sales_department.SalesDept;
 import stock_department.StockDept;
+import utils.Log;
+import utils.Logger;
 
 /**
  * @author Steve Brown
  *
  *	Creates a list of departments from the Stored Procedure HRDeptSP.DEPARTMENT_IDS.
+ *	Departments are the only objects that can assign tasks. 
+ *	So they have to be created before any other tasks can be run.
  *	Should be run at the start of each new day.
  */
-//public class TaskCreateDepartments implements Task{
-public class TaskCreateDepartments extends Task{
+public class CreateDepartments {
 	
 	private final String objId;
-	private Department department = null;
 	private BlockingQueue<Department> departmentList = new ArrayBlockingQueue<>(8); // TODO - Number of depts
+	private Log log = new Logger(false);
+	private DatabaseDAO dataBase  = new MySqlDB();						// TODO - Database here?;
 
-	public TaskCreateDepartments(Department dept) {
-		this.department = dept;
-		this.objId = "<" + dept.deptName() + ">" + " <" + this.getClass().getSimpleName() + ">";
-	}
-
-	public void departmentTask() {
-		
+	
+	public CreateDepartments() {
+		this.objId = "<" + "dept.deptName()" + ">" + " <" + this.getClass().getSimpleName() + ">";
 	}
 	
 	/*
@@ -45,12 +46,13 @@ public class TaskCreateDepartments extends Task{
 	public ErrorCodes createDepartments() {
 		ErrorCodes errorCode = ErrorCodes.NONE;
 	
-		department.log().logEntry(objId, "Creating Departments");
+		log.logEntry(objId, "Creating Departments");
 
-		department.database().dbConnect(); // TODO - Drop DB connection when finished.
+		dataBase.dbConnect(); // TODO - Drop DB connection when finished.
+
 		
 		// Use a stored procedure to get the departments.
-		StoredProcedure sp = new StoredProcedure(HRDeptSP.GET_DEPARTMENTS.value(), department.database().dbConnection());
+		StoredProcedure sp = new StoredProcedure(HRDeptSP.GET_DEPARTMENTS.value(), dataBase.dbConnection());
 		sp.execute();
 
 		if (sp.errorCode() == ErrorCodes.NONE) {
@@ -60,7 +62,7 @@ public class TaskCreateDepartments extends Task{
 
 			if (!departments.isEmpty()) {
 				for (String id : departments.keySet()) {
-					department.log().logEntry(objId, "Creating " + departments.get(id) + " department");
+					log.logEntry(objId, "Creating " + departments.get(id) + " department");
 					
 					Department aDepartment = null;
 					switch (id) {			// TODO - Use enum for case statements
@@ -94,7 +96,7 @@ public class TaskCreateDepartments extends Task{
 				}
 			} else {
 				errorCode = ErrorCodes.UNKNOWN_ERROR; // TODO - Error code
-				department.log().logEntry(objId, errorCode.eCode());
+				log.logEntry(objId, errorCode.eCode());
 			}
 		}
 
@@ -105,20 +107,4 @@ public class TaskCreateDepartments extends Task{
 		// Will have to cast the receiving object to TaskCreateDepartments if instantiated as TaskRunner.
 		return departmentList;
 	}
-
-	@Override
-	public void run() {
-		createDepartments();
-	}
-
-	@Override
-	public boolean blocking() {
-		return true;
-	}
-
-	@Override
-	public void add() {
-		department.addTask(this);	// Add the task that is THIS task to the department's task list.
-	}
-
 }

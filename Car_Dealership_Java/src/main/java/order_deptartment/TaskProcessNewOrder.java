@@ -13,14 +13,12 @@ import org.apache.spark.sql.Row;
 import containers.AppContainers.ListContainer;
 import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
-import database.MySqlDB;
 import database.StoredProcedure;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.OrderDeptSP;
 import enums.TableNames;
 import order_deptartment.Order.OrderListTable;
-import spark.Spark;
 import spark.SparkDataFramefWriter;
 import spark.SparkDfWriter;
 import stock_department.CarDetails;
@@ -34,7 +32,7 @@ import utils.Logger;
  * @author Steve Brown
  * Creates a new order from the details given by the sales dept.
  */
-public class ProcessNewOrder extends OrderUpdate{
+public class TaskProcessNewOrder extends OrderUpdate{
 	private SparkSessionDAO spark = null;
 	private DatabaseDAO dbDAO = null;
 	private Order carOrderDetails = null;
@@ -49,14 +47,12 @@ public class ProcessNewOrder extends OrderUpdate{
 	
 	private long orderId = 0;
 	
-	public ProcessNewOrder(Order carOrderDetails, DatabaseDAO dbDAO, SparkSessionDAO spark) {
+	public TaskProcessNewOrder(Order carOrderDetails, DatabaseDAO dbDAO, SparkSessionDAO spark) {
 		// Create new spark session to use throughout the update process.
 		this.spark = spark;
-//		spark = new Spark("Order$$$$$$Dept", "local", true); TODO - Remove
 		
 		//Default MySql DAO. Have to set db table before using.
 		this.dbDAO = dbDAO;
-//		dbDAO = new MySqlDB(TableNames.NO_TABLE.tblName()); TODO - Remove
 		
 		this.carOrderDetails = carOrderDetails;	
 	}

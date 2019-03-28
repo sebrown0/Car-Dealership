@@ -5,7 +5,7 @@ package utils;
 
 import java.util.concurrent.BlockingQueue;
 
-import department_tasks.Task;
+import department_tasks.Task_OLD;
 
 /**
  * @author Steve Brown
@@ -16,9 +16,9 @@ public class ContinuousTasksConsumer implements Runnable{
 	private static Log log = new Logger(false);
 	private final static String objId = "<Simulator> <Consumer>";
 	
-	BlockingQueue<Task> taskQueue;
+	BlockingQueue<Task_OLD> taskQueue;
 	
-	public ContinuousTasksConsumer(BlockingQueue<Task> taskQueue) {	
+	public ContinuousTasksConsumer(BlockingQueue<Task_OLD> taskQueue) {	
 		this.taskQueue = taskQueue;
 	}
 	
@@ -28,7 +28,7 @@ public class ContinuousTasksConsumer implements Runnable{
 		
 		while(true) {
 			try {
-				Task task = taskQueue.take(); 
+				Task_OLD task = taskQueue.take(); 
 				log.logEntry(objId, "Executing task -> " + task.getClass().getName());
 				task.run();
 				

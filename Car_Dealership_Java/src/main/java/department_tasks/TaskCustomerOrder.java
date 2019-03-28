@@ -7,19 +7,21 @@ import department.Department;
 import hr_department.Staff;
 import hr_department.StaffMember;
 import sales_department.SalesDept;
+import task_interfaces.NewOrder;
 
 /**
  * @author Steve Brown
  *
- * Responsible for handling a customer enquiry.
+ * Responsible for handling a new customer order.
  */
-public class TaskNewLead implements Task{
+//public class TaskCustomerOrder implements Task_OLD{
+public class TaskCustomerOrder extends Task implements NewOrder{
 	
 	private Department department = null;
 	private final String objId;
 	private Staff salesTeam = null;
 	
-	public TaskNewLead(Department dept) {
+	public TaskCustomerOrder(Department dept) {
 		this.salesTeam = dept.staff();	
 		this.department = dept;
 		this.objId = "<" + dept.deptName() + ">" + " <" + this.getClass().getSimpleName() + ">";
@@ -37,18 +39,36 @@ public class TaskNewLead implements Task{
 	}
 
 	@Override
-	public void run() {		
-		newLead();		
-	}
-
-	@Override
-	public boolean blocking() {
+	public void sendOrder() {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public void add() {
-		department.addTask(this);	// Add the task that is THIS task to the department's task list.		
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
+
+	@Override
+	public void updateDepartment() {
+		// TODO Auto-generated method stub
+		
+	}
+
+//	@Override
+//	public void run() {		
+//		newLead();		
+//	}
+//
+//	@Override
+//	public boolean blocking() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public void add() {
+//		department.addTask(this);	// Add the task that is THIS task to the department's task list.		
+//	}
 }

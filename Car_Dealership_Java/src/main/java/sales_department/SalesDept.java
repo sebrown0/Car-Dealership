@@ -5,8 +5,9 @@ import java.util.List;
 
 import customer.Customer;
 import department.Department;
-import hr_department.Employee;
-import hr_department.NewEmployee;
+import department_tasks.Task;
+import employees.Employee;
+import employees.SalesPerson;
 import hr_department.Person;
 
 /*
@@ -19,12 +20,12 @@ public class SalesDept extends Department{
 	public SalesDept(String deptId, String deptName) {
 		super(deptId, deptName);
 		
-		peopleBrowsing("Daenerys", "Targaryen Mother of Dragons 1"); // TODO - Random data
+		peopleBrowsing("Daenerys", "Targaryen Mother of Dragons 22"); // TODO - Random data
 	}
 	
 	@Override
 	public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role) {				
-		staff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role)); // TODO - Change to proper employee
+		idleStaff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role, this)); // TODO - Change to proper employee
 	}
 	
 	// Use to add potential customers 
@@ -39,4 +40,23 @@ public class SalesDept extends Department{
 		}
 		return null;
 	}
+
+	@Override
+	public void delegateTask(Task task) {
+		SalesPerson salesPerson = (SalesPerson) this.idleStaff().nextEmployee();
+		salesPerson.addTask(task);
+		workingStaff().addDepStaffMember(salesPerson);
+		System.out.println("Delegating Sales Task");// + currentTask.taskId() + " to " + workingEmployee.getEmployeeName());
+		
+		// TODO - ** Remove **
+		salesPerson.performTask();
+		
+//		this.workingEmployee = new SalesPerson("Bob", "Seager"); 		// TODO - Get the next available employee
+//		this.workingEmployee.setTask(currentTask);  		// In Employee
+		
+		
+		
+//		return this.workingEmployee;
+	}
+	
 }

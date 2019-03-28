@@ -10,12 +10,15 @@ import customer.CustomerOrder;
 import customer.NewCustomer;
 import dao.DatabaseDAO;
 import database.StoredProcedure;
+import database.StoredProcedure.QueryBuilder;
 import department.Department;
+import enums.DepartmentNames;
 import enums.ErrorCodes;
 import enums.SalesDeptSP;
 import hr_department.Employee;
 import hr_department.Person;
 import order_deptartment.Order;
+import order_deptartment.OrderDept;
 import stock_department.CarDetails;
 import utils.Log;
 import utils.Logger;
@@ -31,6 +34,7 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 	
 	private DatabaseDAO dbDAO = null;
 	private Customer customer = null;
+	private SalesDept department = null;
 	
 	private Log log = new Logger(false);
 	private final String objId;
@@ -65,17 +69,23 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 		Order customerOrder = takeOrder(customer, new Order());
 		
 		// Give order to Order Dept.
-//		OrderDept orderDept = new OrderDept();
-//		orderDept.newOrder(customerOrder);
+		OrderDept orderDept = (OrderDept) department.getMessanger().getDepartment(DepartmentNames.ORDER.value());
+		orderDept.newOrder(customerOrder);
 
 	}
 	
+//	@Override
+//	public void performDuty(SalesDept department) {
+//		this.salesDept = department; TODO - R
+//		// To have more than one duty we will have to have a list of duties.
+//		meetCustomer(department.nextCustomer(), department.dataBase());
+//	}
+	
 	@Override
-	public void performDuty(SalesDept department) {
-		log.logEntry(objId, "Salesperson performing duty");
-		// To have more than one duty we will have to have a list of duties.
+	public void performDuty(Department aDepartment) {
+		// Over ridden by the performDuty(SalesDept department) method.
+		this.department = (SalesDept) aDepartment;
 		meetCustomer(department.nextCustomer(), department.dataBase());
-		
 	}
 	
 	@Override
@@ -90,7 +100,7 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 		dbDAO.dbConnect();
 
 		// Get the next available customer id from the DB and assign it to the customer. 
-		String query = StoredProcedure.QueryBuilder.build(elements, SalesDeptSP.NEW_CUSTOMER.value());
+		String query = QueryBuilder.build(elements, SalesDeptSP.NEW_CUSTOMER.value()); // TODO - StoredProcedure.
 		StoredProcedure sp = dbDAO.executeSP(query);
 		if(sp.errorCode() == ErrorCodes.NONE)
 			customerId = Long.valueOf(sp.getSingleValue());
@@ -123,12 +133,6 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 	@Override
 	public Order takeOrder(Customer customer, Order customersOrder) {
 		return customersOrder.order(customer);
-	}
-
-	@Override
-	public void performDuty(Department department) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

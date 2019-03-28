@@ -6,7 +6,7 @@ package utils;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import department_tasks.Task;
+import department_tasks.Task_OLD;
 
 /**
  * @author Steve Brown
@@ -26,7 +26,7 @@ public class Simulator {
 //		SalesDept salesDept = new SalesDept();
 		
 		// Use BlockingQueue - thread safe and handles wait & notify for us.
-		BlockingQueue<Task> taskQueue = new ArrayBlockingQueue<Task>(5);
+		BlockingQueue<Task_OLD> taskQueue = new ArrayBlockingQueue<Task_OLD>(5);
 		
 //		Thread taskProducer = new Thread(new ContinuousTasksProducer(taskQueue, salesDept, stockDept));
 		Thread taskConsumer = new Thread(new ContinuousTasksConsumer(taskQueue));
