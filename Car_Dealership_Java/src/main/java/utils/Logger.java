@@ -20,11 +20,12 @@ import file_handler.FileHandler;
  */
 public final class Logger extends FileHandler implements Log{
 
-	private final String logFile;
-	private static final String objId = "<Logger>";
+	private String logFile;
+//	private static final String objId = "<Logger>"; // TODO
 
-	public Logger(boolean deleteOld) {
-		
+	private Logger() {}
+	
+	private void initialiseLogger(boolean deleteOld) {	
 		this.logFile = FilePaths.LOG_PATH.filePath() + "CarDealer_Log.txt";
 		
 		if(deleteOld) {
@@ -34,7 +35,7 @@ public final class Logger extends FileHandler implements Log{
 					writeNewFile();
 				}
 			} catch (IOException e) {
-				ErrorHandler.checkError(ErrorCodes.FILE_DELETE, e.getMessage());
+				ErrorHandler.checkError(ErrorCodes.FILE_DELETE, e.getMessage(), this);
 			} 
 		}
 	}
@@ -48,14 +49,23 @@ public final class Logger extends FileHandler implements Log{
 	public void logEntry(String Id, String logEntry) {
 		LocalDateTime localDt = LocalDateTime.now();
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("HH:mm:ss(SSSS)");		
-		this.writeFile(this.logFile, (dtFormat.format(localDt) + " : " + Id + " -> " + logEntry));
+		this.writeFile(this.logFile, (dtFormat.format(localDt) + " : " + Id + " -> " + logEntry), this);
 	}
 
 	@Override
 	public void writeNewFile() {
 		LocalDateTime localDt = LocalDateTime.now();
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		this.writeFile(this.logFile, (dtFormat.format(localDt)));
+		this.writeFile(this.logFile, (dtFormat.format(localDt)), this);
 		logEntry("<Log>", "New File Started");
+	}
+	
+	public static class LogHelper {
+		private static final Logger INSTANCE = new Logger();
+		
+		public static Logger logInstance(boolean deleteOld) {
+			INSTANCE.initialiseLogger(deleteOld);
+			return INSTANCE;
+		}
 	}
 }

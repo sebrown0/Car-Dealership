@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="spark/SparkDataFrame.java|spark/SparkDfTable.java" kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="spark/SparkDataFrame.java|spark/SparkDfTable.java|department_tasks/TaskCreateDepartments.java|department_tasks/TaskCreateDepartments_NOBP.java|tasks/InjectorTemplate.java|tasks/task_objects/unimplemented/|utils/ContinuousTasksProducer_old.java|utils/ContinuousTasksConsumer_old.java|application/Day_OLD.java" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -24,6 +24,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="DealerSourceCode"/>
+	<classpathentry kind="src" path="TaskSchedulerSourceCode"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -35,5 +37,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Program Files/MySQL/mysql-connector-java-8.0.13/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Brown/eclipse-workspace/DealerSourceCode" sourcepath="C:/Users/Brown/eclipse-workspace/DealerSourceCode"/>
+	<classpathentry kind="lib" path="C:/Users/Brown/eclipse-workspace/TimerSourceCode/CarDealerTimer.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

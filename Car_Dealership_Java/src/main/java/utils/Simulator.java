@@ -3,36 +3,69 @@
  */
 package utils;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
-import department_tasks.Task_OLD;
+import database.MySqlDB;
+import dealer_management.DealerObjects;
+import dealer_management.MainDealerBuilder;
+import dealer_working_day.MainDealerWorkingDay;
+import head_office.HeadOffice;
+import heartbeat.FastHeartbeat;
+import observer.Observer;
+import observer.ObserverMessage;
+import spark.Spark;
+import task_scheduler.TaskManager;
+import time.Time;
+import timer.Timers;
 
 /**
  * @author Steve Brown
  *
  * Simulates the day-to-day operation of the Car Dealership.
  */
-public class Simulator {
+public class Simulator implements Observer {
 
-	private static Log log = new Logger(false);
+	private Log log;
+	private Timers timer;
+	private HeadOffice headOffice;
+	private int count = 0;
 	private final static String objId = "<Simulator>";
 		
-	public static void start() {
+	public Simulator(HeadOffice headOffice) {
+		this.log = headOffice.appLog();
+		this.timer = headOffice.timer();
+		this.headOffice = headOffice;
+	}
 	
-		log.logEntry(objId, "Start");
+	public void start() {
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-//		StockDept stockDept = new StockDept();
-//		SalesDept salesDept = new SalesDept();
-		
-		// Use BlockingQueue - thread safe and handles wait & notify for us.
-		BlockingQueue<Task_OLD> taskQueue = new ArrayBlockingQueue<Task_OLD>(5);
-		
-//		Thread taskProducer = new Thread(new ContinuousTasksProducer(taskQueue, salesDept, stockDept));
-		Thread taskConsumer = new Thread(new ContinuousTasksConsumer(taskQueue));
-		
-//		taskProducer.start();
-		taskConsumer.start();
-		
+	}
+
+
+	@Override
+	public void updateObserver(ObserverMessage msg) {		
+//		log.logEntry(objId, "obsereved");
+		if(++count == 1) {
+			createDealer();
+		}
+	}
+	
+	private void createDealer() {
+		headOffice.management().createNewDealer(
+		new MainDealerBuilder() {},
+		"Fiat", 
+		new MainDealerWorkingDay(new Time(9, 00, 04), new Time(9, 00, 9)),
+		new DealerObjects(
+				new MySqlDB(log), 
+				new Spark("Fiat", "local", true, log), 
+				headOffice.timer(), 
+				log, 
+				new TaskManager(timer, new FastHeartbeat("Fiat Task Manager"), log))	 
+		);
 	}
 }

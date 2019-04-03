@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import utils.Log;
-import utils.Logger;
 
 /**
  * @author Steve Brown 
@@ -38,17 +37,19 @@ public class StoredProcedure {
 	private ResultSet rs = null;
 	private Connection conn = null;
 	private ErrorCodes eCode = ErrorCodes.NONE;
-	private Log log = new Logger(false);
+	private Log log;
 	private static final String objId = "<StoredProcedure>";
 
-	public StoredProcedure(String query, DbConnectionInterface dbIt) {
+	public StoredProcedure(String query, DbConnectionInterface dbIt, Log log) {
 		this.query = query;
-		this.conn = dbIt.connection();
+		this.conn = dbIt.connection(log);
+		this.log = log;
 	}
 
-	public StoredProcedure(String query, Connection conn) {
+	public StoredProcedure(String query, Connection conn, Log log) {
 		this.query = query;
 		this.conn = conn;
+		this.log = log;
 	}
 
 	/*
@@ -60,7 +61,7 @@ public class StoredProcedure {
 			rs = stmt.executeQuery();
 			
 		} catch (SQLException e) {			
-			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
+			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
 			log.logEntry(objId, "Error executing stored procedure: " + query);
 		} 
 		return this;
@@ -77,7 +78,7 @@ public class StoredProcedure {
 			if(rs.first()) 
 				result = rs.getString(1);
 		} catch (SQLException e) {
-			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
+			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
 		}
 		
 		return result;
@@ -97,7 +98,7 @@ public class StoredProcedure {
 				result.add(rs.getString(colOne));
 			}
 		} catch (SQLException e) {
-			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
+			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
 		}
 		
 		return result;
@@ -117,7 +118,7 @@ public class StoredProcedure {
 				result.put(rs.getString(colOne), rs.getString(colTwo));
 			}
 		} catch (SQLException e) {
-			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage());
+			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
 		}
 		
 		return result;

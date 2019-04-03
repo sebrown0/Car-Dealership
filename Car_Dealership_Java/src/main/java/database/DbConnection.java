@@ -11,6 +11,7 @@ import java.util.Properties;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
+import utils.Log;
 
 /**
  * @author Steve Brown 
@@ -31,7 +32,7 @@ public class DbConnection implements DbConnectionInterface {
 	private boolean dbConnected = false;
 	
 	@Override
-	public ErrorCodes connect(Properties dbProp) {
+	public ErrorCodes connect(Properties dbProp, Log log) {
 		if (!dbConnected) {
 			try {
 				this.conn = DriverManager.getConnection(
@@ -40,7 +41,7 @@ public class DbConnection implements DbConnectionInterface {
 						dbProp.getProperty(DbProperties.PASSWORD.value()));
 				dbConnected = true;
 			} catch (SQLException e) {
-				ErrorHandler.checkError(ErrorCodes.DB_CONN, e.getMessage());
+				ErrorHandler.checkError(ErrorCodes.DB_CONN, e.getMessage(), log);
 				return ErrorCodes.DB_CONN;
 			}
 		}
@@ -48,7 +49,7 @@ public class DbConnection implements DbConnectionInterface {
 	}
 
 	@Override
-	public Connection connection() {
+	public Connection connection(Log log) {
 		//TODO - error codes 
 		if (!dbConnected)
 			System.out.println("No DB Connection");
@@ -57,7 +58,7 @@ public class DbConnection implements DbConnectionInterface {
 	}
 
 	@Override
-	public boolean checkConnection() {
+	public boolean checkConnection(Log log) {
 		return dbConnected;
 	}
 

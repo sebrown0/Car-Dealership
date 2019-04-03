@@ -20,17 +20,14 @@ public class Spark implements SparkSessionDAO{
 	private String master;
 	private boolean activeSession = false;
 
-	private Log log = new Logger(false);
+	private Log log;
 	private static final String objId = "<Spark>";
 	
-	public Spark() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Spark(String appName, String master, boolean createSession) {
+	public Spark(String appName, String master, boolean createSession, Log log) {
 		super();
 		this.appName = appName;
 		this.master = master;
+		this.log = log;
 
 		if (createSession) {
 			createNewSparkSession();

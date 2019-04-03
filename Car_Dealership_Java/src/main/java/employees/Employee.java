@@ -5,11 +5,11 @@ package employees;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-import department.Department;
 import department_tasks.EmployeeTask;
-import department_tasks.Task;
-import hr_department.Person;
-import hr_department.StaffMember;
+import department_tasks.Task_NOB;
+import departments.department.Department;
+import departments.hr_department.Person;
+import departments.hr_department.StaffMember;
 
 /**
  * @author Steve Brown
@@ -18,7 +18,7 @@ import hr_department.StaffMember;
 public class Employee extends Person implements EmployeeTask, StaffMember {
 
 //	protected Task currentTask = null;
-	protected ArrayBlockingQueue<Task> employeeTaskList = new ArrayBlockingQueue<Task>(5);
+	protected ArrayBlockingQueue<Task_NOB> employeeTaskList = new ArrayBlockingQueue<Task_NOB>(5);
 	
 	public Employee(long id, String firstName, String lastName, String deptId, String role) {
 		super(id, firstName, lastName, deptId, role);
@@ -34,7 +34,7 @@ public class Employee extends Person implements EmployeeTask, StaffMember {
 //	}
 	
 	@Override
-	public void addTask(Task task) {
+	public void addTask(Task_NOB task) {
 		try {
 			employeeTaskList.put(task);
 		} catch (InterruptedException e) {

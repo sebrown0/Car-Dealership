@@ -3,9 +3,9 @@
  */
 package customer;
 
+import departments.hr_department.Person;
+import departments.stock_department.CarDetails;
 import employees.SalesPerson;
-import hr_department.Person;
-import stock_department.CarDetails;
 
 /**
  * @author Steve Brown

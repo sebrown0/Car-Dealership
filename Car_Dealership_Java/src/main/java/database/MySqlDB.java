@@ -3,6 +3,7 @@ package database;
 import enums.CD_Schema;
 import enums.DbProperties;
 import enums.MySqlConn;
+import utils.Log;
 
 /**
  * @author Steve Brown
@@ -10,13 +11,14 @@ import enums.MySqlConn;
  */
 public class MySqlDB extends Database{
 
-	public MySqlDB() {
+	public MySqlDB(Log log) {
+		super(log);
 		setDefaultProperties();
 	}
 	
 	// Setup default connection properties for MySql with JDBC
-	public MySqlDB(String tblName) {
-		super();
+	public MySqlDB(String tblName, Log log) {
+		super(log);
 		setDefaultProperties();
 	}
 	

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.Properties;
 
 import enums.ErrorCodes;
+import utils.Log;
 
 /**
  * @author Steve Brown 
@@ -12,11 +13,12 @@ import enums.ErrorCodes;
 
 public interface DbConnectionInterface {
 	// Connect using properties return status/error. 
-	ErrorCodes connect(Properties dbProp);
+	ErrorCodes connect(Properties dbProp, Log log);
 	
 	// Get the connection.
-	Connection connection();
+	Connection connection(Log log);
 	
 	// See is we're connected.
-	boolean checkConnection();
+	boolean checkConnection(Log log);
+	
 }

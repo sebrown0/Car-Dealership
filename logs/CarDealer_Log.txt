@@ -1,35 +1,39 @@
-28/02/2019
-17:30:08(2960) : <Log> -> New File Started
-17:30:08(3040) : <Day> -> Starting a new day.
-17:30:08(3160) : <dept.deptName()> <CreateDepartments> -> Creating Departments
-17:30:08(9090) : <dept.deptName()> <CreateDepartments> -> Creating HR department
-17:30:10(5620) : <Spark> -> Spark session:  () created.
-17:30:10(5660) : <dept.deptName()> <CreateDepartments> -> Creating Sales department
-17:30:11(1310) : <Spark> -> Spark session:  () created.
-17:30:11(1390) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 22
-17:30:11(1430) : <dept.deptName()> <CreateDepartments> -> Creating IT department
-17:30:11(1510) : <dept.deptName()> <CreateDepartments> -> Creating Accounts department
-17:30:11(1550) : <dept.deptName()> <CreateDepartments> -> Creating Garage Services department
-17:30:11(1590) : <dept.deptName()> <CreateDepartments> -> Creating Stock department
-17:30:11(1670) : <Spark> -> Spark session:  () created.
-17:30:11(1710) : <dept.deptName()> <CreateDepartments> -> Creating Order department
-17:30:11(1790) : <Spark> -> Spark session:  () created.
-17:30:11(1830) : <HR 1> -> New task received
-17:30:11(1910) : 	null -> Emp ID: 0 Emp: Car Dealership Caretaker Role: null
-17:30:11(1990) : <HR> <TaskRollCall> -> Starting roll call for HR department
-17:30:11(2310) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
-17:30:11(2430) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
-17:30:11(2470) : <Sales 2> -> New task received
-17:30:11(2550) : 	null -> Emp ID: 0 Emp: Car Dealership Caretaker Role: null
-17:30:11(2590) : <Sales> <TaskRollCall> -> Starting roll call for Sales department
-17:30:11(2830) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
-17:30:11(2910) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
-17:30:11(2990) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
-17:30:11(3030) : <Stock 6> -> New task received
-17:30:11(3070) : 	null -> Emp ID: 0 Emp: Car Dealership Caretaker Role: null
-17:30:11(3150) : <Stock> <TaskRollCall> -> Starting roll call for Stock department
-17:30:11(3390) : 	6 -> Emp ID: 16 Emp: John Wayne Role: role
-17:30:11(3430) : <Order 7> -> New task received
-17:30:11(3510) : 	null -> Emp ID: 0 Emp: Car Dealership Caretaker Role: null
-17:30:11(3550) : <Order> <TaskRollCall> -> Starting roll call for Order department
-17:30:11(3750) : 	7 -> Emp ID: 17 Emp: Queen Victoria Role: role
+03/04/2019
+14:17:41(9900) : <Log> -> New File Started
+14:17:44(8860) : <Spark> -> Spark session:  (Fiat) created.
+14:17:44(9040) : TODO - MainDealerBuilder -> Created Main Dealer (Fiat)
+14:17:44(9140) : Fiat -> Created Car DealerFiat
+14:17:44(9270) : <dept.deptName()> <CreateDepartments> -> Creating Departments
+14:17:45(3930) : <dept.deptName()> <CreateDepartments> -> Creating HR department
+14:17:45(3970) : <dept.deptName()> <CreateDepartments> -> Creating Sales department
+14:17:45(4000) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 22
+14:17:45(4160) : <dept.deptName()> <CreateDepartments> -> Creating IT department
+14:17:45(4260) : <dept.deptName()> <CreateDepartments> -> Creating Accounts department
+14:17:45(4370) : <dept.deptName()> <CreateDepartments> -> Creating Garage Services department
+14:17:45(4470) : <dept.deptName()> <CreateDepartments> -> Creating Stock department
+14:17:45(4580) : <dept.deptName()> <CreateDepartments> -> Creating Order department
+14:17:45(4790) : manageTask - TODO -> ATOMIC
+14:17:45(4860) : manageTask - TODO -> Running Atomic TasK
+14:17:45(4910) : <Department Task> <RollCall> -> Starting roll call for HR department
+14:17:45(5090) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
+14:17:45(5130) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
+14:17:45(5160) : manageTask - TODO -> ATOMIC
+14:17:45(5190) : manageTask - TODO -> Running Atomic TasK
+14:17:45(5220) : <Department Task> <RollCall> -> Starting roll call for Sales department
+14:17:45(5280) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
+14:17:45(5310) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
+14:17:45(5340) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
+14:17:45(5360) : manageTask - TODO -> ATOMIC
+14:17:45(5390) : manageTask - TODO -> Running Atomic TasK
+14:17:45(5410) : <Department Task> <RollCall> -> Starting roll call for Stock department
+14:17:45(5470) : 	6 -> Emp ID: 16 Emp: John Wayne Role: role
+14:17:45(5490) : manageTask - TODO -> ATOMIC
+14:17:45(5510) : manageTask - TODO -> Running Atomic TasK
+14:17:45(5540) : <Department Task> <RollCall> -> Starting roll call for Order department
+14:17:45(5600) : 	7 -> Emp ID: 17 Emp: Queen Victoria Role: role
+14:17:48(0010) : manageTask - TODO -> ATOMIC
+14:17:48(0110) : manageTask - TODO -> Running Atomic TasK
+14:17:48(0210) : <Atomic Task> <OpenDealership> -> Executing: Opening Dealer
+14:17:53(9990) : manageTask - TODO -> ATOMIC
+14:17:54(0040) : manageTask - TODO -> Running Atomic TasK
+14:17:54(0070) : <Atomic Task> <CloseDealership> -> Executing: Closing Dealer

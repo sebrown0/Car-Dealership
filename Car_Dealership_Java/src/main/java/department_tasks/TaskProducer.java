@@ -15,7 +15,7 @@ import utils.Logger;
  */
 public class TaskProducer implements Runnable {
 
-	private static Log log = new Logger(false);
+	private static Log log;
 	private final static String objId = "<Producer>";
 	
 	private BlockingQueue<Task_OLD> taskQueue = null;

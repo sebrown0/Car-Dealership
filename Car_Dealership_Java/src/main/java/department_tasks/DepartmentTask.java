@@ -1,8 +1,5 @@
 package department_tasks;
 
-import department.Department;
-import employees.Employee;
-
 public interface DepartmentTask {
 
 //	DepartmentTask receiveTask(Task task);
@@ -10,9 +7,9 @@ public interface DepartmentTask {
 //	Employee delegateTask();
 //	Employee delegateTask(Employee employee);
 	
-	void receiveTask(Department department, Task task);
-	void receiveTask(Department department, Task task, Employee employee);
-
-	void delegateTask(Task task);
-	void delegateTask(Task task, Employee employee);
+//	void receiveTask(Department department, Task_NOB task);
+//	void receiveTask(Department department, Task_NOB task, Employee employee);
+//
+//	void delegateTask(Task_NOB task);
+//	void delegateTask(Task_NOB task, Employee employee);
 }

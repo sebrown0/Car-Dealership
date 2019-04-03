@@ -4,11 +4,8 @@
 package employees;
 
 import customer.Customer;
-import dao.DatabaseDAO;
-import hr_department.Person;
-import sales_department.SalesDept;
-import utils.Log;
-import utils.Logger;
+import departments.hr_department.Person;
+import departments.sales_department.SalesDepartment;
 
 /**
  * @author Steve Brown
@@ -20,11 +17,8 @@ import utils.Logger;
 //public class SalesPerson extends Employee implements NewCustomer, CustomerOrder {
 public class SalesPerson extends Employee { // TODO - Staffmember
 	
-//	private DatabaseDAO dbDAO = null;
 	private Customer customer = null;
-	private SalesDept department = null;
-	
-	private Log log = new Logger(false);
+	private SalesDepartment department = null;
 	private final String objId;
 	
 	// TODO - REMOVE WHEN ALL EMPLOYEES HAVE BEEN ADDED
@@ -35,7 +29,7 @@ public class SalesPerson extends Employee { // TODO - Staffmember
 	}
 	// TODO - REMOVE WHEN ALL EMPLOYEES HAVE BEEN ADDED
 	
-	public SalesPerson(long id, String firstName, String lastName, String deptId, String role, SalesDept department) {
+	public SalesPerson(long id, String firstName, String lastName, String deptId, String role, SalesDepartment department) {
 		super(id, firstName, lastName, deptId, role);
 		
 		this.objId =  "<" + this.getClass().getSimpleName() + ">";
@@ -49,7 +43,7 @@ public class SalesPerson extends Employee { // TODO - Staffmember
 
 	public SalesPerson customersSalesPerson(Person newLead) {
 		this.customer = (Customer) newLead;
-		log.logEntry(objId, 
+		department.log().logEntry(objId, 
 				this.getFirstName() + " " + this.getLastName()
 				+ " greets new lead " + customer.getFirstName());
 		

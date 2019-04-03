@@ -9,6 +9,7 @@ import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
 import enums.CD_Schema;
 import enums.ErrorCodes;
+import utils.Log;
 
 
 
@@ -22,19 +23,20 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 
 	private Properties dbProp; 					// Properties needed to connect to the DB.
 	private DbConnectionInterface dbConnection; // DB Connection
-
-	public Database() {
+	private Log log;
+	
+	public Database(Log log) {
 		this.dbProp = new Properties();
 		this.dbConnection = new DbConnection();
-
+		this.log = log;
 	}
 	
 	/*
 	 *  Return the the database connection.
 	 */
 	public Connection connection() {
-		if (this.dbConnection.connect(this.dbProp) == ErrorCodes.NONE) {
-			return dbConnection.connection();
+		if (this.dbConnection.connect(this.dbProp, log) == ErrorCodes.NONE) {
+			return dbConnection.connection(log);
 		} else {
 			return null;
 		}
@@ -108,7 +110,7 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 	 */
 	@Override
 	public StoredProcedure executeSP(String query) {
-		StoredProcedure sp = new StoredProcedure(query, dbConnection);
+		StoredProcedure sp = new StoredProcedure(query, dbConnection, null);
 		return sp.execute();
 	}
 
@@ -118,8 +120,8 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 	 */
 	@Override
 	public void dbConnect() {
-		if (!this.dbConnection.checkConnection())
-			this.dbConnection.connect(dbProp);
+		if (!this.dbConnection.checkConnection(log))
+			this.dbConnection.connect(dbProp, log);
 	}
 
 	/*

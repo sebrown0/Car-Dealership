@@ -1,16 +1,19 @@
 package application;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
-import department.Department;
-import department.DepartmentMessenger;
 import department_tasks.DepartmentTask;
-import department_tasks.MeetCustomer;
+import departments.department.Department;
+import departments.department.DepartmentMessenger;
 import employees.SalesPerson;
 import enums.DepartmentNames;
-import hr_department.Person;
+import head_office.HeadOffice;
+import time.ChangeableTime;
+import timer.DurationInSeconds;
 import utils.Log;
 import utils.Logger;
+import utils.Simulator;
 
 public class App {
 	private static final String objId = "<Application>";
@@ -19,28 +22,34 @@ public class App {
 	
 	public static void main(String[] args) throws InterruptedException {
 
-		Log log = new Logger(true);
 		// TODO - Do we need more than one spark session?
 		// TODO - Do we need more than one DB object?
+
 		// TODO - Hadoop path
 		System.setProperty("hadoop.home.dir", "C:\\hadoop");
+				
+		HeadOffice ho = HeadOffice.getInstance(
+				new ChangeableTime(8,59,58), 
+				new DurationInSeconds(TimeUnit.SECONDS, 100));
+
+		Simulator sim = new Simulator(ho);
+		ho.registerSimulator(sim);
+		sim.start();
+				
 		
-		Day today = new Day();
-		today.begin();
+//		BlockingQueue<Department> departments = today.getDepartments();
+//		
+//		DepartmentMessenger deptMessenger = new DepartmentMessenger(departments);
+//		
+//		for(Department d: departments) {		// TODO - Have the caretaker do this as a task.
+//			d.assignMessenger(deptMessenger);
+//		}
 		
-		BlockingQueue<Department> departments = today.getDepartments();
+//		DepartmentTask salesTask = deptMessenger.getDepartment("Sales");
+//		salesTask.receiveTask(new MeetCustomer(new Person("Harry", "Redknapp")));
 		
-		DepartmentMessenger deptMessenger = new DepartmentMessenger(departments);
-		
-		for(Department d: departments) {		// TODO - Have the caretaker do this as a task.
-			d.assignMessenger(deptMessenger);
-		}
-		
-		DepartmentTask salesTask = deptMessenger.getDepartment("Sales");
-		salesTask.receiveTask(new MeetCustomer(new Person("Harry", "Redknapp")));
-		
-		SalesPerson sp = (SalesPerson) deptMessenger.getDepartment("Sales").workingStaff().nextEmployee();
-		sp.performTask();
+//		SalesPerson sp = (SalesPerson) deptMessenger.getDepartment("Sales").workingStaff().nextEmployee();
+//		sp.performTask();
 		
 		// Sales dept is given a new lead (TASK). This task should then be performed by a staff member (Salesperson).
 //		Task_OLD newLead = new TaskNewLead(deptMessenger.getDepartment(DepartmentNames.SALES.value()));
@@ -51,6 +60,12 @@ public class App {
 		
 		
 		//_______________________________________________________________________________________________________________________
+
+		
+		
+		
+		
+		
 		// Create departments and department messanger 
 //		Task depts = new TaskCreateDepartments(new Department("0", "App")); 
 //		depts.run();		
@@ -95,7 +110,7 @@ public class App {
 		
 //		Simulator.start();
 		
-		log.logEntry(objId, "Day Ended");
+//		log.logEntry(objId, "Day Ended");
 		
 	}
 

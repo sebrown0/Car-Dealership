@@ -4,7 +4,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import utils.Log;
-import utils.Logger;
 
 /**
  * @author Brown
@@ -42,11 +41,11 @@ public enum ErrorCodes {
 		
 	public static class ErrorHandler {
 		
-		private static Log log = new Logger(false);
+//		private static Log log = new Logger(false);
 		private static String objId = "<ErrorHandler>";
 		
 		//TODO - Always more error handling to do.
-		public static ErrorCodes checkError(ErrorCodes suspectedError, String errorMsg) {
+		public static ErrorCodes checkError(ErrorCodes suspectedError, String errorMsg, Log log) {
 			ErrorCodes eCode = ErrorCodes.UNKNOWN_ERROR;
 			
 			// Switch not necessary if every error is parsed. 
@@ -64,12 +63,12 @@ public enum ErrorCodes {
 				break;
 			
 			case DUPLICATE_ENTRY:
-				eCode = parseErrorMsg(suspectedError, errorMsg);
+				eCode = parseErrorMsg(suspectedError, errorMsg, log, objId);
 				break;
 
 			case DF_ERROR:
 				log.logEntry(objId, "DF_ERROR");
-				eCode = parseErrorMsg(suspectedError, errorMsg);
+				eCode = parseErrorMsg(suspectedError, errorMsg, log, objId);
 				break;
 				
 			default:
@@ -80,7 +79,7 @@ public enum ErrorCodes {
 		}
 		
 		// TODO - Explain method.
-		private static ErrorCodes parseErrorMsg(ErrorCodes suspectedError, String errorMsg) {
+		private static ErrorCodes parseErrorMsg(ErrorCodes suspectedError, String errorMsg, Log log, String objId) {
 
 			// Get the part of the error code that might be in the error message.
 			Pattern errorCodePattern = Pattern.compile("#(\\S+)");
@@ -88,7 +87,7 @@ public enum ErrorCodes {
 			
 			if(errorCodeMatch.find()) {
 				String regEx = errorCodeMatch.group(1);
-				System.out.println("Looking for: " + regEx);
+				// System.out.println("Looking for: " + regEx);
 
 				// Use the string value of the Enum error message as the regex
 				// i.e. we're only looking to see if an expected word occurs in the error message.
@@ -96,15 +95,15 @@ public enum ErrorCodes {
 				errorCodeMatch = errorCodePattern.matcher(errorMsg);
 				
 				if(errorCodeMatch.find()) {
-					System.out.println("Error Type -->> " + suspectedError);
-					System.out.println("Error MSG -->>" + errorMsg);
+					log.logEntry(objId, "Error Type -->> " + suspectedError);
+					log.logEntry(objId, "Error MSG -->>" + errorMsg);
 					return suspectedError;
 				}
 			}
 			
 			// Couldn't find an obvious error.
-			System.out.println("Error Type -->> " + ErrorCodes.UNKNOWN_ERROR);
-			System.out.println("Error MSG -->>" + errorMsg);
+			log.logEntry(objId, "Error Type -->> " + ErrorCodes.UNKNOWN_ERROR);
+			log.logEntry(objId, "Error MSG -->>" + errorMsg);
 			return ErrorCodes.UNKNOWN_ERROR;
 		}
 		
