@@ -8,10 +8,12 @@ import java.sql.SQLException;
 
 import database.StoredProcedure;
 import database.StoredProcedure.QueryBuilder;
+import departments.department.Department;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
-import tasks.task_creators.DepartmentTasksDetails;
 import enums.HRDeptSP;
+import tasks.task_details.TasksDetails;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
@@ -21,15 +23,20 @@ import enums.HRDeptSP;
  *	See which employees are fit for work, i.e. not sick* or on holiday.
  *		*(TODO - Not implemented yet)
  */
-public class RollCall extends DepartmentTask {
+public class RollCall extends AtomicTask { 
 
-	/**
-	 * @param tasksDetails: Details for this department task.
-	 */
-	public RollCall(DepartmentTasksDetails tasksDetails) {
-		super(tasksDetails);
+	public RollCall(TasksDetails tasksDetails, Department tasksDepartment) {
+		super(tasksDetails, tasksDepartment);
 	}
 
+	/*
+	 *  Return the task's id.
+	 *  Make it static so that we can get it's value for comparison without instantiating.
+	 */
+	public static String TASK_ID() {
+		return RollCall.class.getSimpleName();
+	}
+	
 	/*
 	 * Update this department's available team members.
 	 */
@@ -37,7 +44,8 @@ public class RollCall extends DepartmentTask {
 		try {
 			while(empRs.next()) {
 				
-				tasksDepartment.addDeptStaffMember( 
+//				tasksDepartment.addDeptStaffMember(
+				tasksDetails.getDepartment().addDeptStaffMember(
 						empRs.getLong("hr_emp_id"), 
 						empRs.getString("first_name"), 
 						empRs.getString("last_name"), 
@@ -57,7 +65,7 @@ public class RollCall extends DepartmentTask {
 	 *  Execute the callable  statement.
 	 */
 	public void performRollCall() {
-		tasksDepartment.log().logEntry(tasksDetails.getObjId(), "Starting roll call for " + tasksDepartment.deptName() + " department"); 
+		tasksDepartment.log().logEntry(tasksDetails.getTaskID(), "Starting roll call for " + tasksDepartment.deptName() + " department"); 
 		
 		tasksDepartment.database().dbConnect(); // TODO - Drop DB connection when finished. 
 				
@@ -69,13 +77,8 @@ public class RollCall extends DepartmentTask {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see tasks.TaskRunner#executeTask()
-	 */
 	@Override
 	public void executeTask() {
 		performRollCall();		
 	}
-
 }

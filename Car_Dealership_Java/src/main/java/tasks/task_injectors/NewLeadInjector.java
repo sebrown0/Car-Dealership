@@ -1,10 +1,9 @@
 package tasks.task_injectors;
 
-import tasks.task_creators.DepartmentTaskInjector;
-import tasks.task_creators.DepartmentTasksDetails;
-import tasks.task_creators.Task;
-import tasks.task_creators.TaskConsumer;
+import departments.department.Department;
+import tasks.task_details.TasksDetails;
 import tasks.task_objects.NewLead;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
@@ -12,15 +11,10 @@ import tasks.task_objects.NewLead;
  *  Return a new task NewLead. 
  *  To be executed immediately.
  */
-public class NewLeadInjector implements DepartmentTaskInjector {
-
-//	public TaskConsumer getNewTask(Department department) {
-//		// TODO - Handle cast exception is wrong department is passed.
-//		return new Task(new NewLead((SalesDepartment) department, TypeOfTask.ATOMIC));
-//	}
+public class NewLeadInjector implements AtomicTaskInjector {
 
 	@Override
-	public TaskConsumer getNewTask(DepartmentTasksDetails taskDetails) {
-		return new Task(new NewLead(taskDetails));
+	public AtomicTask getNewTask(TasksDetails taskDetails, Department tasksDepartment) {
+		return new NewLead(taskDetails, tasksDepartment);
 	}
 }

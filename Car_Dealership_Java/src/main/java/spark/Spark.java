@@ -4,7 +4,6 @@ import org.apache.spark.sql.SparkSession;
 
 import dao.SparkSessionDAO;
 import utils.Log;
-import utils.Logger;
 
 
  /**

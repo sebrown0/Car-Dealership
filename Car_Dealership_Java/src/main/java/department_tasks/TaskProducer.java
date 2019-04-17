@@ -6,7 +6,6 @@ package department_tasks;
 import java.util.concurrent.BlockingQueue;
 
 import utils.Log;
-import utils.Logger;
 
 /**
  * @author Steve Brown

@@ -1,6 +1,8 @@
 package tasks.task_objects;
 
-import tasks.task_creators.AtomicTasksDetails;
+import departments.department.Department;
+import tasks.task_details.TasksDetails;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
@@ -8,12 +10,17 @@ import tasks.task_creators.AtomicTasksDetails;
  *	An Atomic task that doesn't belong to a department.
  */
 public class OpenDealership extends AtomicTask {
+	
+	public OpenDealership(TasksDetails tasksDetails, Department tasksDepartment) {
+		super(tasksDetails, tasksDepartment);
+	}
 
-	/**
-	 * @param tasksDetails: Details for this atomic task.
+	/*
+	 *  Return the task's id.
+	 *  Make it static so that we can get it's value for comparison without instantiating.
 	 */
-	public OpenDealership(AtomicTasksDetails tasksDetails) {
-		super(tasksDetails);
+	public static String TASK_ID() {
+		return OpenDealership.class.getSimpleName();
 	}
 
 	/*
@@ -22,6 +29,7 @@ public class OpenDealership extends AtomicTask {
 	 */
 	@Override
 	public void executeTask() {
-		tasksDetails.getLog().logEntry(tasksDetails.getObjId(), "Executing: Opening Dealer");
+//		tasksDetails.getLog().logEntry(tasksDetails.getTaskID(), "Executing: Opening Dealer");
+//		tasksDetails.getDealerDAO().getTimer().setObserver(this);
 	}
 }

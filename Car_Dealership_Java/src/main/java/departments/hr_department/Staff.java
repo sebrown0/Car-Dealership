@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utils.Log;
-import utils.Logger;
 
 /**
  * @author Steve Brown

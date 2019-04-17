@@ -10,6 +10,7 @@ import enums.ErrorCodes;
 public abstract class StockUpdate implements StockUpdateProcess{
 	
 	// Force the order of implementation.
+	@Override
 	public void updateStock() {				
 		if(checkForNewStock() == ErrorCodes.NONE)
 			if(readStockFile() == ErrorCodes.NONE)

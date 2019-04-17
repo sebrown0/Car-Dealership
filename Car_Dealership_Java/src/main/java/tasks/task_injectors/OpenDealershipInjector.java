@@ -1,10 +1,9 @@
 package tasks.task_injectors;
 
-import tasks.task_creators.AtomicTaskInjector;
-import tasks.task_creators.AtomicTasksDetails;
-import tasks.task_creators.Task;
-import tasks.task_creators.TaskConsumer;
+import departments.department.Department;
+import tasks.task_details.TasksDetails;
 import tasks.task_objects.OpenDealership;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
@@ -15,8 +14,7 @@ import tasks.task_objects.OpenDealership;
 public class OpenDealershipInjector implements AtomicTaskInjector {
 
 	@Override
-	public TaskConsumer getNewTask(AtomicTasksDetails taskDetails) {
-		return new Task(new OpenDealership(taskDetails));
+	public AtomicTask getNewTask(TasksDetails taskDetails, Department tasksDepartment) {
+		return new OpenDealership(taskDetails, tasksDepartment);
 	}
-
 }

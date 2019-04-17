@@ -1,10 +1,9 @@
 package tasks.task_injectors;
 
-import tasks.task_creators.DepartmentTaskInjector;
-import tasks.task_creators.DepartmentTasksDetails;
-import tasks.task_creators.Task;
-import tasks.task_creators.TaskConsumer;
+import departments.department.Department;
+import tasks.task_details.TasksDetails;
 import tasks.task_objects.NewOrder;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
@@ -12,18 +11,10 @@ import tasks.task_objects.NewOrder;
  *  Return a new task - NewOrder. 
  *  To be executed immediately.
  */
-public class NewOrderInjector implements DepartmentTaskInjector {
+public class NewOrderInjector implements AtomicTaskInjector {
 
-//	public TaskConsumer getNewTask(Department department) {
-//		return new Task(new NewOrder((OrderDepartment) department, TypeOfTask.ATOMIC));
-//	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see tasks.DepartmentTaskInjector#getNewTask(tasks.DepartmentTasksDetails)
-	 */
 	@Override
-	public TaskConsumer getNewTask(DepartmentTasksDetails taskDetails) {
-		return new Task(new NewOrder(taskDetails));
+	public AtomicTask getNewTask(TasksDetails taskDetails, Department tasksDepartment) {
+		return new NewOrder(taskDetails, tasksDepartment);
 	}
 }

@@ -8,15 +8,15 @@ package departments.hr_department;
  *
  */
 //TODO - Do with interface instead?????
-public abstract class Employee extends Person {
+public abstract class Employee_OLD extends Person {
 
 	private boolean empWorking = false;
 	
-	public Employee(long id, String firstName, String lastName, String deptId, String role) {
+	public Employee_OLD(long id, String firstName, String lastName, String deptId, String role) {
 		super(id, firstName, lastName, deptId, role);
 	}
 
-	public Employee(String firstName, String lastName) {
+	public Employee_OLD(String firstName, String lastName) {
 		super(firstName, lastName);
 	
 	}

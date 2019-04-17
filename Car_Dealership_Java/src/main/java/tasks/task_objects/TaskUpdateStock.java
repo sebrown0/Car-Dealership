@@ -1,38 +1,47 @@
-/**
- * 
- */
-package tasks.task_objects.unimplemented;
 
-import department_tasks.Task_OLD;
+package tasks.task_objects;
+
 import departments.department.Department;
 import departments.stock_department.StockCheck;
 import departments.stock_department.StockDelivery;
 import departments.stock_department.StockList;
-import departments.stock_department.StockUpdate;
+import departments.stock_department.StockUpdateProcess;
 import enums.ErrorCodes;
+import tasks.task_details.TaskSchedule;
+import tasks.task_details.TasksDetails;
+import tasks.task_super_objects.ScheduledTask;
 
 /**
  * @author Steve Brown
  * Updates the stock if there is a new stock file.
  * Uses the 'rules' in StockUpdate and it's interface.
  */
-public class TaskUpdateStock extends StockUpdate implements Task_OLD{
-	
-	private final String objId;
-	private Department department = null;
+public class TaskUpdateStock extends ScheduledTask implements StockUpdateProcess{
+
+	public TaskUpdateStock(TasksDetails tasksDetails, Department tasksDepartment, TaskSchedule tasksSchedule) {
+		super(tasksDetails, tasksDepartment, tasksSchedule);
+	}
+
+	private String objId;
+	private Department department;			// THIS SHOULD BE IN TASK DETAILS
 	private StockCheck stockCheck;
 	private StockDelivery stockDelivery;
 	private StockList stockList;
-		
-	public TaskUpdateStock(Department dept) {
-		this.department = dept;
-		this.objId = "<" + dept.deptName() + ">" + " <" + this.getClass().getSimpleName() + ">";
+	
+	/*
+	 *  Return the task's id.
+	 *  Make it static so that we can get it's value for comparison without instantiating.
+	 */
+	public static String TASK_ID() {
+		return TaskUpdateStock.class.getSimpleName();
 	}
 	
 	@Override
 	public ErrorCodes checkForNewStock() {
-//		stockCheck = new StockCheck(department.spark(), department.database());
-		return (stockCheck.checkStockFile()); 
+//		stockCheck = new StockCheck(tasksDetails.tasksDepartment.spark(), tasksDepartment.database());
+//		stockCheck = new StockCheck(tasksDetails.getDealerDAO());
+//		return stockCheck.checkStockFile();
+		return null;
 	}
 
 	@Override
@@ -53,19 +62,14 @@ public class TaskUpdateStock extends StockUpdate implements Task_OLD{
 		updateStock();	
 	}
 
+
 	@Override
 	public void run() {
-		stockCheck();		
+		
 	}
-
+	
 	@Override
-	public boolean blocking() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void add() {
-//		department.addTask(this);	// Add the task that is THIS task to the department's task list.		
+	public void executeTask() {
+		updateStock();
 	}
 }

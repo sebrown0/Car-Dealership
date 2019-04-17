@@ -11,7 +11,7 @@ import customer.NewCustomer;
 import dao.DatabaseDAO;
 import database.StoredProcedure;
 import database.StoredProcedure.QueryBuilder;
-import departments.hr_department.Employee;
+import departments.hr_department.Employee_OLD;
 import departments.hr_department.Person;
 import departments.order_department.Order;
 import departments.order_department.OrderDepartment;
@@ -27,7 +27,7 @@ import enums.SalesDeptSP;
  * If a customer places an order the salesperson is responsible for 'giving' the order to the order department.
  */
 
-public class SalesPerson extends Employee implements NewCustomer, CustomerOrder {
+public class SalesPerson_OLD extends Employee_OLD implements NewCustomer, CustomerOrder {
 	
 	private DatabaseDAO dbDAO = null;
 	private Customer customer = null;
@@ -36,12 +36,12 @@ public class SalesPerson extends Employee implements NewCustomer, CustomerOrder 
 //	private Log log = new Logger(false);
 	private final String objId;
 	
-	public SalesPerson(long id, String firstName, String lastName, String deptId, String role) {
+	public SalesPerson_OLD(long id, String firstName, String lastName, String deptId, String role) {
 		super(id, firstName, lastName, deptId, role);
 		this.objId =  "<" + this.getClass().getSimpleName() + ">";
 	}
 
-	public SalesPerson(String firstName, String lastName) {
+	public SalesPerson_OLD(String firstName, String lastName) {
 		super(firstName, lastName);
 		this.objId =  "<" + this.getClass().getSimpleName() + ">";
 	}

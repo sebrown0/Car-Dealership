@@ -3,24 +3,11 @@
  */
 package employees;
 
-import java.util.ArrayList;
-
 import customer.Customer;
-import customer.CustomerOrder;
-import customer.NewCustomer;
 import dao.DatabaseDAO;
-import database.StoredProcedure;
 import departments.department.Department;
 import departments.hr_department.Person;
-import departments.order_department.Order;
 import departments.order_department.OrderDepartment;
-import departments.sales_department.SalesDepartment;
-import departments.stock_department.CarDetails;
-import enums.DepartmentNames;
-import enums.ErrorCodes;
-import enums.SalesDeptSP;
-import utils.Log;
-import utils.Logger;
 
 /**
  * @author Steve Brown
@@ -29,7 +16,7 @@ import utils.Logger;
  * If a customer places an order the salesperson is responsible for 'giving' the order to the order department.
  */
 
-public class Clerk_OLD extends Employee {
+public class Clerk extends Employee {
 	
 	private DatabaseDAO dbDAO = null;
 	private Customer customer = null;
@@ -38,12 +25,12 @@ public class Clerk_OLD extends Employee {
 //	private Log log = new Logger(false);
 	private final String objId;
 	
-	public Clerk_OLD(long id, String firstName, String lastName, String deptId, String role) {
+	public Clerk(long id, String firstName, String lastName, String deptId, String role) {
 		super(id, firstName, lastName, deptId, role);
 		this.objId =  "<" + this.getClass().getSimpleName() + ">";
 	}
 
-	public Clerk_OLD(String firstName, String lastName) {
+	public Clerk(String firstName, String lastName) {
 		super(firstName, lastName);
 		this.objId =  "<" + this.getClass().getSimpleName() + ">";
 	}

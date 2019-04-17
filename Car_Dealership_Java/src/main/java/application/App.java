@@ -1,18 +1,12 @@
 package application;
 
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import department_tasks.DepartmentTask;
-import departments.department.Department;
-import departments.department.DepartmentMessenger;
-import employees.SalesPerson;
 import enums.DepartmentNames;
 import head_office.HeadOffice;
+import tasks.task_reciever.Receiver;
 import time.ChangeableTime;
 import timer.DurationInSeconds;
-import utils.Log;
-import utils.Logger;
 import utils.Simulator;
 
 public class App {
@@ -35,7 +29,16 @@ public class App {
 		Simulator sim = new Simulator(ho);
 		ho.registerSimulator(sim);
 		sim.start();
-				
+		
+		Receiver r = new Receiver();
+		
+//		AtomicTaskInjector injector = new OpenDealershipInjector();
+//		AtomicTaskRunner task = injector.getNewTask(new AtomicTaskDetails(TypeOfTask.ATOMIC, carDealer.getDealerDAO(), "Open Dealer", "objId"));
+//		r.giveNewTask(task, new AtomicTaskReceiver());
+		
+		
+		
+		
 		
 //		BlockingQueue<Department> departments = today.getDepartments();
 //		

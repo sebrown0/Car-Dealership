@@ -40,32 +40,27 @@ public class Simulator implements Observer {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
-
 
 	@Override
 	public void updateObserver(ObserverMessage msg) {		
-//		log.logEntry(objId, "obsereved");
-		if(++count == 1) {
+		if(++count == 1) 
 			createDealer();
-		}
 	}
 	
 	private void createDealer() {
 		headOffice.management().createNewDealer(
-		new MainDealerBuilder() {},
-		"Fiat", 
-		new MainDealerWorkingDay(new Time(9, 00, 04), new Time(9, 00, 9)),
-		new DealerObjects(
-				new MySqlDB(log), 
-				new Spark("Fiat", "local", true, log), 
-				headOffice.timer(), 
-				log, 
-				new TaskManager(timer, new FastHeartbeat("Fiat Task Manager"), log))	 
+				new MainDealerBuilder() {},
+				"Fiat", 
+				new MainDealerWorkingDay(new Time(9, 00, 04), new Time(9, 00, 9)),
+				new DealerObjects(
+						new MySqlDB(log), 
+						new Spark("Fiat", "local", true, log), 
+						headOffice.timer(), 
+						log, 
+						new TaskManager(timer, new FastHeartbeat("Fiat Task Manager"), log))	 
 		);
 	}
 }

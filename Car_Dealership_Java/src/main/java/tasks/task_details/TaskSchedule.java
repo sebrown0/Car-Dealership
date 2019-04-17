@@ -1,7 +1,7 @@
 /**
  * 
  */
-package tasks.task_creators;
+package tasks.task_details;
 
 /**
  * @author Steve Brown

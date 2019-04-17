@@ -15,7 +15,7 @@ import employees.SalesPerson;
  */ 
 public class SalesDepartment extends Department{
 
-	private List<Person> peopleBrowsing = new ArrayList<>();  // TODO - Blocking queue.
+	private List<Person> peopleBrowsing = new ArrayList<>();  
 	
 	public SalesDepartment(String deptId, String deptName, DealerDAO dealerDAO) {
 		super(deptId, deptName, dealerDAO);

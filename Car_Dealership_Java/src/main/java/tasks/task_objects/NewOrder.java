@@ -1,27 +1,34 @@
 package tasks.task_objects;
 
-import tasks.task_creators.DepartmentTasksDetails;
+import departments.department.Department;
+import tasks.task_details.TasksDetails;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
  *
  *	An Atomic, Departmental task.
  */
-public class NewOrder extends DepartmentTask{
+public class NewOrder extends AtomicTask{
 
-	/**
-	 * @param tasksDetails: Details for this departmental task.
-	 */	
-	public NewOrder(DepartmentTasksDetails tasksDetails) {
-		super(tasksDetails);
+	public NewOrder(TasksDetails tasksDetails, Department tasksDepartment) {
+		super(tasksDetails, tasksDepartment);
 	}
 
+	/*
+	 *  Return the task's id.
+	 *  Make it static so that we can get it's value for comparison without instantiating.
+	 */
+	public static String TASK_ID() {
+		return NewOrder.class.getSimpleName();
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * @see tasks.AtomicTaskRunner#executeTask()
 	 */
 	@Override
 	public void executeTask() {
-		tasksDetails.getLog().logEntry(tasksDetails.getObjId(), "Executing: New Order");
+//		tasksDetails.getLog().logEntry(tasksDetails.getTaskID(), "Executing: New Order");
 	}
 }

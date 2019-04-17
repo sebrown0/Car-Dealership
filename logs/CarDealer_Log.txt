@@ -1,39 +1,25 @@
-03/04/2019
-14:17:41(9900) : <Log> -> New File Started
-14:17:44(8860) : <Spark> -> Spark session:  (Fiat) created.
-14:17:44(9040) : TODO - MainDealerBuilder -> Created Main Dealer (Fiat)
-14:17:44(9140) : Fiat -> Created Car DealerFiat
-14:17:44(9270) : <dept.deptName()> <CreateDepartments> -> Creating Departments
-14:17:45(3930) : <dept.deptName()> <CreateDepartments> -> Creating HR department
-14:17:45(3970) : <dept.deptName()> <CreateDepartments> -> Creating Sales department
-14:17:45(4000) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 22
-14:17:45(4160) : <dept.deptName()> <CreateDepartments> -> Creating IT department
-14:17:45(4260) : <dept.deptName()> <CreateDepartments> -> Creating Accounts department
-14:17:45(4370) : <dept.deptName()> <CreateDepartments> -> Creating Garage Services department
-14:17:45(4470) : <dept.deptName()> <CreateDepartments> -> Creating Stock department
-14:17:45(4580) : <dept.deptName()> <CreateDepartments> -> Creating Order department
-14:17:45(4790) : manageTask - TODO -> ATOMIC
-14:17:45(4860) : manageTask - TODO -> Running Atomic TasK
-14:17:45(4910) : <Department Task> <RollCall> -> Starting roll call for HR department
-14:17:45(5090) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
-14:17:45(5130) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
-14:17:45(5160) : manageTask - TODO -> ATOMIC
-14:17:45(5190) : manageTask - TODO -> Running Atomic TasK
-14:17:45(5220) : <Department Task> <RollCall> -> Starting roll call for Sales department
-14:17:45(5280) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
-14:17:45(5310) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
-14:17:45(5340) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
-14:17:45(5360) : manageTask - TODO -> ATOMIC
-14:17:45(5390) : manageTask - TODO -> Running Atomic TasK
-14:17:45(5410) : <Department Task> <RollCall> -> Starting roll call for Stock department
-14:17:45(5470) : 	6 -> Emp ID: 16 Emp: John Wayne Role: role
-14:17:45(5490) : manageTask - TODO -> ATOMIC
-14:17:45(5510) : manageTask - TODO -> Running Atomic TasK
-14:17:45(5540) : <Department Task> <RollCall> -> Starting roll call for Order department
-14:17:45(5600) : 	7 -> Emp ID: 17 Emp: Queen Victoria Role: role
-14:17:48(0010) : manageTask - TODO -> ATOMIC
-14:17:48(0110) : manageTask - TODO -> Running Atomic TasK
-14:17:48(0210) : <Atomic Task> <OpenDealership> -> Executing: Opening Dealer
-14:17:53(9990) : manageTask - TODO -> ATOMIC
-14:17:54(0040) : manageTask - TODO -> Running Atomic TasK
-14:17:54(0070) : <Atomic Task> <CloseDealership> -> Executing: Closing Dealer
+17/04/2019
+11:40:09(4010) : <Log> -> New File Started
+11:40:12(1300) : <Spark> -> Spark session:  (Fiat) created.
+11:40:12(1340) : TODO - MainDealerBuilder -> Created Main Dealer (Fiat)
+11:40:12(1370) : Fiat -> Created Car DealerFiat
+11:40:12(1420) : <CreateDepartments> -> Creating Departments
+11:40:12(6250) : <CreateDepartments> -> Creating HR department
+11:40:12(6400) : <CreateDepartments> -> Creating Sales department
+11:40:12(6660) : <Sales 2> -> New lead: Daenerys Targaryen Mother of Dragons 22
+11:40:12(6860) : <CreateDepartments> -> Creating IT department
+11:40:12(6910) : <CreateDepartments> -> Creating Accounts department
+11:40:12(6940) : <CreateDepartments> -> Creating Garage Services department
+11:40:12(6990) : <CreateDepartments> -> Creating Stock department
+11:40:12(7030) : <CreateDepartments> -> Creating Order department
+11:40:12(7100) : TODO -> Starting roll call for HR department
+11:40:12(7250) : 	1 -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role
+11:40:12(7290) : 	1 -> Emp ID: 2 Emp: Sid James Role: role
+11:40:12(7320) : TODO -> Starting roll call for Sales department
+11:40:12(7390) : 	2 -> Emp ID: 11 Emp: Clint Eastwood Role: role
+11:40:12(7420) : 	2 -> Emp ID: 12 Emp: Maggie Smith Role: role
+11:40:12(7450) : 	2 -> Emp ID: 13 Emp: Homer Simpson Role: role
+11:40:12(7480) : TODO -> Starting roll call for Stock department
+11:40:12(7550) : 	6 -> Emp ID: 16 Emp: John Wayne Role: role
+11:40:12(7590) : TODO -> Starting roll call for Order department
+11:40:12(7660) : 	7 -> Emp ID: 17 Emp: Queen Victoria Role: role

@@ -1,42 +1,54 @@
-/**
- * 
- */
-package tasks.task_objects.unimplemented;
+package tasks.task_objects;
 
-import department_tasks.Task;
+import departments.department.Department;
 import departments.hr_department.Person;
 import departments.hr_department.Staff;
 import departments.sales_department.SalesDepartment;
 import employees.SalesPerson;
+import tasks.task_details.TasksDetails;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
  *
  * Responsible for handling a customer enquiry.
  */
-public class MeetCustomer extends Task {
+public class MeetCustomer extends AtomicTask {
 	
-	private final String objId;
+
+	private String objId;
 	private SalesDepartment department = null;
 	private Staff salesTeam = null;
 	private Person person = null;
 //	private Customer customer = null;
-	
-	public MeetCustomer(Person person) {
-		super();
-		this.salesTeam = this.department.idleStaff();	
-//		this.department = dept;
-		this.objId = "<" + this.department.deptName() + ">" + " <" + this.getClass().getSimpleName() + ">";
-		department.setObjId("<" + this.department.getDeptId() + ">" + " <" + this.getClass().getSimpleName());
-		this.person = person;
+
+	public MeetCustomer(TasksDetails tasksDetails, Department tasksDepartment) {
+		super(tasksDetails, tasksDepartment);
 	}
 	
+//	public MeetCustomer(Person person) {
+//		super();
+//		this.salesTeam = this.department.idleStaff();	
+////		this.department = dept;
+//		this.objId = "<" + this.department.deptName() + ">" + " <" + this.getClass().getSimpleName() + ">";
+//		department.setObjId("<" + this.department.getDeptId() + ">" + " <" + this.getClass().getSimpleName());
+//		this.person = person;
+//	}
+	
+		
+	/*
+	 *  Return the task's id.
+	 *  Make it static so that we can get it's value for comparison without instantiating.
+	 */
+	public static String TASK_ID() {
+		return MeetCustomer.class.getSimpleName();
+	}
+
 	/* 
 	 * A person has walked into the show room. 
 	 * Introduce them to the next available salesperson and make them a Customer.
 	 */
-	@Override
-	public void run() {		
+	private void meetCustomer() {		
 
 		department.log().logEntry(objId, "New lead: " + person.getFirstName() + " " + person.getLastName());
 		
@@ -57,6 +69,11 @@ public class MeetCustomer extends Task {
 		// Give order to Order Dept.
 //		OrderDept orderDept = (OrderDept) department.getMessanger().getDepartment(DepartmentNames.ORDER.value());
 //		orderDept.newOrder(customerOrder);
+	}
+
+	@Override
+	public void executeTask() {
+		meetCustomer();
 	}
 	
 //	private void customersSalesPerson(SalesPerson sp, Customer customer) {

@@ -1,4 +1,7 @@
-package tasks.task_creators;
+package tasks.task_injectors;
+
+import tasks.task_details.TasksDetails;
+import tasks.task_super_objects.ScheduledTask;
 
 /**
  * @author Steve Brown
@@ -8,9 +11,5 @@ package tasks.task_creators;
  *   	- See drawing TaskIoD.uxf.
  */
 public interface ScheduledTaskInjector {
-
-	/*
-	 * A new task for the specified department with a scheduled time or duration.
-	 */
-	TaskConsumer getNewTask(ScheduledTasksDetails taskDetails);
+	ScheduledTask getNewTask(TasksDetails taskDetails);
 }

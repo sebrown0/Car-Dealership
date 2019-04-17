@@ -1,6 +1,8 @@
 package tasks.task_objects;
 
-import tasks.task_creators.AtomicTasksDetails;
+import departments.department.Department;
+import tasks.task_details.TasksDetails;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
@@ -8,22 +10,25 @@ import tasks.task_creators.AtomicTasksDetails;
  * 	An Atomic task that doesn't belong to a department.
  */
 public class CloseDealership extends AtomicTask {
+	
+	public CloseDealership(TasksDetails tasksDetails, Department tasksDepartment) {
+		super(tasksDetails, tasksDepartment);
+	}
 
-	/**
-	 * @param tasksDetails: Details for this atomic task.
+	/*
+	 *  Return the task's id.
+	 *  Make it static so that we can get it's value for comparison without instantiating.
 	 */
-	public CloseDealership(AtomicTasksDetails tasksDetails) {
-		super(tasksDetails);
-		// TODO Auto-generated constructor stub
+	public static String TASK_ID() {
+		return CloseDealership.class.getSimpleName();
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see tasks.AtomicTaskRunner#executeTask()
-	 */
+	
 	@Override
 	public void executeTask() {
-		tasksDetails.getLog().logEntry(tasksDetails.getObjId(), "Executing: Closing Dealer");
+		// THIS WILL BE IN THE EMPLOYEE
+//		tasksDetails.getLog().logEntry(tasksDetails.getTaskID(), "Executing: Closing Dealer");
+		System.out.println("Executing: Closing Dealer");
 	}
 
 }

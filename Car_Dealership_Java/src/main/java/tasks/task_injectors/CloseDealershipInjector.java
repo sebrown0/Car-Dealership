@@ -1,26 +1,20 @@
 package tasks.task_injectors;
 
-import tasks.task_creators.AtomicTaskInjector;
-import tasks.task_creators.AtomicTasksDetails;
-import tasks.task_creators.Task;
-import tasks.task_creators.TaskConsumer;
+import departments.department.Department;
+import tasks.task_details.TasksDetails;
 import tasks.task_objects.CloseDealership;
+import tasks.task_super_objects.AtomicTask;
 
 /**
  * @author Steve Brown
  *
- *  Return a new task CloseDealership for NO Department. 
- *  To be executed immediately.
+ *  Return a new task CloseDealership.
  */
 public class CloseDealershipInjector implements AtomicTaskInjector {
 
-	/*
-	 * (non-Javadoc)
-	 * @see tasks.AtomicTaskInjector#getNewTask(tasks.AtomicTasksDetails)
-	 */
 	@Override
-	public TaskConsumer getNewTask(AtomicTasksDetails taskDetails) {
-		return new Task(new CloseDealership(taskDetails));
+	public AtomicTask getNewTask(TasksDetails taskDetails, Department tasksDepartment) {
+		return new CloseDealership(taskDetails, tasksDepartment);
 	}
 
 }

@@ -8,11 +8,11 @@ import dao.SparkSessionDAO;
 import dealer_management.DealerDAO;
 import department_tasks.DepartmentTask;
 import department_tasks.Task_NOB;
+import department_tasks.Task_OLD;
 import departments.hr_department.Staff;
 import employees.Employee;
 import task_scheduler.Manager;
-import tasks.task_creators.Task;
-import tasks.task_creators.TaskConsumer;
+import tasks.task_super_objects.AtomicTask;
 import timer.Timers;
 import utils.Log;
 
@@ -22,28 +22,19 @@ import utils.Log;
  * Super class for all departments
  */
 public abstract class Department implements DepartmentTask {
-//public abstract class Department {
-//	protected Messenger deptMessanger = new DepartmentMessenger();	
-//	private TaskProducer  taskProducer = null;	
-//	private TaskConsumer_NOT_USED taskConsumer = null;
-//	private BlockingQueue<Task> departmentTaskList = new ArrayBlockingQueue<Task>(15); // TODO - Queue size.
-//	private Log log = new Logger(false);
-//	private SparkSessionDAO spark = new Spark(deptId, "local", true); 	// TODO - Spark session?
-//	private DatabaseDAO dataBase  = new MySqlDB();						// TODO - Database here?;	
+	
 	private String deptId = "";
-	protected String objId = "";	// TODO - BOTH???????
 	private String deptName = "";
 	private Staff idleStaff = new Staff();
 	private Staff workingStaff = new Staff();
 	
+	protected String objId = "";	// TODO - BOTH???????
 	protected Messenger deptMessanger = null;
 	protected Employee workingEmployee = null;			// List
-//	protected Task_NOB currentTask = null;    				// List
 	protected Log log;
 	
 	private SparkSessionDAO spark;
 	private DatabaseDAO database;
-
 	private Timers timer;
 	private Manager taskManager;
 	
@@ -58,8 +49,8 @@ public abstract class Department implements DepartmentTask {
 		this.spark = dealerDAO.getSpark();
 	}
 		
-	public void departmentTask(TaskConsumer task) {
-		taskManager.manageTask(task);
+	public void departmentTask(AtomicTask task) {
+//		taskManager.manageTask(task, null); // TODO - INSERT EMPLOYEE!!!!!!!!!
 	}
 		
 	public void receiveTask(Task_NOB task) {
@@ -72,7 +63,7 @@ public abstract class Department implements DepartmentTask {
 	}
 	
 
-	public void receiveTask(Task task, Employee employee) {
+	public void receiveTask(Task_OLD task, Employee employee) {
 		log.logEntry(getObjId(), "New task received");
 
 //		this.currentTask = task;				
