@@ -1,6 +1,7 @@
 package tasks.task_objects;
 
 import departments.department.Department;
+import task_strategy.TaskListVisitor;
 import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
@@ -30,5 +31,10 @@ public class NewOrder extends AtomicTask{
 	@Override
 	public void executeTask() {
 //		tasksDetails.getLog().logEntry(tasksDetails.getTaskID(), "Executing: New Order");
+	}
+	
+	@Override
+	public <T extends TaskListVisitor> void accept(T taskList) {
+		taskList.addTask(this);
 	}
 }

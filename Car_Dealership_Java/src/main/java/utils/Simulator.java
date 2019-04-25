@@ -5,15 +5,27 @@ package utils;
 
 
 import database.MySqlDB;
+import dealer.CarDealer;
 import dealer_management.DealerObjects;
 import dealer_management.MainDealerBuilder;
 import dealer_working_day.MainDealerWorkingDay;
+import departments.department.Department;
 import head_office.HeadOffice;
 import heartbeat.FastHeartbeat;
 import observer.Observer;
 import observer.ObserverMessage;
 import spark.Spark;
 import task_scheduler.TaskManager;
+import tasks.task_details.Details;
+import tasks.task_details.ScheduledTime;
+import tasks.task_details.TaskSchedule;
+import tasks.task_injectors.AtomicTaskInjector;
+import tasks.task_injectors.CloseDealershipInjector;
+import tasks.task_injectors.ScheduledInjectorTest;
+import tasks.task_injectors.ScheduledTaskInjector;
+import tasks.task_super_objects.AtomicTask;
+import tasks.task_super_objects.ScheduledTask;
+import time.ChangeableTime;
 import time.Time;
 import timer.Timers;
 
@@ -46,21 +58,45 @@ public class Simulator implements Observer {
 
 	@Override
 	public void updateObserver(ObserverMessage msg) {		
-		if(++count == 1) 
+		count++;
+		if(count == 1) 
 			createDealer();
+		else if(count == 5)
+			scheduledTaskTest(1, 5);
+		else if(count == 6)
+			scheduledTaskTest(2, 9);
+//		else if(count == 7)
+//			scheduledTaskTest(3, 12);
+	}
+	
+	private void scheduledTaskTest(int testNum, int timeOffset) {
+		int timeNow = timer.currentTime();
+		log.logEntry("Creating (scheduled) TEST TASK at: ", String.valueOf(timeNow) + ". Scheduled for: " + String.valueOf(timeNow + timeOffset));
+		
+		CarDealer dealer = headOffice.getDealerByName("Fiat");
+		if(dealer != null) {
+			Department dept = dealer.getDepartmentByName("HR");
+			if(dept != null) {
+				TaskSchedule schedule = new ScheduledTime(timeNow + timeOffset, timeNow + timeOffset + 2);
+				ScheduledTaskInjector injector = new ScheduledInjectorTest();
+				ScheduledTask task = injector.getNewTask(new Details("Scheduled TEST " + String.valueOf(testNum), String.valueOf(testNum)), dept, schedule);
+				
+				headOffice.getTaskManager().giveTask(task);
+			}
+		}
 	}
 	
 	private void createDealer() {
 		headOffice.management().createNewDealer(
-				new MainDealerBuilder() {},
-				"Fiat", 
-				new MainDealerWorkingDay(new Time(9, 00, 04), new Time(9, 00, 9)),
-				new DealerObjects(
-						new MySqlDB(log), 
-						new Spark("Fiat", "local", true, log), 
-						headOffice.timer(), 
-						log, 
-						new TaskManager(timer, new FastHeartbeat("Fiat Task Manager"), log))	 
+			new MainDealerBuilder() {},
+			"Fiat", 
+			new MainDealerWorkingDay(new Time(9, 00, 04), new Time(9, 00, 9)),
+			new DealerObjects(
+				new MySqlDB(log), 
+				new Spark("Fiat", "local", true, log), 
+				headOffice.timer(), 
+				log, 
+				new TaskManager(timer, new FastHeartbeat("Fiat Task Manager"), log))	 
 		);
 	}
 }

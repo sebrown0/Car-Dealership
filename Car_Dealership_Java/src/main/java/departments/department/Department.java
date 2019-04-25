@@ -6,13 +6,12 @@ package departments.department;
 import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
 import dealer_management.DealerDAO;
-import department_tasks.DepartmentTask;
-import department_tasks.Task_NOB;
-import department_tasks.Task_OLD;
-import departments.hr_department.Staff;
+import departments.hr_department.DepartmentStaff;
 import employees.Employee;
 import task_scheduler.Manager;
+import task_scheduler.TaskReceiver;
 import tasks.task_super_objects.AtomicTask;
+import tasks.task_super_objects.Task;
 import timer.Timers;
 import utils.Log;
 
@@ -21,12 +20,12 @@ import utils.Log;
  *
  * Super class for all departments
  */
-public abstract class Department implements DepartmentTask {
+public abstract  class Department implements TaskReceiver{
 	
 	private String deptId = "";
 	private String deptName = "";
-	private Staff idleStaff = new Staff();
-	private Staff workingStaff = new Staff();
+	private DepartmentStaff idleStaff = new DepartmentStaff();
+	private DepartmentStaff workingStaff = new DepartmentStaff();
 	
 	protected String objId = "";	// TODO - BOTH???????
 	protected Messenger deptMessanger = null;
@@ -49,21 +48,27 @@ public abstract class Department implements DepartmentTask {
 		this.spark = dealerDAO.getSpark();
 	}
 		
+//	@Override
+//	public void giveTask(Task t) {
+//		t.setTasksDepartment(this);;
+//		taskManager.accept(t);
+//	}
+	
 	public void departmentTask(AtomicTask task) {
 //		taskManager.manageTask(task, null); // TODO - INSERT EMPLOYEE!!!!!!!!!
 	}
 		
-	public void receiveTask(Task_NOB task) {
+	public void receiveTask(Task task) {
 		log.logEntry(getObjId(), "New task received");
 
-		task.setDepartment(this);
+//		task.setDepartment(this);
 //		this.currentTask = task;				
 //		currentTask.setDepartment(this);
-		delegateTask(task);
+//		delegateTask(task);
 	}
 	
 
-	public void receiveTask(Task_OLD task, Employee employee) {
+	public void receiveTask(Task task, Employee employee) {
 		log.logEntry(getObjId(), "New task received");
 
 //		this.currentTask = task;				
@@ -71,10 +76,10 @@ public abstract class Department implements DepartmentTask {
 //		delegateTask(task, employee);
 	}
 	
-	abstract public void delegateTask(Task_NOB task); 
+	abstract public void delegateTask(Task task); 
 	abstract public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role);
 	
-	public void delegateTask(Task_NOB task, Employee employee) {
+	public void delegateTask(Task task, Employee employee) {
 		employee.addTask(task);		
 		this.workingStaff.addDepStaffMember(employee, log);
 	}
@@ -114,11 +119,11 @@ public abstract class Department implements DepartmentTask {
 		return this.database;
 	}
 
-	public Staff idleStaff() {
+	public DepartmentStaff idleStaff() {
 		return this.idleStaff;
 	}
 	
-	public Staff workingStaff() {
+	public DepartmentStaff workingStaff() {
 		return this.workingStaff;
 	}
 	

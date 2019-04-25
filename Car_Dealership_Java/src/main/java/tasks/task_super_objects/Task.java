@@ -1,6 +1,7 @@
 package tasks.task_super_objects;
 
 import departments.department.Department;
+import task_strategy.TaskListVisitor;
 import tasks.task_details.TasksDetails;
 
 public abstract class Task implements TaskRunner {
@@ -12,7 +13,7 @@ public abstract class Task implements TaskRunner {
 		this.tasksDetails = tasksDetails;
 		this.tasksDepartment = tasksDepartment;
 	}
-
+	
 	public Department getTasksDepartment() {
 		return tasksDepartment;
 	}
@@ -28,4 +29,7 @@ public abstract class Task implements TaskRunner {
 	public TasksDetails getTasksDetails() {
 		return tasksDetails;
 	}
+	
+//	public int getStartTime() ;
+	public abstract <T extends TaskListVisitor> void accept(T taskList);
 }

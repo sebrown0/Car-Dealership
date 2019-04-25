@@ -10,7 +10,7 @@ import tasks.task_super_objects.ScheduledTask;
  * @author Brown
  *
  */
-public class ScheduledTaskReceiver extends Receiver implements TaskReceiver {
+public class ScheduledTaskReceiver extends Receiver {//implements TaskReceiver {
 	
 //	@Override
 //	public void getNewTask(TaskRunner task) {
@@ -18,15 +18,15 @@ public class ScheduledTaskReceiver extends Receiver implements TaskReceiver {
 //		scheduledTasksReceived.add((ScheduledTaskRunner) task);
 //	}
 
-	@Override
-	public void getNewTask(AtomicTask task) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getNewTask(ScheduledTask task) {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public void getNewTask(AtomicTask task) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void getNewTask(ScheduledTask task) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 }

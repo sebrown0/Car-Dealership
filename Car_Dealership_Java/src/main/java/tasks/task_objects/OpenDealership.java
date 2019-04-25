@@ -1,6 +1,7 @@
 package tasks.task_objects;
 
 import departments.department.Department;
+import task_strategy.TaskListVisitor;
 import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
@@ -29,7 +30,12 @@ public class OpenDealership extends AtomicTask {
 	 */
 	@Override
 	public void executeTask() {
-//		tasksDetails.getLog().logEntry(tasksDetails.getTaskID(), "Executing: Opening Dealer");
-//		tasksDetails.getDealerDAO().getTimer().setObserver(this);
+//		tasksDepartment.log().logEntry(tasksDetails.getTaskID(), "Executing: Opening Dealer");
+		System.out.println("Executing: Opening Dealer");
+	}
+	
+	@Override
+	public <T extends TaskListVisitor> void accept(T taskList) {
+		taskList.addTask(this);
 	}
 }

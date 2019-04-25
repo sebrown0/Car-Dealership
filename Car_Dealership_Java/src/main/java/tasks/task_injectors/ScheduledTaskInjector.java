@@ -1,5 +1,7 @@
 package tasks.task_injectors;
 
+import departments.department.Department;
+import tasks.task_details.TaskSchedule;
 import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.ScheduledTask;
 
@@ -11,5 +13,5 @@ import tasks.task_super_objects.ScheduledTask;
  *   	- See drawing TaskIoD.uxf.
  */
 public interface ScheduledTaskInjector {
-	ScheduledTask getNewTask(TasksDetails taskDetails);
+	ScheduledTask getNewTask(TasksDetails taskDetails, Department tasksDepartment, TaskSchedule tasksSchedule);
 }

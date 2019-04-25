@@ -7,6 +7,7 @@ import departments.stock_department.StockDelivery;
 import departments.stock_department.StockList;
 import departments.stock_department.StockUpdateProcess;
 import enums.ErrorCodes;
+import task_strategy.TaskListVisitor;
 import tasks.task_details.TaskSchedule;
 import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.ScheduledTask;
@@ -71,5 +72,15 @@ public class TaskUpdateStock extends ScheduledTask implements StockUpdateProcess
 	@Override
 	public void executeTask() {
 		updateStock();
+	}
+	
+	@Override
+	public <T extends TaskListVisitor> void accept(T taskList) {
+		taskList.addTask(this);
+	}
+
+	@Override
+	public int getStartTime() {
+		return getTaskStartTime();
 	}
 }

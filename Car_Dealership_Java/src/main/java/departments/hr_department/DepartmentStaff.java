@@ -14,31 +14,25 @@ import utils.Log;
  * 	A list of employees that are available for work.
  * 	Each department has an EmployeePool (Team).
  */
-public class Staff {
+public class DepartmentStaff {
 
 	private List<StaffMember> team;		// TODO - Blocking queue?
-//	private Log log = new Logger(false);
 	
-	public Staff() {
+	public DepartmentStaff() {
 		team = new ArrayList<StaffMember>();
 	}
-	
-//	public StaffMember getStaffMember() {
-//		return team.get(0);
-//	}
 
 	public void addDepStaffMember(StaffMember tm, Log log) {
 		log.logEntry("\t" + tm.deptId(), 
-				"Emp ID: " + tm.id() + 
+				"Adding -> Emp ID: " + tm.id() + 
 				" Emp: " +  tm.firstName() + " " + tm.lastName() +
-				" Role: " + tm.role());
+				" Role: " + tm.role() + ". To the team");
 		team.add(tm);	
 	}
 	
 	public StaffMember nextEmployee() {
-		if(!team.isEmpty()) {
+		if(!team.isEmpty())
 			return team.get(0);
-		}
 		
 		return null;
 	}

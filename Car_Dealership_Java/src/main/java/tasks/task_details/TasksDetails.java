@@ -8,12 +8,6 @@ public interface TasksDetails {
 
 	void setDepartment(Department department);
 	
-	TaskSchedule getTasksSchedule();
-
-	void setTasksSchedule(TaskSchedule taskSchedule);
-
-//	TypeOfTask getTaskType();
-
 //	DealerDAO getDealerDAO();
 	
 //	Log getLog();

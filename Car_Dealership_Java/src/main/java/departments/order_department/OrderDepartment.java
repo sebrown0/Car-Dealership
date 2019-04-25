@@ -4,9 +4,9 @@
 package departments.order_department;
 
 import dealer_management.DealerDAO;
-import department_tasks.Task_NOB;
 import departments.department.Department;
 import employees.SalesPerson;
+import tasks.task_super_objects.Task;
 
 /**
  * @author Steve Brown
@@ -35,7 +35,13 @@ public class OrderDepartment extends Department  {
 	}
 
 	@Override
-	public void delegateTask(Task_NOB task) {
+	public void delegateTask(Task task) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public <T extends Task> void accept(T t) {
 		// TODO Auto-generated method stub
 		
 	}

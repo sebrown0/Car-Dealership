@@ -1,6 +1,7 @@
 package tasks.task_objects;
 
 import departments.department.Department;
+import task_strategy.TaskListVisitor;
 import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
@@ -29,8 +30,11 @@ public class NewLead extends AtomicTask {
 	 */
 	@Override
 	public void executeTask() {
-//		tasksDetails.getLog().logEntry(tasksDetails.getTaskID(), "Executing: New Lead");
-		System.out.println("Executing: New Lead");
+		tasksDepartment.log().logEntry(tasksDetails.getTaskID(), "Executing: New Lead");
 	}
 
+	@Override
+	public <T extends TaskListVisitor> void accept(T taskList) {
+		taskList.addTask(this);
+	}
 }

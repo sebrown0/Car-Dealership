@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import enums.DepartmentNames;
 import head_office.HeadOffice;
-import tasks.task_reciever.Receiver;
 import time.ChangeableTime;
 import timer.DurationInSeconds;
 import utils.Simulator;
@@ -30,7 +29,7 @@ public class App {
 		ho.registerSimulator(sim);
 		sim.start();
 		
-		Receiver r = new Receiver();
+		
 		
 //		AtomicTaskInjector injector = new OpenDealershipInjector();
 //		AtomicTaskRunner task = injector.getNewTask(new AtomicTaskDetails(TypeOfTask.ATOMIC, carDealer.getDealerDAO(), "Open Dealer", "objId"));

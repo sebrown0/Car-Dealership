@@ -11,6 +11,7 @@ import database.StoredProcedure.QueryBuilder;
 import departments.department.Department;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
+import task_strategy.TaskListVisitor;
 import enums.HRDeptSP;
 import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
@@ -80,5 +81,10 @@ public class RollCall extends AtomicTask {
 	@Override
 	public void executeTask() {
 		performRollCall();		
+	}
+	
+	@Override
+	public <T extends TaskListVisitor> void accept(T taskList) {
+		taskList.addTask(this);
 	}
 }

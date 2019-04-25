@@ -2,9 +2,10 @@ package tasks.task_objects;
 
 import departments.department.Department;
 import departments.hr_department.Person;
-import departments.hr_department.Staff;
+import departments.hr_department.DepartmentStaff;
 import departments.sales_department.SalesDepartment;
 import employees.SalesPerson;
+import task_strategy.TaskListVisitor;
 import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
@@ -18,7 +19,7 @@ public class MeetCustomer extends AtomicTask {
 
 	private String objId;
 	private SalesDepartment department = null;
-	private Staff salesTeam = null;
+	private DepartmentStaff salesTeam = null;
 	private Person person = null;
 //	private Customer customer = null;
 
@@ -75,7 +76,11 @@ public class MeetCustomer extends AtomicTask {
 	public void executeTask() {
 		meetCustomer();
 	}
-	
+
+	@Override
+	public <T extends TaskListVisitor> void accept(T taskList) {
+		taskList.addTask(this);
+	}
 //	private void customersSalesPerson(SalesPerson sp, Customer customer) {
 //		department.log().logEntry(objId, 
 //				sp.getFirstName() + " " + sp.getLastName()

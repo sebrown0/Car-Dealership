@@ -8,20 +8,20 @@ import time.MutableTime;
 /**
  * @author Steve Brown
  * 
- *         Schedule for a task. Every scheduled task should have one. Atomic
- *         tasks i.e. those that are to be executed immediately do not need a
- *         schedule.
+ * 		Schedule for a task. Every scheduled task should have one. Atomic
+ *      tasks i.e. those that are to be executed immediately do not need a schedule.
  * 
- *         A task's duration is set at instantiation. If the start and end times
- *         are erroneous then task's duration is set to -1 and therefore won't
- *         be executed.
+ *     	A task's duration is set at instantiation. If the start and end times
+ *      are erroneous then task's duration is set to -1 and therefore won't
+ *      be executed.
  * 
- *         Type of schedule: 1. An atomic task with a duration: Construct with
- *         valid duration. 2. Scheduled task with start/end time specified in
- *         seconds: Construct with start time (>=0) and end time (<= 8600). 3.
- *         Scheduled task with start/end time specified as formatted strings
- *         (TimeFormatter): Construct with start time (h,m,s) and end time
- *         (h,m,s).
+ *      Type of schedule: 
+ *         	1. 	An atomic task with a duration: 
+ *         			Construct with valid duration. 
+ *         	2. 	Scheduled task with start/end time specified in	seconds: 
+ *         			Construct with start time (>=0) and end time (<= 86400). 
+ *         	3.  Scheduled task with start/end time specified as formatted strings (TimeFormatter): 
+ *         			Construct with start time (h,m,s) and end time (h,m,s).
  */
 public class ScheduledTime implements TaskSchedule {
 
