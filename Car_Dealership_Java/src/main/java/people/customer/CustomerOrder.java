@@ -1,5 +1,5 @@
 
-package customer;
+package people.customer;
 
 import departments.order_department.Order;
 

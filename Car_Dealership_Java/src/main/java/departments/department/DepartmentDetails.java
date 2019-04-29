@@ -2,7 +2,7 @@ package departments.department;
 
 public interface DepartmentDetails {
 
-	String getDeptId();
+	String getDeptID();
 
 	String getDeptName();
 

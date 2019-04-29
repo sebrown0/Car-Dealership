@@ -36,12 +36,10 @@ public class DepartmentMessenger implements Messenger {
 	 */
 	@Override
 	public Department getDepartment(int deptId) {
-		
 		for (Department d : departments) {
-			if(Integer.parseInt(d.departmentDetails().getDeptId()) == deptId)
+			if(Integer.parseInt(d.departmentDetails().getDeptID()) == deptId)
 				return d;
 		}
-		
 		return null;
 	}
 	
@@ -50,12 +48,10 @@ public class DepartmentMessenger implements Messenger {
 	 */
 	@Override
 	public Department getDepartment(String deptName) {
-		
 		for (Department d : departments) {
 			if(d.departmentDetails().getDeptName().compareTo(deptName) == 0)
 				return d;
 		}
-		
 		return null;
 	}
 

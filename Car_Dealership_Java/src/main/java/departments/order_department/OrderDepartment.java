@@ -6,8 +6,8 @@ package departments.order_department;
 import dealer_management.DealerDAO;
 import departments.department.Department;
 import departments.department.DepartmentDetails;
-import employees.Clerk;
-import employees.EmployeeDetails;
+import departments.department.EmployeeDetails;
+import people.employees.Clerk;
 import tasks.task_super_objects.Task;
 
 /**

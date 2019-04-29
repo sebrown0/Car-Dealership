@@ -1,7 +1,7 @@
 /**
  * 
  */
-package customer;
+package people.customer;
 
 /**
  * @author Brown

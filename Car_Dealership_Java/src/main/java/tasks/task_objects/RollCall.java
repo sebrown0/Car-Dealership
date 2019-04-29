@@ -9,7 +9,8 @@ import java.sql.SQLException;
 import database.StoredProcedure;
 import database.StoredProcedure.QueryBuilder;
 import departments.department.Department;
-import employees.EmployeeDetails;
+import departments.department.EmployeeDetails;
+import departments.department.ObjectDetails;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.HRDeptSP;
@@ -35,9 +36,9 @@ public class RollCall extends AtomicTask {
 	 *  Return the task's id.
 	 *  Make it static so that we can get it's value for comparison without instantiating.
 	 */
-	public static String TASK_ID() {
-		return RollCall.class.getSimpleName();
-	}
+//	public static String TASK_ID() {
+//		return RollCall.class.getSimpleName();
+//	}
 	
 	/*
 	 * Update this department's available team members.
@@ -52,17 +53,18 @@ public class RollCall extends AtomicTask {
 	}
 
 	private void addStaffMember(ResultSet empRs) {
-		EmployeeDetails emp = new EmployeeDetails();
+		EmployeeDetails emp = new ObjectDetails();
 		try {
-			emp.setDeptId(empRs.getString("dept_id"));
+			emp.setDeptID(empRs.getString("dept_id"));
 			emp.setLastName(empRs.getString("last_name"));
-			emp.setId(empRs.getLong("hr_emp_id"));
+			emp.setID(empRs.getLong("hr_emp_id"));
 			emp.setRole("role");
 			emp.setFirstName(empRs.getString("first_name"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		tasksDetails.getDepartment().addDeptStaffMember(emp);
+		
+		tasksDepartment.addDeptStaffMember(emp);
 	}
 	
 	/*
@@ -75,7 +77,7 @@ public class RollCall extends AtomicTask {
 		
 		tasksDepartment.database().dbConnect(); // TODO - Drop DB connection when finished. 
 				
-		String stmnt = QueryBuilder.build(tasksDepartment.departmentDetails().getDeptId(), HRDeptSP.ROLL_CALL.value());
+		String stmnt = QueryBuilder.build(tasksDepartment.departmentDetails().getDeptID(), HRDeptSP.ROLL_CALL.value());
 		StoredProcedure emp = tasksDepartment.database().executeSP(stmnt);
 		
 		if(emp.errorCode() == ErrorCodes.NONE) 

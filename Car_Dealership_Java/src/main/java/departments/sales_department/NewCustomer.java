@@ -3,7 +3,7 @@
  */
 package departments.sales_department;
 
-import departments.hr_department.Person;
+import people.Person;
 
 /**
  * @author Steve Brown

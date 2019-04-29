@@ -7,11 +7,9 @@ import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
 import dealer_management.DealerDAO;
 import departments.hr_department.DepartmentStaff;
-import employees.Employee;
-import employees.EmployeeDetails;
+import people.employees.Employee;
 import task_scheduler.Manager;
 import task_scheduler.TaskReceiver;
-import tasks.task_super_objects.AtomicTask;
 import tasks.task_super_objects.Task;
 import timer.Timer;
 import utils.Log;
@@ -24,19 +22,17 @@ import utils.Loggable;
  */
 public abstract class Department implements Loggable, TaskReceiver{
 	
-	private DepartmentDetails deptDetails;
 	private DepartmentStaff idleStaff = new DepartmentStaff();
 	private DepartmentStaff workingStaff = new DepartmentStaff();
-	
-	protected Messenger deptMessanger = null;
-	protected Employee workingEmployee = null;			// List
-	
-	protected Log log;
+	private DepartmentDetails deptDetails;
 	private SparkSessionDAO sparkSession;
 	private DatabaseDAO database;
-	protected Timer timer;
 	private Manager taskManager;
 	
+	protected Messenger deptMessanger = null;
+	protected Log log;
+	protected Timer timer;
+		
 	public Department(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
 		this.deptDetails = deptDetails;
 		this.log = dealerDAO.getLog();
@@ -50,22 +46,14 @@ public abstract class Department implements Loggable, TaskReceiver{
 	abstract public void addDeptStaffMember(EmployeeDetails employeeDetails);
 	
 	public void delegateTask(Task task, Employee employee) {
-		employee.addTask(task);		
-		this.workingStaff.addDepStaffMember(employee, log);
+//		employee.addTask(task);		
+//		this.workingStaff.addDepStaffMember(employee, log);
 	}
 	
-	public Employee working() {
-		return workingEmployee;
-	}
-		
 	public void assignMessenger(Messenger messenger) {
 		this.deptMessanger = messenger;
 	}
-	
-	public void newDeptMember(EmployeeDetails employeeDetails) {
-		this.addDeptStaffMember(employeeDetails);
-	}	
-	
+		
 	public DepartmentDetails departmentDetails() {
 		return deptDetails;
 	}
@@ -79,15 +67,15 @@ public abstract class Department implements Loggable, TaskReceiver{
 	}
 	
 	public DatabaseDAO database() {
-		return this.database;
+		return database;
 	}
 
 	public DepartmentStaff idleStaff() {
-		return this.idleStaff;
+		return idleStaff;
 	}
 	
 	public DepartmentStaff workingStaff() {
-		return this.workingStaff;
+		return workingStaff;
 	}
 	
 	public void setLog(Log log) {

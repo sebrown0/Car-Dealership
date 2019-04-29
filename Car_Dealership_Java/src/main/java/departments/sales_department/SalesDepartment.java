@@ -3,13 +3,12 @@ package departments.sales_department;
 import java.util.ArrayList;
 import java.util.List;
 
-import customer.Customer;
 import dealer_management.DealerDAO;
 import departments.department.Department;
 import departments.department.DepartmentDetails;
-import departments.hr_department.Person;
-import employees.EmployeeDetails;
-import employees.SalesPerson;
+import departments.department.EmployeeDetails;
+import people.Person;
+import people.employees.SalesPerson;
 import tasks.task_super_objects.Task;
 
 /*
@@ -33,7 +32,7 @@ public class SalesDepartment extends Department{
 	// Use to add potential customers 
 	public void peopleBrowsing(String firstName, String lastName) {
 		log().logEntry(this, "New lead: " + firstName + " " + lastName);
-		peopleBrowsing.add(new Customer(firstName, lastName));
+//		peopleBrowsing.add(new Customer(firstName, lastName));
 	}
 	
 	public Person nextCustomer() {
@@ -46,12 +45,12 @@ public class SalesDepartment extends Department{
 	@Override
 	public void delegateTask(Task task) {
 		SalesPerson salesPerson = (SalesPerson) this.idleStaff().nextEmployee();
-		salesPerson.addTask(task);
+//		salesPerson.addTask(task);
 		workingStaff().addDepStaffMember(salesPerson, log);
 		System.out.println("Delegating Sales Task");// + currentTask.taskId() + " to " + workingEmployee.getEmployeeName());
 		
 		// TODO - ** Remove **
-		salesPerson.performTask();
+//		salesPerson.performTask();
 		
 //		this.workingEmployee = new SalesPerson("Bob", "Seager"); 		// TODO - Get the next available employee
 //		this.workingEmployee.setTask(currentTask);  		// In Employee

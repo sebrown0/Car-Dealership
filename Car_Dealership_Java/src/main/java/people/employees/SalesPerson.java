@@ -1,11 +1,12 @@
 /**
  * 
  */
-package employees;
+package people.employees;
 
-import customer.Customer;
-import departments.hr_department.Person;
+import departments.department.EmployeeDetails;
 import departments.sales_department.SalesDepartment;
+import people.Person;
+import people.customer.Customer;
 
 /**
  * @author Steve Brown
@@ -19,15 +20,7 @@ public class SalesPerson extends Employee { // TODO - Staffmember
 	
 	private Customer customer = null;
 	private SalesDepartment department = null;
-	
-	// TODO - REMOVE WHEN ALL EMPLOYEES HAVE BEEN ADDED
-//	public SalesPerson(EmployeeDetails employeeDetails) { 
-//		super(employeeDetails, department);
-//		
-//		this.objId =  "<" + this.getClass().getSimpleName() + ">";
-//	}
-	// TODO - REMOVE WHEN ALL EMPLOYEES HAVE BEEN ADDED
-	
+		
 	public SalesPerson(EmployeeDetails employeeDetails, SalesDepartment department) {
 		super(employeeDetails, department);
 		this.department = department;

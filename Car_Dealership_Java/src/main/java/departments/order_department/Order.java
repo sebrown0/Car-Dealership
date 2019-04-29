@@ -1,8 +1,8 @@
 package departments.order_department;
 
-import customer.Customer;
 import departments.stock_department.CarDetails;
 import enums.OrderStatus;
+import people.customer.Customer;
 
 /*
  * Wrapper class for orders: OrderListTable.
@@ -45,8 +45,8 @@ public class Order {
 	 * 		Update the interested parties, i.e. customer and salesperson. 
 	 */
 	public void updateOrder(long orderId) {
-		long customerId = this.customer.getId();
-		long saleId = this.customer.getSalesPerson().getId();
+		long customerId = this.customer.getID();
+		long saleId = this.customer.getSalesPerson().getID();
 		String modelVin = createModelVin(customerId, saleId , orderId);
 	
 		this.carDetails.updateModelVin(modelVin);

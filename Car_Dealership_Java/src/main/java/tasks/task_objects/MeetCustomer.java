@@ -1,10 +1,10 @@
 package tasks.task_objects;
 
 import departments.department.Department;
-import departments.hr_department.Person;
 import departments.hr_department.DepartmentStaff;
 import departments.sales_department.SalesDepartment;
-import employees.SalesPerson;
+import people.Person;
+import people.employees.SalesPerson;
 import task_strategy.TaskListVisitor;
 import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;

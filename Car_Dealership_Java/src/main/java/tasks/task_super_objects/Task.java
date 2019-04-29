@@ -7,11 +7,11 @@ import utils.Loggable;
 
 public abstract class Task implements TaskRunner, Loggable {
 
-	protected TasksDetails tasksDetails;
+//	protected TasksDetails tasksDetails;
 	protected Department tasksDepartment;
 	
 	public Task(TasksDetails tasksDetails, Department tasksDepartment) {
-		this.tasksDetails = tasksDetails;
+//		this.tasksDetails = tasksDetails;
 		this.tasksDepartment = tasksDepartment;
 	}
 	
@@ -23,13 +23,13 @@ public abstract class Task implements TaskRunner, Loggable {
 		this.tasksDepartment = tasksDepartment;
 	}
 
-	public void setTasksDetails(TasksDetails tasksDetails) {
-		this.tasksDetails = tasksDetails;
-	}
-	
-	public TasksDetails getTasksDetails() {
-		return tasksDetails;
-	}
+//	public void setTasksDetails(TasksDetails tasksDetails) {
+//		this.tasksDetails = tasksDetails;
+//	}
+//	
+//	public TasksDetails getTasksDetails() {
+//		return tasksDetails;
+//	}
 	
 	public abstract <T extends TaskListVisitor> void accept(T taskList);
 }
