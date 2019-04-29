@@ -15,7 +15,6 @@ import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import enums.HRDeptSP;
 import task_strategy.TaskListVisitor;
-import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
 /**
@@ -28,17 +27,9 @@ import tasks.task_super_objects.AtomicTask;
  */
 public class RollCall extends AtomicTask { 
 
-	public RollCall(TasksDetails tasksDetails, Department tasksDepartment) {
-		super(tasksDetails, tasksDepartment);
+	public RollCall( Department tasksDepartment) {
+		super(tasksDepartment);
 	}
-
-	/*
-	 *  Return the task's id.
-	 *  Make it static so that we can get it's value for comparison without instantiating.
-	 */
-//	public static String TASK_ID() {
-//		return RollCall.class.getSimpleName();
-//	}
 	
 	/*
 	 * Update this department's available team members.
@@ -74,7 +65,6 @@ public class RollCall extends AtomicTask {
 	 */
 	public void performRollCall() {
 		tasksDepartment.log().logEntry(this, "Starting roll call for " + tasksDepartment.departmentDetails().getDeptName() + " department"); 
-		
 		tasksDepartment.database().dbConnect(); // TODO - Drop DB connection when finished. 
 				
 		String stmnt = QueryBuilder.build(tasksDepartment.departmentDetails().getDeptID(), HRDeptSP.ROLL_CALL.value());

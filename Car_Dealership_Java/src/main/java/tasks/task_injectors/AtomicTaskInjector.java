@@ -1,7 +1,6 @@
 package tasks.task_injectors;
 
 import departments.department.Department;
-import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
 /**
@@ -11,5 +10,5 @@ import tasks.task_super_objects.AtomicTask;
  *   	- See drawing TaskIoD.uxf.
  */
 public interface AtomicTaskInjector {
-	AtomicTask getNewTask(TasksDetails taskDetails, Department tasksDepartment);	
+	AtomicTask getNewTask(Department tasksDepartment);	
 }

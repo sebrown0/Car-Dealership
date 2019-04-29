@@ -16,7 +16,6 @@ import observer.Observer;
 import observer.ObserverMessage;
 import spark.Spark;
 import task_scheduler.TaskManager;
-import tasks.task_details.Details;
 import tasks.task_details.ScheduledTime;
 import tasks.task_details.TaskSchedule;
 import tasks.task_injectors.ScheduledInjectorTest;
@@ -74,8 +73,7 @@ public class Simulator implements Observer, Loggable {
 			if(dept != null) {
 				TaskSchedule schedule = new ScheduledTime(timeNow + timeOffset, timeNow + timeOffset + 2);
 				ScheduledTaskInjector injector = new ScheduledInjectorTest();
-				ScheduledTask task = injector.getNewTask(new Details("Scheduled TEST " + String.valueOf(testNum), String.valueOf(testNum)), dept, schedule);
-				
+				ScheduledTask task = injector.getNewTask(dept, schedule);
 				headOffice.getTaskManager().giveTask(task);
 			}
 		}

@@ -2,7 +2,6 @@ package tasks.task_objects;
 
 import departments.department.Department;
 import task_strategy.TaskListVisitor;
-import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
 /**
@@ -12,16 +11,8 @@ import tasks.task_super_objects.AtomicTask;
  */
 public class OpenDealership extends AtomicTask {
 	
-	public OpenDealership(TasksDetails tasksDetails, Department tasksDepartment) {
-		super(tasksDetails, tasksDepartment);
-	}
-
-	/*
-	 *  Return the task's id.
-	 *  Make it static so that we can get it's value for comparison without instantiating.
-	 */
-	public static String TASK_ID() {
-		return OpenDealership.class.getSimpleName();
+	public OpenDealership(Department tasksDepartment) {
+		super(tasksDepartment);
 	}
 
 	/*

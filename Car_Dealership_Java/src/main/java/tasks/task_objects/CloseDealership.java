@@ -2,7 +2,6 @@ package tasks.task_objects;
 
 import departments.department.Department;
 import task_strategy.TaskListVisitor;
-import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
 /**
@@ -12,18 +11,9 @@ import tasks.task_super_objects.AtomicTask;
  */
 public class CloseDealership extends AtomicTask {
 	
-	public CloseDealership(TasksDetails tasksDetails, Department tasksDepartment) {
-		super(tasksDetails, tasksDepartment);
+	public CloseDealership(Department tasksDepartment) {
+		super(tasksDepartment);
 	}
-
-	/*
-	 *  Return the task's id.
-	 *  Make it static so that we can get it's value for comparison without instantiating.
-	 */
-	public static String TASK_ID() {
-		return CloseDealership.class.getSimpleName();
-	}
-	
 	
 	@Override
 	public void executeTask() {

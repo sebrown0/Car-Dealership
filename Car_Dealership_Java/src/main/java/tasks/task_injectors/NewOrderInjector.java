@@ -1,7 +1,6 @@
 package tasks.task_injectors;
 
 import departments.department.Department;
-import tasks.task_details.TasksDetails;
 import tasks.task_objects.NewOrder;
 import tasks.task_super_objects.AtomicTask;
 
@@ -14,7 +13,7 @@ import tasks.task_super_objects.AtomicTask;
 public class NewOrderInjector implements AtomicTaskInjector {
 
 	@Override
-	public AtomicTask getNewTask(TasksDetails taskDetails, Department tasksDepartment) {
-		return new NewOrder(taskDetails, tasksDepartment);
+	public AtomicTask getNewTask(Department tasksDepartment) {
+		return new NewOrder(tasksDepartment);
 	}
 }

@@ -9,7 +9,6 @@ import departments.stock_department.StockUpdateProcess;
 import enums.ErrorCodes;
 import task_strategy.TaskListVisitor;
 import tasks.task_details.TaskSchedule;
-import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.ScheduledTask;
 
 /**
@@ -24,18 +23,10 @@ public class TaskUpdateStock extends ScheduledTask implements StockUpdateProcess
 	private StockDelivery stockDelivery;
 	private StockList stockList;
 	
-	public TaskUpdateStock(TasksDetails tasksDetails, Department tasksDepartment, TaskSchedule tasksSchedule) {
-		super(tasksDetails, tasksDepartment, tasksSchedule);
+	public TaskUpdateStock(Department tasksDepartment, TaskSchedule tasksSchedule) {
+		super(tasksDepartment, tasksSchedule);
 	}
-	
-	/*
-	 *  Return the task's id.
-	 *  Make it static so that we can get it's value for comparison without instantiating.
-	 */
-	public static String TASK_ID() {
-		return TaskUpdateStock.class.getSimpleName();
-	}
-	
+		
 	@Override
 	public ErrorCodes checkForNewStock() {
 //		stockCheck = new StockCheck(tasksDetails.tasksDepartment.spark(), tasksDepartment.database());

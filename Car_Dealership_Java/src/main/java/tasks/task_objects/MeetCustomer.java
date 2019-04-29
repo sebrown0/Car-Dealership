@@ -6,7 +6,6 @@ import departments.sales_department.SalesDepartment;
 import people.Person;
 import people.employees.SalesPerson;
 import task_strategy.TaskListVisitor;
-import tasks.task_details.TasksDetails;
 import tasks.task_super_objects.AtomicTask;
 
 /**
@@ -21,8 +20,8 @@ public class MeetCustomer extends AtomicTask {
 	private Person person = null;
 //	private Customer customer = null;
 
-	public MeetCustomer(TasksDetails tasksDetails, Department tasksDepartment) {
-		super(tasksDetails, tasksDepartment);
+	public MeetCustomer(Department tasksDepartment) {
+		super(tasksDepartment);
 	}
 	
 //	public MeetCustomer(Person person) {
@@ -34,15 +33,6 @@ public class MeetCustomer extends AtomicTask {
 //		this.person = person;
 //	}
 	
-		
-	/*
-	 *  Return the task's id.
-	 *  Make it static so that we can get it's value for comparison without instantiating.
-	 */
-	public static String TASK_ID() {
-		return MeetCustomer.class.getSimpleName();
-	}
-
 	/* 
 	 * A person has walked into the show room. 
 	 * Introduce them to the next available salesperson and make them a Customer.
