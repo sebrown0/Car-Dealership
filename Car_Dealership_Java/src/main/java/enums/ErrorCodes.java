@@ -51,15 +51,15 @@ public enum ErrorCodes {
 			// Switch not necessary if every error is parsed. 
 			switch (suspectedError) {
 			case DB_CONN:
-				log.logEntry(objId, "DB Connection errror.");
+//				log.logEntry(objId, "DB Connection errror.");
 				break;
 			
 			case FILE_ERROR:
-				log.logEntry(objId, "File error");
+//				log.logEntry(objId, "File error");
 				break;
 				
 			case STORED_PROCEDURE:
-				log.logEntry(objId, "Couldn't execute the store procedure.");
+//				log.logEntry(objId, "Couldn't execute the store procedure.");
 				break;
 			
 			case DUPLICATE_ENTRY:
@@ -67,12 +67,12 @@ public enum ErrorCodes {
 				break;
 
 			case DF_ERROR:
-				log.logEntry(objId, "DF_ERROR");
+//				log.logEntry(objId, "DF_ERROR");
 				eCode = parseErrorMsg(suspectedError, errorMsg, log, objId);
 				break;
 				
 			default:
-				log.logEntry(objId, "Unknown Error");
+//				log.logEntry(objId, "Unknown Error");
 				break;
 			}
 			return eCode;
@@ -95,15 +95,15 @@ public enum ErrorCodes {
 				errorCodeMatch = errorCodePattern.matcher(errorMsg);
 				
 				if(errorCodeMatch.find()) {
-					log.logEntry(objId, "Error Type -->> " + suspectedError);
-					log.logEntry(objId, "Error MSG -->>" + errorMsg);
+//					log.logEntry(objId, "Error Type -->> " + suspectedError);
+//					log.logEntry(objId, "Error MSG -->>" + errorMsg);
 					return suspectedError;
 				}
 			}
 			
 			// Couldn't find an obvious error.
-			log.logEntry(objId, "Error Type -->> " + ErrorCodes.UNKNOWN_ERROR);
-			log.logEntry(objId, "Error MSG -->>" + errorMsg);
+//			log.logEntry(objId, "Error Type -->> " + ErrorCodes.UNKNOWN_ERROR);
+//			log.logEntry(objId, "Error MSG -->>" + errorMsg);
 			return ErrorCodes.UNKNOWN_ERROR;
 		}
 		

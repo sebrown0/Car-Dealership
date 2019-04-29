@@ -38,7 +38,7 @@ public class DepartmentMessenger implements Messenger {
 	public Department getDepartment(int deptId) {
 		
 		for (Department d : departments) {
-			if(Integer.parseInt(d.getDeptId()) == deptId)
+			if(Integer.parseInt(d.departmentDetails().getDeptId()) == deptId)
 				return d;
 		}
 		
@@ -52,7 +52,7 @@ public class DepartmentMessenger implements Messenger {
 	public Department getDepartment(String deptName) {
 		
 		for (Department d : departments) {
-			if(d.deptName().compareTo(deptName) == 0)
+			if(d.departmentDetails().getDeptName().compareTo(deptName) == 0)
 				return d;
 		}
 		

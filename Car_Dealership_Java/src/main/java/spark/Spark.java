@@ -4,6 +4,7 @@ import org.apache.spark.sql.SparkSession;
 
 import dao.SparkSessionDAO;
 import utils.Log;
+import utils.Loggable;
 
 
  /**
@@ -12,15 +13,13 @@ import utils.Log;
  * Creates a spark session.
  * Use getSparkSession() to access the session/object. 
  */
-public class Spark implements SparkSessionDAO{
+public class Spark implements SparkSessionDAO, Loggable {
 
 	private SparkSession spark;
 	private String appName;
 	private String master;
 	private boolean activeSession = false;
-
 	private Log log;
-	private static final String objId = "<Spark>";
 	
 	public Spark(String appName, String master, boolean createSession, Log log) {
 		super();
@@ -28,9 +27,8 @@ public class Spark implements SparkSessionDAO{
 		this.master = master;
 		this.log = log;
 
-		if (createSession) {
+		if (createSession)
 			createNewSparkSession();
-		}
 	}
 
 	@Override
@@ -39,9 +37,9 @@ public class Spark implements SparkSessionDAO{
 		if (!activeSession) {
 			spark = SparkSession.builder().appName("appName").master(master).getOrCreate();
 			activeSession = true;
-			log.logEntry(objId, "Spark session:  (" + appName + ") created.");			
+			log.logEntry(this, "Spark session:  (" + appName + ") created.");			
 		} else {
-			log.logEntry(objId, "Spark session:  (" + appName + ") already running!");
+			log.logEntry(this, "Spark session:  (" + appName + ") already running!");
 		}
 
 	}

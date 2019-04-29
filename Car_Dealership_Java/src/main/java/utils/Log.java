@@ -5,6 +5,7 @@ package utils;
  *
  */
 public interface Log {
-	void logEntry(String objId, String logEntry);
+	void logEntry(Loggable logData, String logEntry);
+//	void logEntry(String objId, String logEntry);
 	void writeNewFile();
 }

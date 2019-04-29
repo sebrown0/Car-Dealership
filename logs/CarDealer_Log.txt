@@ -1,0 +1,27 @@
+29/04/2019
+09:00:17: <> -> Created Main Dealer (Fiat)
+09:00:17: <DealerManagement> -> Created Car Dealer: Fiat
+09:00:17: <CreateDepartments> -> Creating Departments
+09:00:17: <CreateDepartments> -> Creating HR department
+09:00:17: <CreateDepartments> -> Creating Sales department
+09:00:17: <SalesDepartment> -> New lead: Daenerys Targaryen Mother of Dragons 22
+09:00:17: <CreateDepartments> -> Creating IT department
+09:00:17: <CreateDepartments> -> Creating Accounts department
+09:00:17: <CreateDepartments> -> Creating Garage Services department
+09:00:17: <CreateDepartments> -> Creating Stock department
+09:00:17: <CreateDepartments> -> Creating Order department
+09:00:19: <RollCall> -> Starting roll call for HR department
+09:00:19: <DepartmentStaff> -> Adding -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role. To the team
+09:00:19: <DepartmentStaff> -> Adding -> Emp ID: 2 Emp: Sid James Role: role. To the team
+09:00:19: <RollCall> -> Starting roll call for Sales department
+09:00:19: <DepartmentStaff> -> Adding -> Emp ID: 11 Emp: Clint Eastwood Role: role. To the team
+09:00:19: <DepartmentStaff> -> Adding -> Emp ID: 12 Emp: Maggie Smith Role: role. To the team
+09:00:19: <DepartmentStaff> -> Adding -> Emp ID: 13 Emp: Homer Simpson Role: role. To the team
+09:00:19: <RollCall> -> Starting roll call for Stock department
+09:00:19: <DepartmentStaff> -> Adding -> Emp ID: 16 Emp: John Wayne Role: role. To the team
+09:00:19: <RollCall> -> Starting roll call for Order department
+09:00:19: <DepartmentStaff> -> Adding -> Emp ID: 17 Emp: Queen Victoria Role: role. To the team
+09:00:21: <Simulator> -> Creating (scheduled) TEST TASK
+09:00:22: <Simulator> -> Creating (scheduled) TEST TASK
+09:00:26: <ScheduledTest> -> EXECUTING SCHEDULED TEST 
+09:00:31: <ScheduledTest> -> EXECUTING SCHEDULED TEST 

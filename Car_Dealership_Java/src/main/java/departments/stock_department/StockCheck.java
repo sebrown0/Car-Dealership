@@ -22,6 +22,7 @@ import spark.SparkDfReadInterface;
 import spark.SparkDfReader;
 //import spark.SparkDfTable;
 import utils.Log;
+import utils.Loggable;
 
 /**
  * @author Steve Brown
@@ -34,9 +35,7 @@ import utils.Log;
  *  The DB table TableNames.STOCK_UPDATES is checked for the next delivery number.
  *  If that file exists then the stock is updated/delivered. 
  */
-public class StockCheck {
-
-	private static final String objId = "<Stock-Dept> <StockCheck>";
+public class StockCheck implements Loggable{
 	
 	private SparkSessionDAO spark;
 	private DatabaseDAO dataBase;
@@ -57,9 +56,9 @@ public class StockCheck {
 			nextStockFile();
 			if(!stockFile.isEmpty()) {
 				if(FileHandler.checkStock(stockFile) == ErrorCodes.NONE) {
-					log.logEntry(objId, "New file to check:" + stockFile);
+					log.logEntry(this, "New file to check:" + stockFile);
 				}else {
-					log.logEntry(objId, "NO New file to check");
+					log.logEntry(this, "NO New file to check");
 					return ErrorCodes.NO_FILE;
 				}				
 			}

@@ -6,7 +6,9 @@ import java.util.List;
 import customer.Customer;
 import dealer_management.DealerDAO;
 import departments.department.Department;
+import departments.department.DepartmentDetails;
 import departments.hr_department.Person;
+import employees.EmployeeDetails;
 import employees.SalesPerson;
 import tasks.task_super_objects.Task;
 
@@ -17,20 +19,20 @@ public class SalesDepartment extends Department{
 
 	private List<Person> peopleBrowsing = new ArrayList<>();  
 	
-	public SalesDepartment(String deptId, String deptName, DealerDAO dealerDAO) {
-		super(deptId, deptName, dealerDAO);
+	public SalesDepartment(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
+		super(deptDetails, dealerDAO);
 		
 		peopleBrowsing("Daenerys", "Targaryen Mother of Dragons 22"); // TODO - Random data
 	}
 	
 	@Override
-	public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role) {				
-		idleStaff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role, this), log); // TODO - Change to proper employee
+	public void addDeptStaffMember(EmployeeDetails employeeDetails) {				
+		idleStaff().addDepStaffMember(new SalesPerson(employeeDetails, this), log); 
 	}
 	
 	// Use to add potential customers 
 	public void peopleBrowsing(String firstName, String lastName) {
-		log().logEntry(objId, "New lead: " + firstName + " " + lastName);
+		log().logEntry(this, "New lead: " + firstName + " " + lastName);
 		peopleBrowsing.add(new Customer(firstName, lastName));
 	}
 	
@@ -63,6 +65,5 @@ public class SalesDepartment extends Department{
 	public <T extends Task> void accept(T t) {
 		// TODO Auto-generated method stub
 		
-	}
-	
+	}	
 }

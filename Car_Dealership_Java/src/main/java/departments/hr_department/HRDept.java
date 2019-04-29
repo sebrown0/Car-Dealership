@@ -2,7 +2,9 @@ package departments.hr_department;
 
 import dealer_management.DealerDAO;
 import departments.department.Department;
-import employees.SalesPerson;
+import departments.department.DepartmentDetails;
+import employees.Clerk;
+import employees.EmployeeDetails;
 import tasks.task_super_objects.Task;
 
 /**
@@ -14,13 +16,13 @@ import tasks.task_super_objects.Task;
 
 public class HRDept extends Department {
 
-	public HRDept(String deptId, String deptName, DealerDAO dealerDAO) {
-		super(deptId, deptName, dealerDAO);
+	public HRDept(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
+		super(deptDetails, dealerDAO);
 	}
 
 	@Override
-	public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role) {			
-		idleStaff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role), log); // TODO - Change to HR employee
+	public void addDeptStaffMember(EmployeeDetails employeeDetails) {			
+		idleStaff().addDepStaffMember(new Clerk(employeeDetails, this), log); // TODO - Change to HR employee
 	}
 
 	@Override

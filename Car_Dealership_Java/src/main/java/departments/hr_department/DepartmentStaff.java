@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utils.Log;
+import utils.Loggable;
 
 /**
  * @author Steve Brown
@@ -14,16 +15,16 @@ import utils.Log;
  * 	A list of employees that are available for work.
  * 	Each department has an EmployeePool (Team).
  */
-public class DepartmentStaff {
+public class DepartmentStaff implements Loggable{
 
-	private List<StaffMember> team;		// TODO - Blocking queue?
+	private List<StaffMember> team;		
 	
 	public DepartmentStaff() {
 		team = new ArrayList<StaffMember>();
 	}
 
 	public void addDepStaffMember(StaffMember tm, Log log) {
-		log.logEntry("\t" + tm.deptId(), 
+		log.logEntry(this, 
 				"Adding -> Emp ID: " + tm.id() + 
 				" Emp: " +  tm.firstName() + " " + tm.lastName() +
 				" Role: " + tm.role() + ". To the team");
@@ -40,7 +41,6 @@ public class DepartmentStaff {
 	public List<StaffMember> getTeam() {
 		return team;
 	}
-
 //	public Employee getEmployee(long empId) {
 //		if(!team.isEmpty()) {
 //			for (TeamMember e : team) {

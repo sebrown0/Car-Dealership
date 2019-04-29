@@ -19,15 +19,14 @@ import tasks.task_super_objects.ScheduledTask;
  */
 public class TaskUpdateStock extends ScheduledTask implements StockUpdateProcess{
 
-	public TaskUpdateStock(TasksDetails tasksDetails, Department tasksDepartment, TaskSchedule tasksSchedule) {
-		super(tasksDetails, tasksDepartment, tasksSchedule);
-	}
-
-	private String objId;
 	private Department department;			// THIS SHOULD BE IN TASK DETAILS
 	private StockCheck stockCheck;
 	private StockDelivery stockDelivery;
 	private StockList stockList;
+	
+	public TaskUpdateStock(TasksDetails tasksDetails, Department tasksDepartment, TaskSchedule tasksSchedule) {
+		super(tasksDetails, tasksDepartment, tasksSchedule);
+	}
 	
 	/*
 	 *  Return the task's id.
@@ -59,7 +58,7 @@ public class TaskUpdateStock extends ScheduledTask implements StockUpdateProcess
 	}
 
 	public void stockCheck() {
-		department.log().logEntry(objId, "Updating Stock");
+		department.log().logEntry(this, "Updating Stock");
 		updateStock();	
 	}
 

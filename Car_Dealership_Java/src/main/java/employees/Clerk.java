@@ -3,11 +3,9 @@
  */
 package employees;
 
-import customer.Customer;
 import dao.DatabaseDAO;
 import departments.department.Department;
 import departments.hr_department.Person;
-import departments.order_department.OrderDepartment;
 
 /**
  * @author Steve Brown
@@ -18,30 +16,15 @@ import departments.order_department.OrderDepartment;
 
 public class Clerk extends Employee {
 	
-	private DatabaseDAO dbDAO = null;
-	private Customer customer = null;
-	private OrderDepartment orderDept = null;
-	
-//	private Log log = new Logger(false);
-	private final String objId;
-	
-	public Clerk(long id, String firstName, String lastName, String deptId, String role) {
-		super(id, firstName, lastName, deptId, role);
-		this.objId =  "<" + this.getClass().getSimpleName() + ">";
+	public Clerk(EmployeeDetails employeeDetails, Department department) {
+		super(employeeDetails, department);
 	}
 
-	public Clerk(String firstName, String lastName) {
-		super(firstName, lastName);
-		this.objId =  "<" + this.getClass().getSimpleName() + ">";
-	}
 
 	public void meetCustomer(Person person, DatabaseDAO dbDAO) {
 		
-		Customer aCustomer = new Customer(person.getFirstName(), person.getLastName());
+//		Customer aCustomer = new Customer(person.getFirstName(), person.getLastName());
 		
-		this.customer = aCustomer;	// TODO - Change
-		this.dbDAO = dbDAO;			// TODO - Change
-
 //		log.logEntry(objId, "New lead: " + aCustomer.getFirstName() + " " + aCustomer.getLastName());
 		
 		// 'Assign' salesperson to customer.

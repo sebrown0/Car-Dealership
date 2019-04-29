@@ -3,6 +3,8 @@
  */
 package departments.hr_department;
 
+import employees.EmployeeDetails;
+
 /**
  * @author Steve Brown
  * 
@@ -16,13 +18,13 @@ public class Person{
 	private String lastName;
 	private String role;
 		
-	public Person(long id, String firstName, String lastName, String deptId, String role) {
+	public Person(EmployeeDetails employeeDetails) {
 		super();
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.deptId = deptId;
-		this.role = role;
+		this.id = employeeDetails.getId();
+		this.firstName = employeeDetails.getFirstName();
+		this.lastName = employeeDetails.getLastName();
+		this.deptId = employeeDetails.getDeptId();
+		this.role = employeeDetails.getRole();
 	}
 
 	public Person(String firstName, String lastName) {

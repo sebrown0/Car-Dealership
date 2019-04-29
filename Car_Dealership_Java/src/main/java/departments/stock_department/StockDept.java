@@ -5,7 +5,9 @@ package departments.stock_department;
 
 import dealer_management.DealerDAO;
 import departments.department.Department;
-import employees.SalesPerson;
+import departments.department.DepartmentDetails;
+import employees.Clerk;
+import employees.EmployeeDetails;
 import tasks.task_super_objects.Task;
 
 /**
@@ -13,32 +15,27 @@ import tasks.task_super_objects.Task;
  *
  */
 public class StockDept extends Department {
-
-//	private static final String objId = "<Stock-Dept>"; TODO - Remove 
-	public StockDept(String deptId, String deptName, DealerDAO dealerDAO) {
-		super(deptId, deptName, dealerDAO);
+ 
+	public StockDept(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
+		super(deptDetails, dealerDAO);
 	}
 
 	@Override
-	public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role) {
-		idleStaff().addDepStaffMember(new SalesPerson(empId, firstName, lastName, deptId, role), log); // TODO - Change to proper employee
+	public void addDeptStaffMember(EmployeeDetails employeeDetails) {
+		idleStaff().addDepStaffMember(new Clerk(employeeDetails, this), log); 
 	}
 
 	@Override
 	public void delegateTask(Task task) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public <T extends Task> void accept(T t) {
 		// TODO Auto-generated method stub
-		
 	}
 
 //	private UpdateStock updateStock;
-	
-	
 //	public void updateStock() {
 //		updateStock = new UpdateStock(objId, spark(), dataBase());
 //		updateStock.beginUpdate();

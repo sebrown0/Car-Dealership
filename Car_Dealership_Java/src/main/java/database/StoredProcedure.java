@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
 import utils.Log;
+import utils.Loggable;
 
 /**
  * @author Steve Brown 
@@ -31,14 +32,13 @@ import utils.Log;
  *  1. Stored Procedure object with Error code (if any).
  *  2. A result set if successful.
  */
-public class StoredProcedure {
+public class StoredProcedure implements Loggable{
 
 	private String query = "";
 	private ResultSet rs = null;
 	private Connection conn = null;
 	private ErrorCodes eCode = ErrorCodes.NONE;
 	private Log log;
-	private static final String objId = "<StoredProcedure>";
 
 	public StoredProcedure(String query, DbConnectionInterface dbIt, Log log) {
 		this.query = query;
@@ -62,7 +62,7 @@ public class StoredProcedure {
 			
 		} catch (SQLException e) {			
 			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
-			log.logEntry(objId, "Error executing stored procedure: " + query);
+			log.logEntry(this, "Error executing stored procedure: " + query);
 		} 
 		return this;
 	}

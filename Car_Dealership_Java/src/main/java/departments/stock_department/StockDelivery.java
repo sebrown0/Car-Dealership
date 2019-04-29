@@ -15,15 +15,14 @@ import spark.SparkDfReadInterface;
 import spark.SparkDfReader;
 import spark.SparkDfWriter;
 import utils.Log;
+import utils.Loggable;
 
 /**
  * @author Steve Brown
  * Read new stock (JSON file) and add new stock to the database. 
  */
-public class StockDelivery{
+public class StockDelivery implements Loggable{
 
-	private static final String objId = "<Stock-Dept> <StockDelivery>";
-	
 	private Log log;
 	private SparkSessionDAO spark;
 	private DatabaseDAO dataBase; 
@@ -40,7 +39,7 @@ public class StockDelivery{
 		ErrorCodes eCode = ErrorCodes.NONE;
 		
 		// Read the new stock file into a Spark DF
-		log.logEntry(objId, "Reading stock file");
+		log.logEntry(this, "Reading stock file");
 		SparkDfReadInterface dfCars = new SparkDfReader(spark);
 		dfCars.readFile(stockFile, "json");
 
@@ -77,12 +76,12 @@ public class StockDelivery{
 			Dataset<Row> modelEnhDf = prepareModelExtraDetails(carStockDf);
 			try {
 				SparkDataFramefWriter dfWrite = new SparkDfWriter();
-				log.logEntry(objId, "Attempting to write model details to the database");
+				log.logEntry(this, "Attempting to write model details to the database");
 				deliveryDf.show();
 				if(dfWrite.writeDfToDbTable(deliveryDf, dataBase, TableNames.MODEL.tblName())) {
-					log.logEntry(objId, "Attempting to write model attributes to the database");
+					log.logEntry(this, "Attempting to write model attributes to the database");
 					if(dfWrite.writeDfToDbTable(modelAttrDf, dataBase, TableNames.MODEL_ATTR.tblName())) {
-						log.logEntry(objId, "Attempting to write model enhancements to the database");
+						log.logEntry(this, "Attempting to write model enhancements to the database");
 						dfWrite.writeDfToDbTable(modelEnhDf, dataBase, TableNames.MODEL_ENH.tblName());
 					}
 				}

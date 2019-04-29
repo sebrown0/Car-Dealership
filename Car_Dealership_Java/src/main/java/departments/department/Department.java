@@ -8,76 +8,46 @@ import dao.SparkSessionDAO;
 import dealer_management.DealerDAO;
 import departments.hr_department.DepartmentStaff;
 import employees.Employee;
+import employees.EmployeeDetails;
 import task_scheduler.Manager;
 import task_scheduler.TaskReceiver;
 import tasks.task_super_objects.AtomicTask;
 import tasks.task_super_objects.Task;
-import timer.Timers;
+import timer.Timer;
 import utils.Log;
+import utils.Loggable;
 
 /**
  * @author Steve Brown
  *
  * Super class for all departments
  */
-public abstract  class Department implements TaskReceiver{
+public abstract class Department implements Loggable, TaskReceiver{
 	
-	private String deptId = "";
-	private String deptName = "";
+	private DepartmentDetails deptDetails;
 	private DepartmentStaff idleStaff = new DepartmentStaff();
 	private DepartmentStaff workingStaff = new DepartmentStaff();
 	
-	protected String objId = "";	// TODO - BOTH???????
 	protected Messenger deptMessanger = null;
 	protected Employee workingEmployee = null;			// List
-	protected Log log;
 	
-	private SparkSessionDAO spark;
+	protected Log log;
+	private SparkSessionDAO sparkSession;
 	private DatabaseDAO database;
-	private Timers timer;
+	protected Timer timer;
 	private Manager taskManager;
 	
-	public Department(String deptId, String deptName, DealerDAO dealerDAO) {
-		this.objId = "<" + deptName + " "+ deptId + ">";
-		this.deptId = deptId;
-		this.deptName = deptName;
+	public Department(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
+		this.deptDetails = deptDetails;
 		this.log = dealerDAO.getLog();
 		this.timer = dealerDAO.getTimer();
 		this.taskManager = dealerDAO.getTaskManager();
 		this.database = dealerDAO.getDatabase();
-		this.spark = dealerDAO.getSpark();
+		this.sparkSession = dealerDAO.getSpark();
 	}
-		
-//	@Override
-//	public void giveTask(Task t) {
-//		t.setTasksDepartment(this);;
-//		taskManager.accept(t);
-//	}
-	
-	public void departmentTask(AtomicTask task) {
-//		taskManager.manageTask(task, null); // TODO - INSERT EMPLOYEE!!!!!!!!!
-	}
-		
-	public void receiveTask(Task task) {
-		log.logEntry(getObjId(), "New task received");
 
-//		task.setDepartment(this);
-//		this.currentTask = task;				
-//		currentTask.setDepartment(this);
-//		delegateTask(task);
-	}
-	
-
-	public void receiveTask(Task task, Employee employee) {
-		log.logEntry(getObjId(), "New task received");
-
-//		this.currentTask = task;				
-//		currentTask.setDepartment(this);
-//		delegateTask(task, employee);
-	}
-	
 	abstract public void delegateTask(Task task); 
-	abstract public void addDeptStaffMember(long empId, String firstName, String lastName, String deptId, String role);
+	abstract public void addDeptStaffMember(EmployeeDetails employeeDetails);
 	
 	public void delegateTask(Task task, Employee employee) {
 		employee.addTask(task);		
@@ -92,26 +62,19 @@ public abstract  class Department implements TaskReceiver{
 		this.deptMessanger = messenger;
 	}
 	
-	public void newDeptMember(long empId, String firstName, String lastName, String deptId, String role) {
-		this.addDeptStaffMember(empId, firstName, lastName, deptId, role);
+	public void newDeptMember(EmployeeDetails employeeDetails) {
+		this.addDeptStaffMember(employeeDetails);
 	}	
 	
-	/*
-	 *  Getters and Setters below.
-	 */
+	public DepartmentDetails departmentDetails() {
+		return deptDetails;
+	}
+	
 	public Messenger getMessanger() {
 		return deptMessanger;
 	}
 	
-	public String getObjId() {
-		return objId;
-	}
-
-	public void setObjId(String objId) {
-		this.objId = objId;
-	}
-
-	public Timers timer() {
+	public Timer timer() {
 		return timer;
 	}
 	
@@ -127,28 +90,59 @@ public abstract  class Department implements TaskReceiver{
 		return this.workingStaff;
 	}
 	
+	public void setLog(Log log) {
+		this.log = log;
+	}
+
+	public void setSparkSession(SparkSessionDAO sparkSession) {
+		this.sparkSession = sparkSession;
+	}
+
+	public void setDatabase(DatabaseDAO database) {
+		this.database = database;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
+
+	public void setTaskManager(Manager taskManager) {
+		this.taskManager = taskManager;
+	}
+
 	public SparkSessionDAO spark() {
-		return spark;
+		return sparkSession;
 	}
 	
 	public Log log() {
 		return log;
 	}
-
-	public String getDeptId() {
-		return deptId;
-	}
-	
-	public String getDeptId(String childId) {
-		return (deptId + childId);
-	}
-
-	public void setDeptId(String deptId) {
-		this.deptId = deptId;
-	}
-
-	public String deptName() {
-		return deptName;
-	}
-
 }
+
+
+//@Override
+//public void giveTask(Task t) {
+//	t.setTasksDepartment(this);;
+//	taskManager.accept(t);
+//}
+
+//public void departmentTask(AtomicTask task) {
+//	taskManager.manageTask(task, null); // TODO - INSERT EMPLOYEE!!!!!!!!!
+//}
+//public void receiveTask(Task task) {
+////	log.logEntry(getObjId(), "New task received");
+//
+////	task.setDepartment(this);
+////	this.currentTask = task;				
+////	currentTask.setDepartment(this);
+////	delegateTask(task);
+//}
+//
+//
+//public void receiveTask(Task task, Employee employee) {
+////	log.logEntry(getObjId(), "New task received");
+//
+////	this.currentTask = task;				
+////	currentTask.setDepartment(this);
+////	delegateTask(task, employee);
+//}

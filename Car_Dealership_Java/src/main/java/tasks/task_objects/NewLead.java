@@ -30,7 +30,7 @@ public class NewLead extends AtomicTask {
 	 */
 	@Override
 	public void executeTask() {
-		tasksDepartment.log().logEntry(tasksDetails.getTaskID(), "Executing: New Lead");
+		tasksDepartment.log().logEntry(this, "Executing: New Lead");
 	}
 
 	@Override

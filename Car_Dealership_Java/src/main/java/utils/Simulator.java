@@ -19,28 +19,23 @@ import task_scheduler.TaskManager;
 import tasks.task_details.Details;
 import tasks.task_details.ScheduledTime;
 import tasks.task_details.TaskSchedule;
-import tasks.task_injectors.AtomicTaskInjector;
-import tasks.task_injectors.CloseDealershipInjector;
 import tasks.task_injectors.ScheduledInjectorTest;
 import tasks.task_injectors.ScheduledTaskInjector;
-import tasks.task_super_objects.AtomicTask;
 import tasks.task_super_objects.ScheduledTask;
-import time.ChangeableTime;
 import time.Time;
-import timer.Timers;
+import timer.Timer;
 
 /**
  * @author Steve Brown
  *
  * Simulates the day-to-day operation of the Car Dealership.
  */
-public class Simulator implements Observer {
+public class Simulator implements Observer, Loggable {
 
 	private Log log;
-	private Timers timer;
+	private Timer timer;
 	private HeadOffice headOffice;
 	private int count = 0;
-	private final static String objId = "<Simulator>";
 		
 	public Simulator(HeadOffice headOffice) {
 		this.log = headOffice.appLog();
@@ -71,7 +66,7 @@ public class Simulator implements Observer {
 	
 	private void scheduledTaskTest(int testNum, int timeOffset) {
 		int timeNow = timer.currentTime();
-		log.logEntry("Creating (scheduled) TEST TASK at: ", String.valueOf(timeNow) + ". Scheduled for: " + String.valueOf(timeNow + timeOffset));
+		log.logEntry(this, "Creating (scheduled) TEST TASK");
 		
 		CarDealer dealer = headOffice.getDealerByName("Fiat");
 		if(dealer != null) {
@@ -87,14 +82,15 @@ public class Simulator implements Observer {
 	}
 	
 	private void createDealer() {
+		
 		headOffice.management().createNewDealer(
 			new MainDealerBuilder() {},
 			"Fiat", 
 			new MainDealerWorkingDay(new Time(9, 00, 04), new Time(9, 00, 9)),
 			new DealerObjects(
 				new MySqlDB(log), 
-				new Spark("Fiat", "local", true, log), 
-				headOffice.timer(), 
+				new Spark("Fiat", "local", false, log), 
+				timer, 
 				log, 
 				new TaskManager(timer, new FastHeartbeat("Fiat Task Manager"), log))	 
 		);

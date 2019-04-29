@@ -19,6 +19,7 @@ import enums.TableNames;
 import spark.SparkDataFramefWriter;
 import spark.SparkDfWriter;
 import utils.Log;
+import utils.Loggable;
 
 /**
  * @author Steve Brown
@@ -26,9 +27,8 @@ import utils.Log;
  * Stock_List holds the car IDs' from the recent delivery.  
  * Stock_Updates holds data about the delivery.
  */
-public class StockList {
+public class StockList implements Loggable{
 	
-	private static final String objId = "<Stock-Dept> <StockList>";
 	private Log log;
 	private SparkSessionDAO spark;
 	private DatabaseDAO dataBase;
@@ -49,7 +49,7 @@ public class StockList {
 	 * Create two lists to convert into DFs and then write them to the relevant table.
 	 */
 	public ErrorCodes update(Dataset<Row> deliveryDf) {
-		log.logEntry(objId, "Updating stock list");
+		log.logEntry(this, "Updating stock list");
 		StockDetails stockDetails = new StockDetails(fileNum, "1", StockUpdateTable); // TODO - Stock status = 1
 		
 		ListContainer<StockListTable> lcStockList = 

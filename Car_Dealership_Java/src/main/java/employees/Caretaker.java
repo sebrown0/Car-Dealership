@@ -3,6 +3,8 @@
  */
 package employees;
 
+import departments.department.Department;
+
 /**
  * @author Steve Brown
  *
@@ -12,7 +14,8 @@ package employees;
  */
 public class Caretaker extends Employee {
 
-	public Caretaker() {
-		super("Car Dealership", "Caretaker");
+	public Caretaker(EmployeeDetails employeeDetails, Department department) {
+		super(employeeDetails, department);
 	}
+
 }

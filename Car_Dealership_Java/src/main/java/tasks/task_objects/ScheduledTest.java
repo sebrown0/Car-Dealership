@@ -24,7 +24,7 @@ public class ScheduledTest extends ScheduledTask {
 	
 	@Override
 	public void executeTask() {
-		getTasksDepartment().log().logEntry("EXECUTING SCHEDULED TEST ", getTasksDetails().getTaskID());
+		getTasksDepartment().log().logEntry(this, "EXECUTING SCHEDULED TEST ");
 	}
 	
 	@Override

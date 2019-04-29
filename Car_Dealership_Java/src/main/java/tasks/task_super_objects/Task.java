@@ -3,8 +3,9 @@ package tasks.task_super_objects;
 import departments.department.Department;
 import task_strategy.TaskListVisitor;
 import tasks.task_details.TasksDetails;
+import utils.Loggable;
 
-public abstract class Task implements TaskRunner {
+public abstract class Task implements TaskRunner, Loggable {
 
 	protected TasksDetails tasksDetails;
 	protected Department tasksDepartment;
@@ -30,6 +31,5 @@ public abstract class Task implements TaskRunner {
 		return tasksDetails;
 	}
 	
-//	public int getStartTime() ;
 	public abstract <T extends TaskListVisitor> void accept(T taskList);
 }

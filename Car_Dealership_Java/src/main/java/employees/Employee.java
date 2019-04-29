@@ -9,24 +9,27 @@ import departments.department.Department;
 import departments.hr_department.Person;
 import departments.hr_department.StaffMember;
 import tasks.task_super_objects.Task;
+import utils.Loggable;
 
 /**
  * @author Steve Brown
  *
  */
-public class Employee extends Person implements StaffMember {
+public class Employee extends Person implements StaffMember, Loggable {
 
 //	protected Task currentTask = null;
 	protected ArrayBlockingQueue<Task> employeeTaskList = new ArrayBlockingQueue<>(5);
+	protected Department department;
 
-	public Employee(long id, String firstName, String lastName, String deptId, String role) {
-		super(id, firstName, lastName, deptId, role);
+	public Employee(EmployeeDetails employeeDetails, Department department) {
+		super(employeeDetails);
+		this.department = department;
 	}
 
-	public Employee(String firstName, String lastName) {
-		super(firstName, lastName);
-
-	}
+//	public Employee(String firstName, String lastName, Department department) {
+//		super(firstName, lastName);
+//		this.department = department;
+//	}
 
 //	public void setTask(Task currentTask) {
 //		this.currentTask = currentTask;
@@ -87,5 +90,4 @@ public class Employee extends Person implements StaffMember {
 		// TODO Auto-generated method stub
 
 	}
-
 }

@@ -16,8 +16,6 @@ import tasks.task_super_objects.AtomicTask;
  */
 public class MeetCustomer extends AtomicTask {
 	
-
-	private String objId;
 	private SalesDepartment department = null;
 	private DepartmentStaff salesTeam = null;
 	private Person person = null;
@@ -51,7 +49,7 @@ public class MeetCustomer extends AtomicTask {
 	 */
 	private void meetCustomer() {		
 
-		department.log().logEntry(objId, "New lead: " + person.getFirstName() + " " + person.getLastName());
+		department.log().logEntry(this, "New lead: " + person.getFirstName() + " " + person.getLastName());
 		
 		// 'Assign' salesperson to customer.
 		SalesPerson sp = (SalesPerson) salesTeam.nextEmployee();

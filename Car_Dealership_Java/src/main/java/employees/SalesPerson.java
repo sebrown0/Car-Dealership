@@ -19,31 +19,23 @@ public class SalesPerson extends Employee { // TODO - Staffmember
 	
 	private Customer customer = null;
 	private SalesDepartment department = null;
-	private final String objId;
 	
 	// TODO - REMOVE WHEN ALL EMPLOYEES HAVE BEEN ADDED
-	public SalesPerson(long id, String firstName, String lastName, String deptId, String role) { 
-		super(id, firstName, lastName, deptId, role);
-		
-		this.objId =  "<" + this.getClass().getSimpleName() + ">";
-	}
+//	public SalesPerson(EmployeeDetails employeeDetails) { 
+//		super(employeeDetails, department);
+//		
+//		this.objId =  "<" + this.getClass().getSimpleName() + ">";
+//	}
 	// TODO - REMOVE WHEN ALL EMPLOYEES HAVE BEEN ADDED
 	
-	public SalesPerson(long id, String firstName, String lastName, String deptId, String role, SalesDepartment department) {
-		super(id, firstName, lastName, deptId, role);
-		
-		this.objId =  "<" + this.getClass().getSimpleName() + ">";
+	public SalesPerson(EmployeeDetails employeeDetails, SalesDepartment department) {
+		super(employeeDetails, department);
 		this.department = department;
-	}
-
-	public SalesPerson(String firstName, String lastName) {
-		super(firstName, lastName);
-		this.objId =  "<" + this.getClass().getSimpleName() + ">";
 	}
 
 	public SalesPerson customersSalesPerson(Person newLead) {
 		this.customer = (Customer) newLead;
-		department.log().logEntry(objId, 
+		department.log().logEntry(this, 
 				this.getFirstName() + " " + this.getLastName()
 				+ " greets new lead " + customer.getFirstName());
 		
