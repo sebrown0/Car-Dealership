@@ -22,8 +22,26 @@ public enum HRDeptSP {
 	 *  	2. first_name
 	 *  	3. last_name
 	 *  	4. dept_id 
+	 *   	5. seniority
+	 *   	6. seniority_id
+	 *   	7. role_id
+	 *   	8. role_name
 	 */
-	ROLL_CALL( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`RollCall`('" + "regex" +  "') }");
+	ROLL_CALL( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`RollCall`('" + "regex" +  "') }"),
+	
+	/*
+	 *  Get the manager for the specified department.
+	 *  Returns:
+	 *  	1. emp_id
+	 *  	2. first_name
+	 *  	3. last_name
+	 *  	4. dept_id 
+	 *   	5. seniority
+	 *   	6. seniority_id
+	 *   	7. role_id
+	 *   	8. role_name
+	 */
+	DEPARTMENT_MANAGER( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`FindDepartmentManager`('" + "regex" +  "') }");
 	
 	private String statement = "";
 	

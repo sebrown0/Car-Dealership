@@ -80,7 +80,6 @@ public class Simulator implements Observer, Loggable {
 	}
 	
 	private void createDealer() {
-		
 		headOffice.management().createNewDealer(
 			new MainDealerBuilder() {},
 			"Fiat", 

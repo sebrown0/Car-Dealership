@@ -6,13 +6,16 @@ package people.employees;
 import departments.department.Department;
 import departments.department.EmployeeDetails;
 import people.Person;
+import task_scheduler.TaskReceiver;
+import tasks.task_super_objects.Task;
+import utils.Log;
 import utils.Loggable;
 
 /**
  * @author Steve Brown
  *
  */
-public abstract class Employee extends Person implements EmployeeDetails, Loggable  { 
+public abstract class Employee extends Person implements EmployeeDetails, Loggable, TaskReceiver  { 
 
 	protected Department department;
 	protected EmployeeDetails empDetails;
@@ -23,6 +26,10 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 		this.department = department;
 	}
 
+	public void employeeLogEntry(Loggable logData, String logEntry) {
+		department.log().logEntry(logData, logEntry);
+	}
+	
 	@Override
 	public String getRole() {
 		return empDetails.getRole();
@@ -31,6 +38,11 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 	@Override
 	public String getDeptID() {
 		return empDetails.getDeptID();
+	}
+	
+	@Override
+	public String getSeniority() {
+		return empDetails.getSeniority();
 	}
 
 	@Override
@@ -42,5 +54,15 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 	public void setDeptID(String deptID) {
 		empDetails.setDeptID(deptID);
 	}
-
+	
+	@Override
+	public void setSeniority(String seniority) {
+		empDetails.setSeniority(seniority);
+	}
+	
+	@Override
+	public <T extends Task> void accept(T t) {
+		employeeLogEntry(this,this.empDetails.getFullName() + " executing task.....");
+		t.executeTask();
+	}	
 }

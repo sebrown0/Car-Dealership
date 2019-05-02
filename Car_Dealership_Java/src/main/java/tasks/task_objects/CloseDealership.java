@@ -1,25 +1,32 @@
 package tasks.task_objects;
 
+import dealer_management.DealerDAO;
 import departments.department.Department;
 import task_strategy.TaskListVisitor;
-import tasks.task_super_objects.AtomicTask;
+import tasks.task_super_objects.ManagementTask;
 
 /**
  * @author Steve Brown
  *
- * 	An Atomic task that doesn't belong to a department.
+ *	A management task that can be performed by a manager 
+ *	or an employee of a department.
  */
-public class CloseDealership extends AtomicTask {
+public class CloseDealership extends ManagementTask {
 	
+	// Use for a management task.
+	public CloseDealership(DealerDAO dealerDAO) {
+		super(null);
+		this.log = dealerDAO.getLog();
+	}
+	
+	// Use for an atomic task.
 	public CloseDealership(Department tasksDepartment) {
 		super(tasksDepartment);
 	}
 	
 	@Override
 	public void executeTask() {
-		// THIS WILL BE IN THE EMPLOYEE
-//		tasksDepartment.log().logEntry(tasksDetails.getTaskID(), "Executing: Closing Dealer");
-		System.out.println("Executing: Closing Dealer");
+		log.logEntry(this, "Executing: Closing Dealer");
 	}
 
 	@Override

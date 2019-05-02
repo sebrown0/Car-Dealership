@@ -43,7 +43,6 @@ public final class Logger extends FileHandler implements Log {
 
 	@Override
 	public void logEntry(Loggable logData, String logEntry) {
-		System.out.println(logData.objectID() + " : " + timer.currentTimeFormatted());
 		writeFile(logFile, (formatLogData(logData) + logEntry), this);
 	}	
 	

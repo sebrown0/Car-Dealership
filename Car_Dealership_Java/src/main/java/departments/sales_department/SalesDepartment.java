@@ -18,11 +18,11 @@ public class SalesDepartment extends Department{
 
 	private List<Person> peopleBrowsing = new ArrayList<>();  
 	
-	public SalesDepartment(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
-		super(deptDetails, dealerDAO);
-		
-		peopleBrowsing("Daenerys", "Targaryen Mother of Dragons 22"); // TODO - Random data
-	}
+//	public SalesDepartment(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
+//		super(deptDetails, dealerDAO);
+//		
+//		peopleBrowsing("Daenerys", "Targaryen Mother of Dragons 22"); // TODO - Random data
+//	}
 	
 	@Override
 	public void addDeptStaffMember(EmployeeDetails employeeDetails) {				

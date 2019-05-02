@@ -6,7 +6,7 @@ package departments.hr_department;
 import java.util.ArrayList;
 import java.util.List;
 
-import departments.department.EmployeeDetails;
+import people.employees.Employee;
 import utils.Log;
 import utils.Loggable;
 
@@ -16,30 +16,38 @@ import utils.Loggable;
  * 	A list of employees that are available for work.
  * 	Each department has an EmployeePool (Team).
  */
-public class DepartmentStaff implements Loggable{
+public class DepartmentStaff  implements Loggable {
 
-	private List<EmployeeDetails> team;		
+	private List<Employee> team;		
 	
 	public DepartmentStaff() {
-		team = new ArrayList<EmployeeDetails>();
+		team = new ArrayList<Employee>();
 	}
 
-	public void addDepStaffMember(EmployeeDetails emp, Log log) {
-		log.logEntry(this, 
-				"Adding -> Emp ID: " + emp.getID() + 
-				" Emp: " +  emp.getFirstName() + " " + emp.getLastName() +
-				" Role: " + emp.getRole() + ". To the team");
+	public void addDepStaffMember(Employee emp, Log log) {
+//		log.logEntry(this, 
+//				"Adding -> Emp ID: " + emp.getID() + 
+//				" Emp: " +  emp.getFirstName() + " " + emp.getLastName() +
+//				" Role: " + emp.getRole() + 
+//				" Seniority: " + emp.getSeniority());
 		team.add(emp);	
 	}
-	
-	public EmployeeDetails nextEmployee() {
-		if(!team.isEmpty())
-			return team.get(0);
+		
+	public Employee nextEmployee() {
+		if(!team.isEmpty()) {
+			Employee i = team.get(0);
+			System.out.println("T nextEmployee() ->  " + i.getFullName());
+			return i;
+		}
 		
 		return null;
 	}
 
-	public List<EmployeeDetails> getTeam() {
+	public boolean staffListNotEmpty() {
+		return !team.isEmpty();
+	}
+	
+	public List<Employee> getTeam() {
 		return team;
 	}
 //	public Employee getEmployee(long empId) {

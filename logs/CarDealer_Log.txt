@@ -1,27 +1,67 @@
-29/04/2019
+02/05/2019
 08:59:59: <> -> Created Main Dealer (Fiat)
 08:59:59: <DealerManagement> -> Created Car Dealer: Fiat
-08:59:59: <CreateDepartments> -> Creating Departments
-08:59:59: <CreateDepartments> -> Creating HR department
-08:59:59: <CreateDepartments> -> Creating Sales department
-08:59:59: <SalesDepartment> -> New lead: Daenerys Targaryen Mother of Dragons 22
-08:59:59: <CreateDepartments> -> Creating IT department
-08:59:59: <CreateDepartments> -> Creating Accounts department
-08:59:59: <CreateDepartments> -> Creating Garage Services department
-08:59:59: <CreateDepartments> -> Creating Stock department
-08:59:59: <CreateDepartments> -> Creating Order department
+08:59:59: <DepartmentFactory> -> Creating HR department
+08:59:59: <HRDeptartment> -> HR Manager is Sid James
+08:59:59: <DepartmentFactory> -> Creating Sales department
+08:59:59: <SalesDepartment> -> Sales Manager is Maggie Smith
+08:59:59: <DepartmentFactory> -> Creating IT department
+08:59:59: <ITDepartment> -> IT Manager is Lisa Simpson
+08:59:59: <DepartmentFactory> -> Creating Accounts department
+08:59:59: <AccountsDeptartment> -> Accounts Manager is Ben Stokes
+08:59:59: <DepartmentFactory> -> Creating Garage Services department
+08:59:59: <GarageServicesDeptartment> -> Garage Services Manager is Bat Man
+08:59:59: <DepartmentFactory> -> Creating Stock department
+08:59:59: <StockDeptartment> -> Stock Manager is Tiger Woods
+08:59:59: <DepartmentFactory> -> Creating Order department
+08:59:59: <OrderDepartment> -> Order Manager is Queen Victoria
+08:59:59: <DepartmentManager> -> Sid James is performing task: <RollCall>
 08:59:59: <RollCall> -> Starting roll call for HR department
-08:59:59: <DepartmentStaff> -> Adding -> Emp ID: 1 Emp: Mary Queen Of Scots Role: role. To the team
-08:59:59: <DepartmentStaff> -> Adding -> Emp ID: 2 Emp: Sid James Role: role. To the team
+08:59:59: <DepartmentManager> -> Maggie Smith is performing task: <RollCall>
 08:59:59: <RollCall> -> Starting roll call for Sales department
-08:59:59: <DepartmentStaff> -> Adding -> Emp ID: 11 Emp: Clint Eastwood Role: role. To the team
-08:59:59: <DepartmentStaff> -> Adding -> Emp ID: 12 Emp: Maggie Smith Role: role. To the team
-08:59:59: <DepartmentStaff> -> Adding -> Emp ID: 13 Emp: Homer Simpson Role: role. To the team
+08:59:59: <DepartmentManager> -> Lisa Simpson is performing task: <RollCall>
+08:59:59: <RollCall> -> Starting roll call for IT department
+08:59:59: <DepartmentManager> -> Ben Stokes is performing task: <RollCall>
+08:59:59: <RollCall> -> Starting roll call for Accounts department
+08:59:59: <DepartmentManager> -> Bat Man is performing task: <RollCall>
+08:59:59: <RollCall> -> Starting roll call for Garage Services department
+08:59:59: <DepartmentManager> -> Tiger Woods is performing task: <RollCall>
 08:59:59: <RollCall> -> Starting roll call for Stock department
-08:59:59: <DepartmentStaff> -> Adding -> Emp ID: 16 Emp: John Wayne Role: role. To the team
+08:59:59: <DepartmentManager> -> Queen Victoria is performing task: <RollCall>
 08:59:59: <RollCall> -> Starting roll call for Order department
-08:59:59: <DepartmentStaff> -> Adding -> Emp ID: 17 Emp: Queen Victoria Role: role. To the team
+08:59:59: <DepartmentManager> -> Sid James is performing task: <LogDepartmentEmployees>
+08:59:59: <LogDepartmentEmployees> -> Logging staff for (HR) department
+08:59:59: <LogDepartmentEmployees> -> (HR) manager is: Sid James
+08:59:59: <LogDepartmentEmployees> -> (HR) staff member: Mary Queen Of Scots
+08:59:59: <DepartmentManager> -> Maggie Smith is performing task: <LogDepartmentEmployees>
+08:59:59: <LogDepartmentEmployees> -> Logging staff for (Sales) department
+08:59:59: <LogDepartmentEmployees> -> (Sales) manager is: Maggie Smith
+08:59:59: <LogDepartmentEmployees> -> (Sales) staff member: Clint Eastwood
+08:59:59: <LogDepartmentEmployees> -> (Sales) staff member: Homer Simpson
+08:59:59: <DepartmentManager> -> Lisa Simpson is performing task: <LogDepartmentEmployees>
+08:59:59: <LogDepartmentEmployees> -> Logging staff for (IT) department
+08:59:59: <LogDepartmentEmployees> -> (IT) manager is: Lisa Simpson
+08:59:59: <LogDepartmentEmployees> -> (IT) staff member: Sally Field
+08:59:59: <DepartmentManager> -> Ben Stokes is performing task: <LogDepartmentEmployees>
+08:59:59: <LogDepartmentEmployees> -> Logging staff for (Accounts) department
+08:59:59: <LogDepartmentEmployees> -> (Accounts) manager is: Ben Stokes
+08:59:59: <LogDepartmentEmployees> -> (Accounts) staff member: Marge Simpson
+08:59:59: <DepartmentManager> -> Bat Man is performing task: <LogDepartmentEmployees>
+08:59:59: <LogDepartmentEmployees> -> Logging staff for (Garage Services) department
+08:59:59: <LogDepartmentEmployees> -> (Garage Services) manager is: Bat Man
+08:59:59: <LogDepartmentEmployees> -> (Garage Services) staff member: Imran Tahir
+08:59:59: <LogDepartmentEmployees> -> (Garage Services) staff member: The Rock
+08:59:59: <DepartmentManager> -> Tiger Woods is performing task: <LogDepartmentEmployees>
+08:59:59: <LogDepartmentEmployees> -> Logging staff for (Stock) department
+08:59:59: <LogDepartmentEmployees> -> (Stock) manager is: Tiger Woods
+08:59:59: <LogDepartmentEmployees> -> (Stock) staff member: John Wayne
+08:59:59: <DepartmentManager> -> Queen Victoria is performing task: <LogDepartmentEmployees>
+08:59:59: <LogDepartmentEmployees> -> Logging staff for (Order) department
+08:59:59: <LogDepartmentEmployees> -> (Order) manager is: Queen Victoria
+08:59:59: <LogDepartmentEmployees> -> (Order) staff member: Liz Hurley
 09:00:03: <Simulator> -> Creating (scheduled) TEST TASK
+09:00:04: <OpenDealership> -> Executing: Opening Dealer
 09:00:04: <Simulator> -> Creating (scheduled) TEST TASK
 09:00:08: <ScheduledTest> -> EXECUTING SCHEDULED TEST 
+09:00:10: <CloseDealership> -> Executing: Closing Dealer
 09:00:13: <ScheduledTest> -> EXECUTING SCHEDULED TEST 

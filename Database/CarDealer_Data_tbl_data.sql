@@ -144,10 +144,12 @@ VALUES
     (10, 'Storeperson', 1), -- Storeperson Junior Associate
     (10, 'Storeperson', 2), -- Storeperson Associate
     (10, 'Storeperson', 3), -- Storeperson Senior Associate
+    (10, 'Storeperson', 4), -- Storeperson Manager
     
     (11, 'Clerk', 1), 		-- Clerk Junior Associate
     (11, 'Clerk', 2), 		-- Clerk Associate
-    (11, 'Clerk', 3), 		-- Storeperson Senior Associate
+    (11, 'Clerk', 3), 		-- Clerk Senior Associate
+    (11, 'Clerk', 4), 		-- Clerk Manager
     
     (12, 'CEO', 9); -- CEO
     
@@ -186,13 +188,13 @@ VALUES
 -- seniority
 -- salary
 call AddEmployee('HR','Mary','Queen Of Scots','HR', 'Associate', 20000); 	
-call AddEmployee('HR', 'Sid', 'James','HR', 'Manager', 30000);
+call AddEmployee('HR', 'Sid', 'James','HR', 'Manager', 30000); --
 call AddEmployee('Accounts', 'Marge', 'Simpson','Seceratary', 'Associate', 22222);  			
 call AddEmployee('Accounts', 'Ben', 'Stokes','Accountant', 'Manager', 50000);
 call AddEmployee('IT', 'Sally', 'Field','Developer', 'Senior Associate', 26000);
-call AddEmployee('IT', 'Lisa', 'Simpson','Developer', 'Manager', 30000);  
+call AddEmployee('IT', 'Lisa', 'Simpson','Developer', 'Manager', 30000);  --
 call AddEmployee('Garage Services', 'Imran', 'Tahir','Mechanic', 'Skilled', 28999);
-call AddEmployee('Garage Services', 'Bat', 'Man','Mechanic','Apprentice', 9000);
+call AddEmployee('Garage Services', 'Bat', 'Man','Mechanic','Manager', 39000);
 call AddEmployee('Garage Services', 'The', 'Rock','Valet', 'Unskilled', 11000);    
 call AddEmployee('Garage Services', 'Bart', 'Simpson','Mechanic', 'Manager', 31000);    
 call AddEmployee('Sales', 'Clint', 'Eastwood','Salesperson', 'Senior Associate', 24000);
@@ -201,13 +203,18 @@ call AddEmployee('Sales', 'Homer', 'Simpson','Receptionist', 'Associate', 17999)
 call AddEmployee('None', 'Queen', 'Elizabeth','CEO', 'CEO', 80000);
 call AddEmployee('None', 'Cleo', 'Rocos','PA', 'Associate', 19000);
 call AddEmployee('Stock', 'John', 'Wayne','Storeperson', 'Junior Associate', 14000);
-call AddEmployee('Order', 'Queen', 'Victoria','Clerk', 'Associate', 17500);   
+call AddEmployee('Stock', 'Tiger', 'Woods','Storeperson', 'Manager', 29000);
+call AddEmployee('Order', 'Queen', 'Victoria','Clerk', 'Manager', 27500);   
+call AddEmployee('Order', 'Liz', 'Hurley','Clerk', 'Associate', 17500);   
 -- Add some managers to departments
+
 call UpdateDepartmentManager (2,1); -- ( man_id,dept_id)
-call UpdateDepartmentManager (4,2); -- ( man_id,dept_id)
+call UpdateDepartmentManager (12,2); -- ( man_id,dept_id)
 call UpdateDepartmentManager (6,3); -- ( man_id,dept_id)
-call UpdateDepartmentManager (10,4); -- ( man_id,dept_id)
-call UpdateDepartmentManager (12,5); -- ( man_id,dept_id)
+call UpdateDepartmentManager (4,4); -- ( man_id,dept_id)
+call UpdateDepartmentManager (10,5); -- ( man_id,dept_id)
+call UpdateDepartmentManager (17,6); -- ( man_id,dept_id)
+call UpdateDepartmentManager (18,7); -- ( man_id,dept_id)
 
 -- SET foreign_key_checks = 1;
 INSERT INTO `Employee_Data` 
@@ -223,12 +230,14 @@ VALUES
     (8, '6666-SF-1964', '1964-07-09', (select DATE(now())),'Robin', 'Male'),
     (9, '9671-TR-1992', '1992-12-12', (select DATE(now())),'', 'Male'),
 	(10, '1937-BS-1989', '1989-08-02', (select DATE(now())), '', 'Male'),
-	(11, '1213-CE-1956', '1956-10-22', (select DATE(now())),'', ''),
+	(11, '1213-CE-1956', '1956-10-22', (select DATE(now())),'', 'Male'),
 	(13, '7600-HS-1977', '1977-04-11', (select DATE(now())),'Marge Simpson','Male'),
 	(14, '1033-ER-1972', '1922-05-27', (select DATE(now())),'Prince Philip', 'Female'),
-    (15, '1199-CR-1990', '1990-03-05', (select DATE(now())),'', ''),
-    (16, '8912-JW-1940', '1940-03-25', (select DATE(now())),'', ''),
-    (17, '1222-QV-1900', '1900-09-05', (select DATE(now())),'', '');
+    (15, '1199-CR-1990', '1990-03-05', (select DATE(now())),'', 'Female'),
+    (16, '8912-JW-1940', '1940-03-25', (select DATE(now())),'', 'Male'),
+    (17, '7112-TW-1990', '1990-04-21', (select DATE(now())),'', 'Male'),
+    (18, '1222-QV-1900', '1900-09-05', (select DATE(now())),'', 'Female'),
+    (19, '1111-LH-1987', '1987-01-08', (select DATE(now())),'', 'Female');
     
 -- Add some holidays for a few employees WON'T WORK IF HISTORIC DATE
 -- USE INSERTS FOR HISTORIC DATES AS THE SP CHECK THIS.

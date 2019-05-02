@@ -9,6 +9,7 @@ public class ObjectDetails implements PersonDetails, EmployeeDetails, Department
 	
 	//Employee details
 	private String role = "none";
+	private String seniotity = "none";
 	
 	// Department details
 	private String deptID = "";
@@ -60,6 +61,16 @@ public class ObjectDetails implements PersonDetails, EmployeeDetails, Department
 		return role;
 	}		
 	
+	@Override
+	public void setSeniority(String seniority) {
+		this.seniotity = seniority;
+	}
+
+	@Override
+	public String getSeniority() {
+		return seniotity;
+	}
+	
 	// Department details
 	@Override
 	public void setDeptID(String deptID) {
@@ -78,6 +89,5 @@ public class ObjectDetails implements PersonDetails, EmployeeDetails, Department
 	@Override
 	public String getDeptName() {
 		return deptName;
-	}
-	
+	}	
 }

@@ -1,11 +1,6 @@
-/**
- * 
- */
-package departments.stock_department;
+package departments.hr_department;
 
-import dealer_management.DealerDAO;
 import departments.department.Department;
-import departments.department.DepartmentDetails;
 import departments.department.EmployeeDetails;
 import people.employees.Clerk;
 import tasks.task_super_objects.Task;
@@ -13,12 +8,11 @@ import tasks.task_super_objects.Task;
 /**
  * @author Steve Brown
  *
+ * Responsible for managing people within the Car Dealership.
+ * 
  */
-public class StockDept extends Department {
- 
-	public StockDept(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
-		super(deptDetails, dealerDAO);
-	}
+
+public class HRDeptartment extends Department {
 
 	@Override
 	public void addDeptStaffMember(EmployeeDetails employeeDetails) {
@@ -34,10 +28,4 @@ public class StockDept extends Department {
 	public <T extends Task> void accept(T t) {
 		// TODO Auto-generated method stub
 	}
-
-//	private UpdateStock updateStock;
-//	public void updateStock() {
-//		updateStock = new UpdateStock(objId, spark(), dataBase());
-//		updateStock.beginUpdate();
-//	}
 }

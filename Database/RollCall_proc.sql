@@ -1,13 +1,21 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `RollCall`(IN department_id INT)
 BEGIN
 SELECT 
-	hr_emp_id, first_name, last_name, emp.dept_id
+	hr_emp_id, first_name, last_name, emp.dept_id, sen.seniority, sen.seniority_id, ras.role_name, ras.role_id
 FROM 
 	human_resources hr
 JOIN
 	employees emp
 ON
 	emp.emp_id = hr.hr_emp_id
+JOIN 
+	role_and_seniority ras
+ON
+	hr.role_and_seniority_id = ras.role_and_seniority_id
+JOIN
+	seniorities sen
+ON 
+	ras.seniority_id = sen.seniority_id
 WHERE
 	emp.dept_id = department_id
 AND
