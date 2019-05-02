@@ -1,7 +1,7 @@
 /**
  * 
  */
-package utils;
+package utils.logger;
 
 import java.io.File;
 import java.io.IOException;

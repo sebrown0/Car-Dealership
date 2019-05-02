@@ -1,7 +1,7 @@
 package tasks.task_super_objects;
 
 import departments.department.Department;
-import utils.Log;
+import utils.logger.Log;
 
 public abstract class ManagementTask extends Task {
 	

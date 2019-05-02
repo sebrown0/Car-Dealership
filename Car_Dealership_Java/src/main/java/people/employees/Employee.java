@@ -8,8 +8,8 @@ import departments.department.EmployeeDetails;
 import people.Person;
 import task_scheduler.TaskReceiver;
 import tasks.task_super_objects.Task;
-import utils.Log;
-import utils.Loggable;
+import utils.logger.Log;
+import utils.logger.Loggable;
 
 /**
  * @author Steve Brown

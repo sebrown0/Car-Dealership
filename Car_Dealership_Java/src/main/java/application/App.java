@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 import head_office.HeadOffice;
 import time.ChangeableTime;
 import timer.DurationInSeconds;
-import utils.Simulator;
+import utils.simulator.Simulator;
 
 public class App {
 

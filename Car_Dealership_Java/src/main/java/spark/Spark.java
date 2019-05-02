@@ -3,8 +3,8 @@ package spark;
 import org.apache.spark.sql.SparkSession;
 
 import dao.SparkSessionDAO;
-import utils.Log;
-import utils.Loggable;
+import utils.logger.Log;
+import utils.logger.Loggable;
 
 
  /**

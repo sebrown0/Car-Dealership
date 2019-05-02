@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 import dao.FileDAO;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
-import utils.Log;
+import utils.logger.Log;
 
 /**
  * @author Steve Brown

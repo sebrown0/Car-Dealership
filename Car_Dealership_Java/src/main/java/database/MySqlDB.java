@@ -3,7 +3,7 @@ package database;
 import enums.CD_Schema;
 import enums.DbProperties;
 import enums.MySqlConn;
-import utils.Log;
+import utils.logger.Log;
 
 /**
  * @author Steve Brown

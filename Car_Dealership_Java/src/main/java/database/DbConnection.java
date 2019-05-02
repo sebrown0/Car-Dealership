@@ -11,7 +11,7 @@ import java.util.Properties;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
-import utils.Log;
+import utils.logger.Log;
 
 /**
  * @author Steve Brown 

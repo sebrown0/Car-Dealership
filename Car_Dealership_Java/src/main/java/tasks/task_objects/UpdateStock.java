@@ -16,47 +16,14 @@ import tasks.task_super_objects.ScheduledTask;
  * Updates the stock if there is a new stock file.
  * Uses the 'rules' in StockUpdate and it's interface.
  */
-public class TaskUpdateStock extends ScheduledTask implements StockUpdateProcess{
+public class UpdateStock extends ScheduledTask implements StockUpdateProcess{
 
-	private Department department;			// THIS SHOULD BE IN TASK DETAILS
 	private StockCheck stockCheck;
 	private StockDelivery stockDelivery;
 	private StockList stockList;
 	
-	public TaskUpdateStock(Department tasksDepartment, TaskSchedule tasksSchedule) {
+	public UpdateStock(Department tasksDepartment, TaskSchedule tasksSchedule) {
 		super(tasksDepartment, tasksSchedule);
-	}
-		
-	@Override
-	public ErrorCodes checkForNewStock() {
-//		stockCheck = new StockCheck(tasksDetails.tasksDepartment.spark(), tasksDepartment.database());
-//		stockCheck = new StockCheck(tasksDetails.getDealerDAO());
-//		return stockCheck.checkStockFile();
-		return null;
-	}
-
-	@Override
-	public ErrorCodes readStockFile() {
-//		stockDelivery = new StockDelivery(department.spark(), department.database());
-		return (stockDelivery.readStockFile(this.stockCheck.getStockFile()));
-	}
-
-	@Override
-	public ErrorCodes updateStockList() {
-//		stockList = new StockList(department.spark(), department.database(), stockCheck.getFileNum(), stockCheck.getStockFile());
-		stockList.update(stockDelivery.getDelivery());
-		return ErrorCodes.NONE;
-	}
-
-	public void stockCheck() {
-		department.log().logEntry(this, "Updating Stock");
-		updateStock();	
-	}
-
-
-	@Override
-	public void run() {
-		
 	}
 	
 	@Override
@@ -64,6 +31,25 @@ public class TaskUpdateStock extends ScheduledTask implements StockUpdateProcess
 		updateStock();
 	}
 	
+	@Override
+	public ErrorCodes checkForNewStock() {
+		stockCheck = new StockCheck(tasksDepartment.getDealerDAO());
+		return stockCheck.checkStockFile();
+	}
+
+	@Override
+	public ErrorCodes readStockFile() {
+		stockDelivery = new StockDelivery(tasksDepartment.getDealerDAO());
+		return (stockDelivery.readStockFile(this.stockCheck.getStockFile()));
+	}
+
+	@Override
+	public ErrorCodes updateStockList() {
+		stockList = new StockList(tasksDepartment.getDealerDAO(), stockCheck.getFileNum(), stockCheck.getStockFile());
+		stockList.update(stockDelivery.getDelivery());
+		return ErrorCodes.NONE;
+	}
+		
 	@Override
 	public <T extends TaskListVisitor> void accept(T taskList) {
 		taskList.addTask(this);

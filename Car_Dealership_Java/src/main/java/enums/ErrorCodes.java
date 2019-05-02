@@ -3,7 +3,7 @@ package enums;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utils.Log;
+import utils.logger.Log;
 
 /**
  * @author Brown

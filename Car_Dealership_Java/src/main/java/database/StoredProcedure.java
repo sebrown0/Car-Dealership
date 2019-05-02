@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
-import utils.Log;
-import utils.Loggable;
+import utils.logger.Log;
+import utils.logger.Loggable;
 
 /**
  * @author Steve Brown 

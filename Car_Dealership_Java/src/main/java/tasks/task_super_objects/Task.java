@@ -2,7 +2,7 @@ package tasks.task_super_objects;
 
 import departments.department.Department;
 import task_strategy.TaskListVisitor;
-import utils.Loggable;
+import utils.logger.Loggable;
 
 public abstract class Task implements TaskRunner, Loggable {
 

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.util.Properties;
 
 import enums.ErrorCodes;
-import utils.Log;
+import utils.logger.Log;
 
 /**
  * @author Steve Brown 

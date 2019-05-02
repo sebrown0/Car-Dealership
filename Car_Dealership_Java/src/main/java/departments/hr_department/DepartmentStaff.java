@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import people.employees.Employee;
-import utils.Log;
-import utils.Loggable;
+import utils.logger.Log;
+import utils.logger.Loggable;
 
 /**
  * @author Steve Brown

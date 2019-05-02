@@ -14,8 +14,8 @@ import spark.SparkDataFramefWriter;
 import spark.SparkDfReadInterface;
 import spark.SparkDfReader;
 import spark.SparkDfWriter;
-import utils.Log;
-import utils.Loggable;
+import utils.logger.Log;
+import utils.logger.Loggable;
 
 /**
  * @author Steve Brown

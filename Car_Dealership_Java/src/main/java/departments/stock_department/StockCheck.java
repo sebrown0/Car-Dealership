@@ -20,9 +20,8 @@ import enums.FilePaths;
 import enums.TableNames;
 import spark.SparkDfReadInterface;
 import spark.SparkDfReader;
-//import spark.SparkDfTable;
-import utils.Log;
-import utils.Loggable;
+import utils.logger.Log;
+import utils.logger.Loggable;
 
 /**
  * @author Steve Brown

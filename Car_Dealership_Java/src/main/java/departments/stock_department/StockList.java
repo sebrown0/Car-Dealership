@@ -18,8 +18,8 @@ import enums.ErrorCodes.ErrorHandler;
 import enums.TableNames;
 import spark.SparkDataFramefWriter;
 import spark.SparkDfWriter;
-import utils.Log;
-import utils.Loggable;
+import utils.logger.Log;
+import utils.logger.Loggable;
 
 /**
  * @author Steve Brown

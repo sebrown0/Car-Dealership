@@ -14,8 +14,8 @@ import task_scheduler.Manager;
 import task_scheduler.TaskReceiver;
 import tasks.task_super_objects.Task;
 import timer.Timer;
-import utils.Log;
-import utils.Loggable;
+import utils.logger.Log;
+import utils.logger.Loggable;
 
 /**
  * @author Steve Brown
@@ -27,9 +27,9 @@ public abstract class Department implements Loggable, TaskReceiver{
 	private SparkSessionDAO sparkSession;
 	private DatabaseDAO database;
 	private Manager taskManager;
-	private DepartmentManager deptManager;
-	
 	private DepartmentDetails deptDetails;
+	private DepartmentManager deptManager;
+	private DealerDAO dealerDAO;
 	
 	protected DepartmentStaff idleStaff = new DepartmentStaff();
 	protected DepartmentStaff workingStaff = new DepartmentStaff();
@@ -45,11 +45,16 @@ public abstract class Department implements Loggable, TaskReceiver{
 	}
 	
 	public void setDepartmentDAO(DealerDAO dealerDAO) {
+		this.dealerDAO = dealerDAO;
 		this.log = dealerDAO.getLog();
 		this.timer = dealerDAO.getTimer();
 		this.database = dealerDAO.getDatabase();
 		this.sparkSession = dealerDAO.getSpark();
 		this.taskManager = dealerDAO.getTaskManager();
+	}
+	
+	public DealerDAO getDealerDAO() {
+		return dealerDAO;
 	}
 	
 	public String getDeptID() {
