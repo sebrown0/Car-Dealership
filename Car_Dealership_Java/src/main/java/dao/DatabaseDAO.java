@@ -31,12 +31,11 @@ public interface DatabaseDAO {
 	Properties getDbProperties();
 	
 	// Get a connection interface for a DB instance.
-	DbConnectionInterface dbConnection();
+//	DbConnectionInterface dbConnection();
 	
 	// Connect to Database using a DB instance.
 	void dbConnect();
 	
 	// Execute a stored procedure on DB instance.
-	StoredProcedure executeSP(String query);	// TODO - Maybe change so the query is passed to the constructor.
-	
+	StoredProcedure executeSP(String query);		
 }

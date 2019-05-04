@@ -1,12 +1,12 @@
 package enums;
 
-public enum CD_Schema {
+public enum Schemas {
 	
 	SCHEMA("car_dealership");
 	
 	private String schemaName;
 	
-	private CD_Schema(String s) {
+	private Schemas(String s) {
 		this.schemaName = s;	
 	}
 	

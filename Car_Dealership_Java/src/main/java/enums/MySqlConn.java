@@ -3,7 +3,7 @@ package enums;
 public enum MySqlConn {
 
 	URL("jdbc:mysql://localhost:3306/"),
-	URL_AND_SCHEMA("jdbc:mysql://localhost:3306/" + CD_Schema.SCHEMA.value()),
+	URL_AND_SCHEMA("jdbc:mysql://localhost:3306/" + Schemas.SCHEMA.value()),
 	USERNAME("root"),
 	PASSWORD("mySqL80");
 	

@@ -7,7 +7,7 @@ import org.apache.spark.sql.SparkSession;
 
 import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
-import enums.CD_Schema;
+import enums.Schemas;
 import enums.ErrorCodes;
 import utils.logger.Log;
 
@@ -19,7 +19,7 @@ import utils.logger.Log;
  *  Super class that allows data base access.
  */
 
-public class Database implements DatabaseDAO, SparkSessionDAO {
+public class Database implements DatabaseDAO {//, SparkSessionDAO {
 
 	private Properties dbProp; 					// Properties needed to connect to the DB.
 	private DbConnectionInterface dbConnection; // DB Connection
@@ -49,7 +49,7 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 	@Override
 	public void setDbProperty(String key, String value) {
 		if (key == "dbtable") { // Add the schema name to be sure of correct tbl.
-			this.dbProp.setProperty(key, CD_Schema.SCHEMA.value() + "." + value);
+			this.dbProp.setProperty(key, Schemas.SCHEMA.value() + "." + value);
 		} else {
 			this.dbProp.setProperty(key, value);
 		}
@@ -73,10 +73,6 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 		return dbProp;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see dao.DatabaseDAO#setProperties(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
-	 */
 	@Override
 	public void setProperties(String url, String urlAndSchema, String userName, String password, String dbSchema,
 			String format) {
@@ -98,11 +94,11 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 	 * (non-Javadoc)
 	 * @see dao.DatabaseDAO#dbConnection()
 	 */
-	@Override
-	public DbConnectionInterface dbConnection() {
-		// TODO Auto-generated method stub
-		return dbConnection;
-	}
+//	@Override
+//	public DbConnectionInterface dbConnection() {
+////		return null;
+//		return dbConnection;
+//	}
 
 	/*
 	 * (non-Javadoc)
@@ -110,7 +106,7 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 	 */
 	@Override
 	public StoredProcedure executeSP(String query) {
-		StoredProcedure sp = new StoredProcedure(query, dbConnection, null);
+		StoredProcedure sp = new StoredProcedure(query, log);
 		return sp.execute();
 	}
 
@@ -123,25 +119,4 @@ public class Database implements DatabaseDAO, SparkSessionDAO {
 		if (!this.dbConnection.checkConnection(log))
 			this.dbConnection.connect(dbProp, log);
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see dao.SparkSessionDAO#createNewSparkSession()
-	 */
-	@Override
-	public void createNewSparkSession() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see dao.SparkSessionDAO#session()
-	 */
-	@Override
-	public SparkSession session() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

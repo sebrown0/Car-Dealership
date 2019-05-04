@@ -1,6 +1,6 @@
 package database;
 
-import enums.CD_Schema;
+import enums.Schemas;
 import enums.DbProperties;
 import enums.MySqlConn;
 import utils.logger.Log;
@@ -28,7 +28,7 @@ public class MySqlDB extends Database{
 		this.setDbProperty(DbProperties.URL_AND_SCHEMA.value(), MySqlConn.URL_AND_SCHEMA.value());
 		this.setDbProperty(DbProperties.USER_NAME.value(), MySqlConn.USERNAME.value());
 		this.setDbProperty(DbProperties.PASSWORD.value(), MySqlConn.PASSWORD.value());
-		this.setDbProperty(DbProperties.SCHEMA.value(), CD_Schema.SCHEMA.value());
+		this.setDbProperty(DbProperties.SCHEMA.value(), Schemas.SCHEMA.value());
 		//TODO change default table
 		this.setDbProperty(DbProperties.DB_TABLE.value(), "");
 		this.setDbProperty(DbProperties.FORMAT.value(), "jdbc");

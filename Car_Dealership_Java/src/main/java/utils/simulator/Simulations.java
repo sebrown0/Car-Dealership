@@ -9,6 +9,7 @@ import dealer_management.DealerObjects;
 import dealer_management.MainDealerBuilder;
 import dealer_working_day.MainDealerWorkingDay;
 import departments.department.Department;
+import enums.DepartmentNames;
 import head_office.HeadOffice;
 import heartbeat.FastHeartbeat;
 import spark.Spark;
@@ -65,7 +66,7 @@ public class Simulations {
 			
 			CarDealer dealer = headOffice.getDealerByName(dealerName);
 			if(dealer != null) {
-				Department dept = dealer.getDepartmentByName("HR");
+				Department dept = dealer.getDepartmentByName(DepartmentNames.HR.value());
 				if(dept != null) {
 					TaskSchedule schedule = new ScheduledTime(timeNow + 1, timeNow + timeOffset + 1);
 					ScheduledTaskInjector injector = new ScheduledInjectorTest();
@@ -79,10 +80,10 @@ public class Simulations {
 	public static class StockCheckTest{
 		protected static void executeTest(int testNum, int timeOffset) {
 			int timeNow = headOffice.timer().currentTime();
-			
+
 			CarDealer dealer = headOffice.getDealerByName(dealerName);
 			if(dealer != null) {
-				Department dept = dealer.getDepartmentByName("Stock");
+				Department dept = dealer.getDepartmentByName(DepartmentNames.STOCK.value());
 				if(dept != null) {
 					TaskSchedule schedule = new ScheduledTime(timeNow + 1, timeNow + timeOffset + 1);
 					ScheduledTaskInjector injector = new UpdateStockInjector();

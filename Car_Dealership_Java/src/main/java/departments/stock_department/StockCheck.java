@@ -50,7 +50,6 @@ public class StockCheck implements Loggable{
 	}
 
 	public ErrorCodes checkStockFile(){
-		
 		try {
 			nextStockFile();
 			if(!stockFile.isEmpty()) {
@@ -64,17 +63,14 @@ public class StockCheck implements Loggable{
 		} catch (Throwable e) {
 			// Check for the most probable error 
 			return (ErrorHandler.checkError(ErrorCodes.DF_ERROR, e.getMessage(), log));
-		}
-		
+		}		
 		return ErrorCodes.NONE;
 	}
 	
 	private void nextStockFile() throws Throwable {
-		
 		dataBase.setDbProperty(DbProperties.DB_TABLE.value(), TableNames.STOCK_UPDATES.tblName());
 		SparkDfReadInterface stockUpdatesDf = new SparkDfReader(spark);
 		stockUpdatesDf.readTable(spark, dataBase);
-
 		Dataset<Row> idDf =  stockUpdatesDf.getDataFrame().agg(functions.max("update_id"));
 		try {
 			fileNum = idDf.head().getLong(0) + 1;
@@ -94,8 +90,6 @@ public class StockCheck implements Loggable{
 	}
 	
 	private static class FileHandler{
-		//TODO - DELETE OLD FILES??????
-		
 		// Check to see if a 'new' stock file has arrived. 
 		public static ErrorCodes checkStock(String filePath) {
 			return (new File(filePath).exists()) ? ErrorCodes.NONE : ErrorCodes.NO_FILE; 

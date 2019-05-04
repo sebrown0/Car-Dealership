@@ -19,8 +19,7 @@ public class SparkDfReader implements SparkDfReadInterface{
 
 	private SparkSessionDAO spark;
 	private Dataset<Row> df;
-	
-	
+		
 	public SparkDfReader(SparkSessionDAO spark) {
 		this.spark = spark;
 	}

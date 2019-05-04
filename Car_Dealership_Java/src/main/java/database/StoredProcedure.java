@@ -24,9 +24,8 @@ import utils.logger.Loggable;
  * Handles/executes a stored procedure.
  * 
  * Inputs: 
- * 	1. Database object.
- * 	2. Database connection interface.
- * 	3. Database connection. 
+ * 	1. Query: the query to run.
+ * 	2. Log: the dealer's log.
  * 
  * Returns:
  *  1. Stored Procedure object with Error code (if any).
@@ -40,31 +39,39 @@ public class StoredProcedure implements Loggable{
 	private ErrorCodes eCode = ErrorCodes.NONE;
 	private Log log;
 
-	public StoredProcedure(String query, DbConnectionInterface dbIt, Log log) {
+	public StoredProcedure(String query, Log log) {
 		this.query = query;
-		this.conn = dbIt.connection(log);
 		this.log = log;
-	}
-
-	public StoredProcedure(String query, Connection conn, Log log) {
-		this.query = query;
-		this.conn = conn;
-		this.log = log;
+		try {
+			this.conn = ConnectionPool.getInstance().getConnection();
+		} catch (SQLException e) {
+			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
+		}
 	}
 
 	/*
-	 * 
+	 *  Check if there's a query to run.
 	 */
 	public StoredProcedure execute() {
+		if(query != "") 
+			runTheQuery();
+		else
+			eCode = ErrorCodes.STORED_PROCEDURE;
+
+		return this;
+	}
+
+	/*
+	 *  We have a query, so run it.
+	 */
+	private void runTheQuery() {
 		try {
 			CallableStatement stmt = conn.prepareCall(query);
 			rs = stmt.executeQuery();
-			
 		} catch (SQLException e) {			
 			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
 			log.logEntry(this, "Error executing stored procedure: " + query);
-		} 
-		return this;
+		}
 	}
 
 	/*
@@ -80,47 +87,38 @@ public class StoredProcedure implements Loggable{
 		} catch (SQLException e) {
 			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
 		}
-		
 		return result;
 	}
 
 	/*
 	 * Returns a List from the executed SP.
 	 * It's up to the caller to validate or change the List.
-	 * Will throw SQLException if the column doesn't exist.
 	 */
 	public List<String> getListOfValues(String colOne) {
-		
 		List<String> result = new ArrayList<>();
 		
 		try {
-			while(rs.next()) {
+			while(rs.next()) 
 				result.add(rs.getString(colOne));
-			}
 		} catch (SQLException e) {
 			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
 		}
-		
 		return result;
 	}
 	
 	/*
 	 * Returns a ConcurrentHashMap (Likely that we'll use the result for threads) from the executed SP.
 	 * It's up to the caller to validate or change the List.
-	 * Will throw SQLException if the column doesn't exist.
 	 */
 	public ConcurrentHashMap<String, String> getMapOfValues(String colOne, String colTwo) {
-		
 		ConcurrentHashMap<String, String> result = new ConcurrentHashMap<>();
 		
 		try {
-			while(rs.next()) {
+			while(rs.next()) 
 				result.put(rs.getString(colOne), rs.getString(colTwo));
-			}
 		} catch (SQLException e) {
 			ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
 		}
-		
 		return result;
 	}
 	
@@ -139,7 +137,7 @@ public class StoredProcedure implements Loggable{
 	}	
 	
 	/*
-	 * Builds a string that can be used as a callable statement.
+	 * Builds a string that can be used in a callable statement.
 	 * 
 	 * Build is a static method called with the inputs below.
 	 * 
@@ -148,7 +146,7 @@ public class StoredProcedure implements Loggable{
 	 * Inputs:
 	 * 		1. ArrayList<String> stmntParameter
 	 * 			A list of values to use as inputs to the statement.
-	 * 			The "regex" part of the statement is replaced by the next element in the list.
+	 * 			The "regex" part of the statement is replaced by the next parameter in the list.
 	 * 		2. StoredProcedures sp
 	 * 			The name (value) of the stored procedure.
 	 */
@@ -157,33 +155,29 @@ public class StoredProcedure implements Loggable{
 		/*
 		 *  Recursively parses the statement replacing "regex" with the current parameter in the list.
 		 */
-		private static String parseStatement(ArrayList<String> stmntParameter, String statement) {
-	
-			Pattern pattern = Pattern.compile("regex");			// Place holder for the parameter we want to substitute.
+		private static String parseStatementWithXpleParams(ArrayList<String> params, String statement) {
+			Pattern pattern = Pattern.compile("regex");			
 			Matcher match = pattern.matcher(statement);
 		
-			if(match.find() && !stmntParameter.isEmpty()) {			// TODO - Error handler
-				String s = match.replaceFirst(stmntParameter.get(0));
-				stmntParameter.remove(0);
-				statement = parseStatement(stmntParameter, s);			
-			}
-						
+			if(match.find() && !params.isEmpty()) {			
+				String s = match.replaceFirst(params.get(0));
+				params.remove(0);
+				statement = parseStatementWithXpleParams(params, s);			
+			}			
 			return statement;
 		}
 
 		/*
-		 *  Recursively parses the statement replacing "regex" with the "element".
+		 *  Recursively parses the statement replacing "regex" with the "param".
 		 */
-		private static String parseStatement(String element, String statement) {
-			
+		private static String parseStatementWithOneParam(String param, String statement) {
 			Pattern pattern = Pattern.compile("regex");
 			Matcher match = pattern.matcher(statement);
 		
-			if(match.find() && element != null) {			// TODO - Error handler
-				String s = match.replaceFirst(element);
-				statement = parseStatement(element, s);			
+			if(match.find() && param != null) {		
+				String s = match.replaceFirst(param);
+				statement = parseStatementWithOneParam(param, s);			
 			}
-						
 			return statement;
 		}
 		
@@ -191,20 +185,14 @@ public class StoredProcedure implements Loggable{
 		 *  Build a query/statement for the passed statement with multiple parameters.
 		 */
 		public static String build(ArrayList<String> stmntParameter, String stmnt) {
-			
-			String query = parseStatement(stmntParameter, stmnt);
-						
-			return query;
+			return parseStatementWithXpleParams(stmntParameter, stmnt);
 		}
 
 		/*
 		 *  Build a query/statement for the passed statement with the one parameter.
 		 */
 		public static String build(String element, String stmnt) {
-			String query = parseStatement(element, stmnt);
-			
-			return query;
+			return parseStatementWithOneParam(element, stmnt);
 		}
-		
 	}
 }

@@ -13,7 +13,7 @@ public enum HRDeptSP {
 	/*
 	*  Get dept name and id from the departments table.
 	*/  
-	GET_DEPARTMENTS( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`GetDepartments`() }"),
+	GET_DEPARTMENTS( "{ call " +  Schemas.SCHEMA.value()	+ ".`GetDepartments`() }"),
 	
 	/*
 	 *  Get employees that are neither sick or on annual leave.
@@ -27,7 +27,7 @@ public enum HRDeptSP {
 	 *   	7. role_id
 	 *   	8. role_name
 	 */
-	ROLL_CALL( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`RollCall`('" + "regex" +  "') }"),
+	ROLL_CALL( "{ call " +  Schemas.SCHEMA.value()	+ ".`RollCall`('" + "regex" +  "') }"),
 	
 	/*
 	 *  Get the manager for the specified department.
@@ -41,7 +41,7 @@ public enum HRDeptSP {
 	 *   	7. role_id
 	 *   	8. role_name
 	 */
-	DEPARTMENT_MANAGER( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`FindDepartmentManager`('" + "regex" +  "') }");
+	DEPARTMENT_MANAGER( "{ call " +  Schemas.SCHEMA.value()	+ ".`FindDepartmentManager`('" + "regex" +  "') }");
 	
 	private String statement = "";
 	

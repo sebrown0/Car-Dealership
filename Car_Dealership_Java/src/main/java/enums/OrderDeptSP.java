@@ -9,7 +9,7 @@ package enums;
  */
 public enum OrderDeptSP {
 
-	MAX_ORDER_NUMBER( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`MaxOrderNumber`() }");
+	MAX_ORDER_NUMBER( "{ call " +  Schemas.SCHEMA.value()	+ ".`MaxOrderNumber`() }");
 	
 	private String statement = "";
 	

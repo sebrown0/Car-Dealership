@@ -10,7 +10,7 @@ package enums;
  */
 public enum SalesDeptSP {
 
-	NEW_CUSTOMER( "{ call " +  CD_Schema.SCHEMA.value()	+ ".`NewCustomer`('" + "regex" + "','" + "regex" + "') }");
+	NEW_CUSTOMER( "{ call " +  Schemas.SCHEMA.value()	+ ".`NewCustomer`('" + "regex" + "','" + "regex" + "') }");
 	
 	private String statement = "";
 	
