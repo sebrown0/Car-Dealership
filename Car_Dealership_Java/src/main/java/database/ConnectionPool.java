@@ -33,7 +33,7 @@ public class ConnectionPool {
         config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
         config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
         config.setPoolName("DealerConnectionPool");
-        config.setMaximumPoolSize(25);
+        config.setMaximumPoolSize(15);
         config.setMinimumIdle(2);
         
         ds = new HikariDataSource(config);

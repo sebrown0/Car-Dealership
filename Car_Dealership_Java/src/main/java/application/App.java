@@ -16,7 +16,7 @@ public class App {
 				
 		HeadOffice ho = HeadOffice.getInstance(
 				new ChangeableTime(8,59,58), 
-				new DurationInSeconds(TimeUnit.SECONDS, 50));
+				new DurationInSeconds(TimeUnit.SECONDS, 60));
 
 		Simulator sim = new Simulator(ho);
 		ho.registerSimulator(sim);

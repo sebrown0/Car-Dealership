@@ -76,9 +76,13 @@ public abstract class Department implements Loggable, TaskReceiver{
 	public DepartmentManager getDeptManager() {
 		return deptManager;
 	}
-
-	public ManagersDuties managersDuties() {
-		return deptManager;
+	
+	public boolean deptHasManager() {
+		return (deptManager != null) ? true : false;
+	}
+	
+	public void assignTaskToDeptManager(Task task) {
+		deptManager.delegateTask(task);
 	}
 	
 	public void setDeptManager(EmployeeDetails deptManager) {
