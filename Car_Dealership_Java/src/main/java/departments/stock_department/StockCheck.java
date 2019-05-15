@@ -54,9 +54,9 @@ public class StockCheck implements Loggable{
 			nextStockFile();
 			if(!stockFile.isEmpty()) {
 				if(FileHandler.checkStock(stockFile) == ErrorCodes.NONE) {
-					log.logEntry(this, "New file to check:" + stockFile);
+					log.logEntry(this, " New stock file to check: " + stockFile);
 				}else {
-					log.logEntry(this, "NO New file to check");
+					log.logEntry(this, " NO New file to check");
 					return ErrorCodes.NO_FILE;
 				}				
 			}
@@ -74,10 +74,9 @@ public class StockCheck implements Loggable{
 		try {
 			fileNum = idDf.head().getLong(0) + 1;
 		}catch (Exception e) {
-			// There's nothing in the table so use default value.
+			log.logEntry(this, "No valid file id found using default (1)");
 		}
 		stockFile = FilePaths.CAR_STOCK_PATH.filePath() + "car_stock_" + fileNum + ".json";
-
 	}
 	
 	public String getStockFile() {
@@ -93,7 +92,6 @@ public class StockCheck implements Loggable{
 		public static ErrorCodes checkStock(String filePath) {
 			return (new File(filePath).exists()) ? ErrorCodes.NONE : ErrorCodes.NO_FILE; 
 		}
-
 	}
 
 }

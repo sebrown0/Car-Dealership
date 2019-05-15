@@ -28,7 +28,7 @@ public class UpdateStock extends ScheduledTask implements StockUpdateProcess{
 	
 	@Override
 	public void executeTask() {
-		updateStock();
+		updateStock();	// StockUpdateProcess
 	}
 	
 	@Override

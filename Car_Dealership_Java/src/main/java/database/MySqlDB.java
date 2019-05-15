@@ -1,5 +1,8 @@
 package database;
 
+import enums.DbProperties;
+import enums.MySqlConn;
+import enums.Schemas;
 import utils.logger.Log;
 
 /**
@@ -16,7 +19,7 @@ public class MySqlDB extends Database {
 		 * TODO - 	Connection is hard coded in the Connection Pool as MySql.
 		 * 			Change it so that an instance of a DB (i.e. MySql) is created.
 		 */
-//		setDefaultProperties();
+		setDefaultProperties();
 	}
 
 //	public HikariConfig initialiseConnectionPool() {
@@ -35,13 +38,13 @@ public class MySqlDB extends Database {
 //        return config;
 //	}
 
-//	public void setDefaultProperties() {
-//		this.setDbProperty(DbProperties.URL.value(), MySqlConn.URL_AND_SCHEMA.value());
-//		this.setDbProperty(DbProperties.URL_AND_SCHEMA.value(), MySqlConn.URL_AND_SCHEMA.value());
-//		this.setDbProperty(DbProperties.USER_NAME.value(), MySqlConn.USERNAME.value());
-//		this.setDbProperty(DbProperties.PASSWORD.value(), MySqlConn.PASSWORD.value());
-//		this.setDbProperty(DbProperties.SCHEMA.value(), Schemas.SCHEMA.value());
-//		this.setDbProperty(DbProperties.DB_TABLE.value(), "");
-//		this.setDbProperty(DbProperties.FORMAT.value(), "jdbc");
-//	}
+	public void setDefaultProperties() {
+		this.setDbProperty(DbProperties.URL.value(), MySqlConn.URL_AND_SCHEMA.value());
+		this.setDbProperty(DbProperties.URL_AND_SCHEMA.value(), MySqlConn.URL_AND_SCHEMA.value());
+		this.setDbProperty(DbProperties.USER_NAME.value(), MySqlConn.USERNAME.value());
+		this.setDbProperty(DbProperties.PASSWORD.value(), MySqlConn.PASSWORD.value());
+		this.setDbProperty(DbProperties.SCHEMA.value(), Schemas.SCHEMA.value());
+		this.setDbProperty(DbProperties.DB_TABLE.value(), "");
+		this.setDbProperty(DbProperties.FORMAT.value(), "jdbc");
+	}
 }
