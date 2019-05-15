@@ -61,7 +61,6 @@ public class StockCheck implements Loggable{
 				}				
 			}
 		} catch (Throwable e) {
-			// Check for the most probable error 
 			return (ErrorHandler.checkError(ErrorCodes.DF_ERROR, e.getMessage(), log));
 		}		
 		return ErrorCodes.NONE;

@@ -39,14 +39,10 @@ public class StoredProcedure implements Loggable{
 	private ErrorCodes eCode = ErrorCodes.NONE;
 	private Log log;
 
-	public StoredProcedure(String query, Log log) {
+	public StoredProcedure(String query, Log log, Connection conn) {
 		this.query = query;
 		this.log = log;
-		try {
-			this.conn = ConnectionPool.getInstance().getConnection();
-		} catch (SQLException e) {
-			eCode = ErrorHandler.checkError(ErrorCodes.STORED_PROCEDURE, e.getMessage(), log);
-		}
+		this.conn = conn;
 	}
 
 	/*

@@ -29,8 +29,7 @@ public class CreateEmployee implements CreateEmployeeHelper{
 
 	@Override
 	public ResultSet getEmployeesFromDB(String deptID, HRDeptSP storedProc) {
-		dept.database().dbConnect(); 
-		String stmnt = QueryBuilder.build(dept.getDeptID(), storedProc.value());
+		String stmnt = QueryBuilder.build(deptID, storedProc.value());
 		StoredProcedure emp = dept.database().executeSP(stmnt);
 		return emp.getRs();
 	}

@@ -6,47 +6,50 @@ package database;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import enums.Schemas;
 import enums.MySqlConn;
+import enums.Schemas;
 
+/**
+ * 
+ * @author Steve Brown
+ *
+ * Connection pool using HikariCP.
+ */
 public class ConnectionPool {
 	
-	private static ConnectionPool INSTANCE = null;
-	private HikariDataSource ds = null;
-
+	private static HikariConfig config = new HikariConfig();
+	private static HikariDataSource ds = null;
+	
 	static {
-		try {
-//			LOG.info("Initializing the connection pool ... ");
-			INSTANCE = new ConnectionPool();
-//			LOG.info("Connection pool initialized successfully.");
-		} catch (Exception e) {
-//			LOG.error("Exception when trying to initialize the connection pool",e);
-		}
-		
+        config.setJdbcUrl(MySqlConn.URL_AND_SCHEMA.value());
+        config.setUsername(MySqlConn.USERNAME.value());
+        config.setPassword(MySqlConn.PASSWORD.value());
+		config.addDataSourceProperty("serverName", MySqlConn.URL.value());
+		config.addDataSourceProperty("databaseName", Schemas.SCHEMA.value());
+        config.addDataSourceProperty( "cachePrepStmts" , "true" );
+        config.addDataSourceProperty( "prepStmtCacheSize" , "250" );
+        config.addDataSourceProperty( "prepStmtCacheSqlLimit" , "2048" );
+        config.setPoolName("DealerConnectionPool");
+        config.setMaximumPoolSize(25);
+        config.setMinimumIdle(2);
+        
+        ds = new HikariDataSource(config);
+	}
+	
+	private ConnectionPool() {}
+	
+	public void poolSize(int pSize) {
+		ds.setMaximumPoolSize(pSize);
 	}
 
-	private ConnectionPool() {
-		ds = new HikariDataSource();
-		ds.setMaximumPoolSize(100);
-		
-		ds.setJdbcUrl(MySqlConn.URL_AND_SCHEMA.value());
-		ds.addDataSourceProperty("serverName", MySqlConn.URL.value());
-		ds.addDataSourceProperty("databaseName", Schemas.SCHEMA.value());
-		ds.addDataSourceProperty("user", MySqlConn.USERNAME.value());
-		ds.addDataSourceProperty("password", MySqlConn.PASSWORD.value());	
-	}
-
-	public static ConnectionPool getInstance() {
-		return INSTANCE;
-	}
-
-	public void closeDS() {
+	public static void closeDS() {
 		ds.close();
 	}
 	
-	public Connection getConnection() throws SQLException {
+	public static Connection getConnection() throws SQLException {
 		return ds.getConnection();
 	}
 }

@@ -15,6 +15,8 @@ public enum DbProperties {
 	PASSWORD("password"),					
 	SCHEMA("schema"),	
 	DB_TABLE("dbtable"),
+	SERVER_NAME("serverName"),
+	DB_NAME("databaseName"),
 	FORMAT("format");	
 	
 	private String prop;

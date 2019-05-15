@@ -41,12 +41,10 @@ public class SparkDfReader implements SparkDfReadInterface{
 			  .option("user", db.getDbProperty("username"))
 			  .option("password", db.getDbProperty("password"))
 			  .load();
-
 	}
 
 	@Override
 	public Dataset<Row> getDataFrame() {
 		return df;
 	}
-
 }

@@ -18,7 +18,7 @@ import utils.logger.Loggable;
 public class Simulator implements Observer, Loggable {
 
 	private int count = 0;
-	private static final int MAX_COUNT = 30;
+	private static final int MAX_COUNT = 40;
 	private static final String dealerName = "Fiat";
 	private HeadOffice headOffice;
 			
@@ -56,7 +56,7 @@ public class Simulator implements Observer, Loggable {
 
 	private void stopSimulator() {
 		headOffice.appLog().logEntry(this, "Stopping Simulator");
-		ConnectionPool.getInstance().closeDS();
+		ConnectionPool.closeDS();
 		headOffice.updateObserver(ObserverMessage.STOPPING);
 	}
 }
