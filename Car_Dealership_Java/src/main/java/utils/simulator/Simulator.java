@@ -18,6 +18,7 @@ import utils.logger.Loggable;
 public class Simulator implements Observer, Loggable {
 
 	private int count = 0;
+	private boolean alreadyStoppingSimulator = false;
 	private static final int MAX_COUNT = 40;
 	private static final String dealerName = "Fiat";
 	private HeadOffice headOffice;
@@ -47,14 +48,17 @@ public class Simulator implements Observer, Loggable {
 			} else if(count == 15) {
 				Simulations.StockCheckTest.executeTest(1, 5);
 			}else if(count == MAX_COUNT) {
-				stopSimulator();
+				if(!alreadyStoppingSimulator)
+					stopSimulator();
 			}		
 		}else{
-			stopSimulator();
+			if(!alreadyStoppingSimulator)
+				stopSimulator();
 		}
 	}
 
 	private void stopSimulator() {
+		alreadyStoppingSimulator = true;
 		headOffice.appLog().logEntry(this, "Stopping Simulator");
 		ConnectionPool.closeDS();
 		headOffice.updateObserver(ObserverMessage.STOPPING);
