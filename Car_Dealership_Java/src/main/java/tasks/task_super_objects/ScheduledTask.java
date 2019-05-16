@@ -3,7 +3,7 @@ package tasks.task_super_objects;
 import departments.department.Department;
 import tasks.task_details.TaskSchedule;
 
-public abstract class ScheduledTask extends Task implements Comparable<ScheduledTask>{
+public abstract class ScheduledTask extends Task {
 
 	protected TaskSchedule tasksSchedule;
 	

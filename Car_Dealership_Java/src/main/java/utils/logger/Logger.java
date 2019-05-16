@@ -47,7 +47,7 @@ public final class Logger extends FileHandler implements Log {
 	}	
 	
 	private String formatLogData(Loggable logData) {
-		return timer.currentTimeFormatted() + ": " + logData.objectID() + " -> ";
+		return timer.currentTimeFormatted() + ":[" + timer.currentTime() + "] " + logData.objectID() + " -> ";
 	}
 	
 	@Override

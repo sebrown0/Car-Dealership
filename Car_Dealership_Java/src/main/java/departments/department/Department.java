@@ -9,8 +9,6 @@ import dealer_management.DealerDAO;
 import departments.hr_department.DepartmentStaff;
 import people.employees.DepartmentManager;
 import people.employees.Employee;
-import people.employees.ManagersDuties;
-import task_scheduler.Manager;
 import task_scheduler.TaskReceiver;
 import tasks.task_super_objects.Task;
 import timer.Timer;
@@ -26,7 +24,6 @@ public abstract class Department implements Loggable, TaskReceiver{
 	
 	private SparkSessionDAO sparkSession;
 	private DatabaseDAO database;
-	private Manager taskManager;
 	private DepartmentDetails deptDetails;
 	private DepartmentManager deptManager;
 	private DealerDAO dealerDAO;
@@ -50,7 +47,6 @@ public abstract class Department implements Loggable, TaskReceiver{
 		this.timer = dealerDAO.getTimer();
 		this.database = dealerDAO.getDatabase();
 		this.sparkSession = dealerDAO.getSpark();
-		this.taskManager = dealerDAO.getTaskManager();
 	}
 	
 	public DealerDAO getDealerDAO() {
@@ -72,13 +68,27 @@ public abstract class Department implements Loggable, TaskReceiver{
 	public Employee nextAvailableEmployee() {
 		return idleStaff.nextEmployee();
 	}
-		
+	
+	public void addEmployeeToWorkingList(Employee emp) {
+		idleStaff.removeEmployee(emp.getID());
+		workingStaff.addDepStaffMember(emp);
+	}
+	
+	public void addEmployeeToIdleList(Employee emp) {
+		workingStaff.removeEmployee(emp.getID());
+		idleStaff.addDepStaffMember(emp);
+	}
+	
 	public DepartmentManager getDeptManager() {
 		return deptManager;
 	}
 	
 	public boolean deptHasManager() {
 		return (deptManager != null) ? true : false;
+	}
+	
+	public void reportToManager(Employee e, Task t) {
+		deptManager.removeAssignedTask(e, t);
 	}
 	
 	public void assignTaskToDeptManager(Task task) {
@@ -136,10 +146,6 @@ public abstract class Department implements Loggable, TaskReceiver{
 
 	public void setTimer(Timer timer) {
 		this.timer = timer;
-	}
-
-	public void setTaskManager(Manager taskManager) {
-		this.taskManager = taskManager;
 	}
 
 	public SparkSessionDAO spark() {

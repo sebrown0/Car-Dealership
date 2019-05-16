@@ -8,7 +8,6 @@ import departments.department.EmployeeDetails;
 import people.Person;
 import task_scheduler.TaskReceiver;
 import tasks.task_super_objects.Task;
-import utils.logger.Log;
 import utils.logger.Loggable;
 
 /**
@@ -62,7 +61,8 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 	
 	@Override
 	public <T extends Task> void accept(T t) {
-		employeeLogEntry(this,this.empDetails.getFullName() + " executing task.....");
+		employeeLogEntry(this, this.empDetails.getFullName() + " is executing task: " + t.objectID());
 		t.executeTask();
+		department.reportToManager(this, t);
 	}	
 }

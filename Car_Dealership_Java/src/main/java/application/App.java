@@ -20,7 +20,8 @@ public class App {
 
 		Simulator sim = new Simulator(ho);
 		ho.registerSimulator(sim);
-		sim.start();		
+		sim.start();
+		
 	}
 
 }

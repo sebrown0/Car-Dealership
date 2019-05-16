@@ -52,7 +52,7 @@ public class UpdateStock extends ScheduledTask implements StockUpdateProcess{
 		
 	@Override
 	public <T extends TaskListVisitor> void accept(T taskList) {
-		taskList.addTask(this);
+		taskList.allocateTask(this);
 	}
 
 	@Override

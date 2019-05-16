@@ -194,7 +194,7 @@ call AddEmployee('Accounts', 'Ben', 'Stokes','Accountant', 'Manager', 50000);
 call AddEmployee('IT', 'Sally', 'Field','Developer', 'Senior Associate', 26000);
 call AddEmployee('IT', 'Lisa', 'Simpson','Developer', 'Manager', 30000);  --
 call AddEmployee('Garage Services', 'Imran', 'Tahir','Mechanic', 'Skilled', 28999);
-call AddEmployee('Garage Services', 'Bat', 'Man','Mechanic','Manager', 39000);
+call AddEmployee('Garage Services', 'Bat', 'Man','Mechanic','Skilled', 29000);
 call AddEmployee('Garage Services', 'The', 'Rock','Valet', 'Unskilled', 11000);    
 call AddEmployee('Garage Services', 'Bart', 'Simpson','Mechanic', 'Manager', 31000);    
 call AddEmployee('Sales', 'Clint', 'Eastwood','Salesperson', 'Senior Associate', 24000);

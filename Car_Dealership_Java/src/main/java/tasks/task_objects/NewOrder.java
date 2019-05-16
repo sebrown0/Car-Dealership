@@ -26,6 +26,6 @@ public class NewOrder extends AtomicTask{
 	
 	@Override
 	public <T extends TaskListVisitor> void accept(T taskList) {
-		taskList.addTask(this);
+		taskList.allocateTask(this);
 	}
 }

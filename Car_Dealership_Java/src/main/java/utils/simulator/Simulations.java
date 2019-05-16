@@ -17,6 +17,7 @@ import task_scheduler.TaskManager;
 import tasks.task_details.ScheduledTime;
 import tasks.task_details.TaskSchedule;
 import tasks.task_injectors.ScheduledInjectorTest;
+import tasks.task_injectors.ScheduledInjectorTest2;
 import tasks.task_injectors.ScheduledTaskInjector;
 import tasks.task_injectors.UpdateStockInjector;
 import tasks.task_super_objects.ScheduledTask;
@@ -60,32 +61,35 @@ public class Simulations {
 	}
 	
 	public static class ScheduledTaskTest{
-			
-		protected static void executeTest(int testNum, int timeOffset) {
+		
+		protected static void executeTest(DepartmentNames deptName, int testNum, int timeOffset) {
 			int timeNow = headOffice.timer().currentTime();
+			int scheduledStart = timeNow + timeOffset;
 			
 			CarDealer dealer = headOffice.getDealerByName(dealerName);
 			if(dealer != null) {
-				Department dept = dealer.getDepartmentByName(DepartmentNames.HR.value());
+				Department dept = dealer.getDepartmentByName(deptName.value());
 				if(dept != null) {
-					TaskSchedule schedule = new ScheduledTime(timeNow + 1, timeNow + timeOffset + 1);
-					ScheduledTaskInjector injector = new ScheduledInjectorTest();
+					TaskSchedule schedule = new ScheduledTime(scheduledStart, scheduledStart + 1);
+					int r = Simulator.nextRandomNumber(2);
+					ScheduledTaskInjector injector = (r == 1) ? new ScheduledInjectorTest() : new ScheduledInjectorTest2();
 					ScheduledTask task = injector.getNewTask(dept, schedule);
 					headOffice.getTaskManager().giveTask(task);
 				}
 			}
 		}	
 	}
-	
+		
 	public static class StockCheckTest{
 		protected static void executeTest(int testNum, int timeOffset) {
 			int timeNow = headOffice.timer().currentTime();
-
+			int scheduledStart = timeNow + timeOffset;
+			
 			CarDealer dealer = headOffice.getDealerByName(dealerName);
 			if(dealer != null) {
 				Department dept = dealer.getDepartmentByName(DepartmentNames.STOCK.value());
 				if(dept != null) {
-					TaskSchedule schedule = new ScheduledTime(timeNow + 1, timeNow + timeOffset + 1);
+					TaskSchedule schedule = new ScheduledTime(scheduledStart, scheduledStart + 1);
 					ScheduledTaskInjector injector = new UpdateStockInjector();
 					ScheduledTask task = injector.getNewTask(dept, schedule);
 					headOffice.getTaskManager().giveTask(task);

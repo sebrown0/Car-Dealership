@@ -46,7 +46,7 @@ public class LogDepartmentEmployees extends ManagementTask {
 	
 	@Override
 	public <T extends TaskListVisitor> void accept(T taskList) {
-		taskList.addTask(this);
+		taskList.allocateTask(this);
 	}
 
 }

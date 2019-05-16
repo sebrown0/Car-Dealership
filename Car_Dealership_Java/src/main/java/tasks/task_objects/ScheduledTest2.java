@@ -10,15 +10,15 @@ import tasks.task_super_objects.ScheduledTask;
  *
  * 	An Atomic task that doesn't belong to a department.
  */
-public class ScheduledTest extends ScheduledTask {
+public class ScheduledTest2 extends ScheduledTask {
 	
-	public ScheduledTest(Department tasksDepartment, TaskSchedule tasksSchedule) {
+	public ScheduledTest2(Department tasksDepartment, TaskSchedule tasksSchedule) {
 		super(tasksDepartment, tasksSchedule);
 	}
 	
 	@Override
 	public void executeTask() {
-		getTasksDepartment().log().logEntry(this, "EXECUTING SCHEDULED TEST ");
+		getTasksDepartment().log().logEntry(this, "EXECUTING SCHEDULED TEST 2");
 	}
 	
 	@Override

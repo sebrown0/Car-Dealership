@@ -24,6 +24,10 @@ public class DepartmentStaff  implements Loggable {
 		team = new ArrayList<Employee>();
 	}
 
+	public void addDepStaffMember(Employee emp) {
+		team.add(emp);	
+	}
+	
 	public void addDepStaffMember(Employee emp, Log log) {
 //		log.logEntry(this, 
 //				"Adding -> Emp ID: " + emp.getID() + 
@@ -34,11 +38,8 @@ public class DepartmentStaff  implements Loggable {
 	}
 		
 	public Employee nextEmployee() {
-		if(!team.isEmpty()) {
-			Employee i = team.get(0);
-			System.out.println("T nextEmployee() ->  " + i.getFullName());
-			return i;
-		}
+		if(!team.isEmpty()) 
+			return team.get(0);
 		
 		return null;
 	}
@@ -50,6 +51,13 @@ public class DepartmentStaff  implements Loggable {
 	public List<Employee> getTeam() {
 		return team;
 	}
+	
+	public boolean removeEmployee(long empId) {
+		if(staffListNotEmpty())
+			return team.removeIf(e -> e.getID() == empId);
+		return false;
+	}
+	
 //	public Employee getEmployee(long empId) {
 //		if(!team.isEmpty()) {
 //			for (TeamMember e : team) {
@@ -60,14 +68,5 @@ public class DepartmentStaff  implements Loggable {
 //		return null;
 //	}
 
-//	public boolean removeEmployee(long empId) {
-//		
-//		if(!team.isEmpty()) {
-//			return team.removeIf(e -> e.getId() == empId);
-//		}
-//		return false;
-//	}
-
-//	@Override
-
+	
 }
