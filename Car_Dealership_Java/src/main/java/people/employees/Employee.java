@@ -64,5 +64,6 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 		employeeLogEntry(this, this.empDetails.getFullName() + " is executing task: " + t.objectID());
 		t.executeTask();
 		department.reportToManager(this, t);
+//		return t.executeTask();
 	}	
 }

@@ -15,10 +15,6 @@ public class NewLead extends AtomicTask {
 		super(tasksDepartment);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see tasks.TaskRunner#executeTask()
-	 */
 	@Override
 	public void executeTask() {
 		tasksDepartment.log().logEntry(this, "Executing: New Lead");
