@@ -61,8 +61,8 @@ public class DepartmentManager extends Employee implements ManagersDuties{
 	private void assignTask(Employee e, Task t) {
 		employeeLogEntry(this, "Assigning Task" + t.objectID() + " to " + e.getFullName());
 		department.addEmployeeToWorkingList(e);
-		e.accept(t);
 		assignedTasks.addTask(e, t);
+		new Thread(() -> e.accept(t)).start(); 
 	}
 
 	public void removeAssignedTask(Employee e, Task t) {

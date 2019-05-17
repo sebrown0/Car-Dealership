@@ -22,7 +22,7 @@ public class Simulator implements Observer, Loggable {
 
 	private int count = 0;
 	private boolean alreadyStoppingSimulator = false;
-	private static final int MAX_COUNT = 40;
+	private static final int MAX_COUNT = 30;
 	private static final String dealerName = "Fiat";
 	private HeadOffice headOffice;
 			
@@ -47,36 +47,39 @@ public class Simulator implements Observer, Loggable {
 			if(count == 3) {
 				Simulations.CreateDealerTest.executeTest();
 			} else if(count == 5) {
-				int max = MAX_COUNT - 5;
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.GARAGE_SERVICES, 1, nextRandomNumber(max));
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.GARAGE_SERVICES, 1, nextRandomNumber(max));		
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.GARAGE_SERVICES, 1, nextRandomNumber(max));		
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.SALES, 1, 8);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 9);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.ACCOUNTS, 1, 10);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.ORDER, 1, 11);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.STOCK, 1, 12);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 13);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 14);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, nextRandomNumber(max));
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 16);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, nextRandomNumber(max));
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 19);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, nextRandomNumber(max));
-
+				
 			} else if(count == 6) {
-				Simulations.StockCheckTest.executeTest(1, 12);
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 15);
+				
 			} else if(count == 7) {
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.ACCOUNTS, 1, 12);
+				// SIM1/SIM2/SIM3
+				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.SALES, 1, 8);
+				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 15);
 			} else if(count == 8) {
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.SALES, 1, 12);
+				// SIM3/SIM5
+				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 16);
+				// SIM6
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 5);
 			} else if(count == 9) {
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 12);
+				// SIM1
+//				Simulations.StockCheckTest.executeTest(1, 14);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 14);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 11);
+				// SIM2/SIM3
+				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 14);
+				Simulations.StockCheckTest.executeTest(1, 14);
+				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 11);
+				// SIM4/SIM5/SIM6
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 2);
+//				Simulations.StockCheckTest.executeTest(1, 4);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.ACCOUNTS, 1, 8);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.SALES, 1, 9);
+				// SIM7
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 4);
+//				Simulations.StockCheckTest.executeTest(1, 4);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 5);
+				
 			} else if(count == MAX_COUNT - 2) {
-//				Simulations.StockCheckTest.executeTest(1, 12);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.ORDER, 1, 1);
-//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.ORDER, 1, 1);
+
 			}else if(count == MAX_COUNT) {
 				if(!alreadyStoppingSimulator) { stopSimulator(); }
 			}		
