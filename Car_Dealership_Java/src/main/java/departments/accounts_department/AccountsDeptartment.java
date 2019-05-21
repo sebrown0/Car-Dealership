@@ -21,11 +21,7 @@ public class AccountsDeptartment extends Department {
 
 	@Override
 	public void delegateTask(Task task) {
-		// TODO Auto-generated method stub
+
 	}
 
-	@Override
-	public <T extends Task> void accept(T t) {
-		// TODO Auto-generated method stub
-	}
 }

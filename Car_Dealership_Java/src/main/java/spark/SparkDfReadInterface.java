@@ -16,7 +16,6 @@ import dao.SparkSessionDAO;
  *
  * Rules for reading a data source and converting it into a spark data frame.
  */
-// TODO - Not sure we need this interface.
 public interface SparkDfReadInterface {
 	
 	public void readFile(String path, String format); 						// Read Spark supported file format into a df, i.e. JSON.

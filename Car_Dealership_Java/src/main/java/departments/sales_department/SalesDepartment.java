@@ -3,9 +3,7 @@ package departments.sales_department;
 import java.util.ArrayList;
 import java.util.List;
 
-import dealer_management.DealerDAO;
 import departments.department.Department;
-import departments.department.DepartmentDetails;
 import departments.department.EmployeeDetails;
 import people.Person;
 import people.employees.SalesPerson;
@@ -17,13 +15,7 @@ import tasks.task_super_objects.Task;
 public class SalesDepartment extends Department{
 
 	private List<Person> peopleBrowsing = new ArrayList<>();  
-	
-//	public SalesDepartment(DepartmentDetails deptDetails, DealerDAO dealerDAO) {
-//		super(deptDetails, dealerDAO);
-//		
-//		peopleBrowsing("Daenerys", "Targaryen Mother of Dragons 22"); // TODO - Random data
-//	}
-	
+		
 	@Override
 	public void addDeptStaffMember(EmployeeDetails employeeDetails) {				
 		idleStaff().addDepStaffMember(new SalesPerson(employeeDetails, this), log); 
@@ -59,10 +51,4 @@ public class SalesDepartment extends Department{
 		
 //		return this.workingEmployee;
 	}
-
-	@Override
-	public <T extends Task> void accept(T t) {
-		// TODO Auto-generated method stub
-		
-	}	
 }

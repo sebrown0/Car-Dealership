@@ -78,7 +78,6 @@ public enum ErrorCodes {
 			return eCode;
 		}
 		
-		// TODO - Explain method.
 		private static ErrorCodes parseErrorMsg(ErrorCodes suspectedError, String errorMsg, Log log, String objId) {
 
 			// Get the part of the error code that might be in the error message.

@@ -69,6 +69,7 @@ public class MeetCustomer extends AtomicTask {
 	public <T extends TaskListVisitor> void accept(T taskList) {
 		taskList.allocateTask(this);
 	}
+	
 //	private void customersSalesPerson(SalesPerson sp, Customer customer) {
 //		department.log().logEntry(objId, 
 //				sp.getFirstName() + " " + sp.getLastName()
@@ -78,14 +79,4 @@ public class MeetCustomer extends AtomicTask {
 //	}
 
 
-//	@Override
-//	public boolean blocking() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//
-//	@Override
-//	public void add() {
-//		department.addTask(this);	// Add the task that is THIS task to the department's task list.		
-//	}
 }

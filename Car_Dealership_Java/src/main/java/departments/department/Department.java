@@ -9,7 +9,7 @@ import dealer_management.DealerDAO;
 import departments.hr_department.DepartmentStaff;
 import people.employees.DepartmentManager;
 import people.employees.Employee;
-import task_scheduler.TaskReceiver;
+import task_scheduler.DepartmentTaskReceiver;
 import tasks.task_super_objects.Task;
 import timer.Timer;
 import utils.logger.Log;
@@ -20,7 +20,7 @@ import utils.logger.Loggable;
  *
  * Super class for all departments
  */
-public abstract class Department implements Loggable, TaskReceiver{
+public abstract class Department implements Loggable, DepartmentTaskReceiver{
 	
 	private SparkSessionDAO sparkSession;
 	private DatabaseDAO database;
@@ -48,6 +48,11 @@ public abstract class Department implements Loggable, TaskReceiver{
 		this.database = dealerDAO.getDatabase();
 		this.sparkSession = dealerDAO.getSpark();
 	}
+	
+
+	@Override
+	public <T extends Task> void accept(T t) {		
+	}	
 	
 	public DealerDAO getDealerDAO() {
 		return dealerDAO;
@@ -87,10 +92,6 @@ public abstract class Department implements Loggable, TaskReceiver{
 		return (deptManager != null) ? true : false;
 	}
 	
-	public void reportToManager(Employee e, Task t) {
-		deptManager.removeAssignedTask(e, t);
-	}
-	
 	public void assignTaskToDeptManager(Task task) {
 		deptManager.delegateTask(task);
 	}
@@ -108,12 +109,8 @@ public abstract class Department implements Loggable, TaskReceiver{
 		return deptDetails;
 	}
 		
-	public void assignMessenger(Messenger messenger) {
-		this.deptMessanger = messenger;
-	}
-	
-	public Messenger getMessanger() {
-		return deptMessanger;
+	public int currentTime() {
+		return timer.currentTime();
 	}
 	
 	public Timer timer() {

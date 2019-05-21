@@ -10,15 +10,14 @@ import task_list.ManagementTaskList;
 import task_list.PendingTaskHolder;
 import task_list.PendingTaskList;
 import task_list.TaskPending;
-import tasks.task_details.TaskReport;
-import tasks.task_details.TaskReport.ReportBuilder;
+import tasks.task_details.ManagerReport;
 import tasks.task_super_objects.Task;
 
 /**
  * @author Steve Brown
  *
  */
-public class DepartmentManager extends Employee implements ManagersDuties{
+public class DepartmentManager extends Employee implements ManagersDuties, Manager{
 	
 	private PendingTaskList pendingTasks = new PendingTaskHolder();
 	private ManagementTaskList assignedTasks = new AssignedTaskHolder();
@@ -63,7 +62,7 @@ public class DepartmentManager extends Employee implements ManagersDuties{
 		department.addEmployeeToWorkingList(e);
 		assignedTasks.addTask(e, t);
 //		taskExecutorService.execute((e.accept(t)));
-		new Thread(() -> e.accept(t)).start(); 
+		new Thread(() -> e.accept(t, this)).start(); 
 	}
 	
 	private void stashTask(TaskPending p, Task t) {
@@ -71,24 +70,17 @@ public class DepartmentManager extends Employee implements ManagersDuties{
 		pendingTasks.addTask(p, t);
 		pendingTasks.logPendingTasks();
 	}
-
-	public void removeAssignedTask(Employee e, Task t) {
-		TaskReport report = new ReportBuilder()
-				.with(r -> {
-					r.setCompletedAt(0);
-					r.setEmployee(e);
-					r.setTask(t);
-					r.setTaskComplete(true);
-				}).create();
-		
-		System.out.println(report);
-		assignedTasks.removeAssignedTask(e);
-		department.addEmployeeToIdleList(e);
-	}
 	
 	@Override
 	public void performTask(Task t) {
 		employeeLogEntry(this, getFullName() + " is performing task: " + t.objectID());
 		t.executeTask();
+	}
+
+	@Override
+	public void giveReport(ManagerReport report) {
+		System.out.println(report);
+		assignedTasks.removeAssignedTask(report.getEmployee());
+		department.addEmployeeToIdleList(report.getEmployee());
 	}
 }

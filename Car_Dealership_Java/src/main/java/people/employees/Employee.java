@@ -6,7 +6,10 @@ package people.employees;
 import departments.department.Department;
 import departments.department.EmployeeDetails;
 import people.Person;
-import task_scheduler.TaskReceiver;
+import task_scheduler.EmployeeTaskReceiver;
+import people.employees.Manager;
+import tasks.task_details.ManagerReport;
+import tasks.task_details.TaskReport.ReportBuilder;
 import tasks.task_super_objects.Task;
 import utils.logger.Loggable;
 
@@ -14,7 +17,7 @@ import utils.logger.Loggable;
  * @author Steve Brown
  *
  */
-public abstract class Employee extends Person implements EmployeeDetails, Loggable, TaskReceiver  { 
+public abstract class Employee extends Person implements EmployeeDetails, Loggable, EmployeeTaskReceiver {
 
 	protected Department department;
 	protected EmployeeDetails empDetails;
@@ -28,7 +31,7 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 	public void employeeLogEntry(Loggable logData, String logEntry) {
 		department.log().logEntry(logData, logEntry);
 	}
-	
+
 	@Override
 	public String getRole() {
 		return empDetails.getRole();
@@ -38,7 +41,7 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 	public String getDeptID() {
 		return empDetails.getDeptID();
 	}
-	
+
 	@Override
 	public String getSeniority() {
 		return empDetails.getSeniority();
@@ -53,17 +56,26 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 	public void setDeptID(String deptID) {
 		empDetails.setDeptID(deptID);
 	}
-	
+
 	@Override
 	public void setSeniority(String seniority) {
 		empDetails.setSeniority(seniority);
 	}
-	
+
 	@Override
-	public <T extends Task> void accept(T t) {
+	public <T extends Task> void accept(T t, Manager manager) {
 		employeeLogEntry(this, this.empDetails.getFullName() + " is executing task: " + t.objectID());
 		t.executeTask();
-		department.reportToManager(this, t);
-//		return t.executeTask();
-	}	
+		manager.giveReport(createReport(t));
+	}
+	
+	private ManagerReport createReport(Task t) {
+		return new ReportBuilder()
+				.with(r -> {
+					r.setCompletedAt(department.currentTime());
+					r.setEmployee(this);
+					r.setTask(t);
+					r.setTaskComplete(true);
+				}).create();
+	}
 }

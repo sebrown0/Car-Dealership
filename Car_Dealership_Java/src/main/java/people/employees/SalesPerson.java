@@ -73,7 +73,7 @@ public class SalesPerson extends Employee { // TODO - Staffmember
 //	
 //	@Override
 //	public void performDuty(SalesDept department) {
-//		this.salesDept = department; TODO - R
+//		this.salesDept = department; 
 //		// To have more than one duty we will have to have a list of duties.
 //		meetCustomer(department.nextCustomer(), department.dataBase());
 //	}

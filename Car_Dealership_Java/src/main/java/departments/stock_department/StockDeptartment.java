@@ -3,9 +3,7 @@
  */
 package departments.stock_department;
 
-import dealer_management.DealerDAO;
 import departments.department.Department;
-import departments.department.DepartmentDetails;
 import departments.department.EmployeeDetails;
 import people.employees.Clerk;
 import tasks.task_super_objects.Task;
@@ -27,12 +25,7 @@ public class StockDeptartment extends Department {
 
 	@Override
 	public void delegateTask(Task task) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public <T extends Task> void accept(T t) {
-		// TODO Auto-generated method stub
+		
 	}
 
 //	private UpdateStock updateStock;

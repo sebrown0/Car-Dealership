@@ -25,7 +25,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="DealerSourceCode"/>
-	<classpathentry excluding="executors/TaskExecutor.java|task_scheduler/AtomicTaskList.java|task_scheduler/TaskManager_OLD.java|task_scheduler/ScheduledTaskList_OLD.java|task_scheduler/ScheduledTaskHolder.java|task_scheduler/AtomicTaskHolder_OLD.java|task_list_OLD/|executors/" kind="src" path="TaskSchedulerSourceCode"/>
+	<classpathentry excluding="executors/TaskExecutor.java|task_scheduler/AtomicTaskList.java|task_scheduler/TaskManager_OLD.java|task_scheduler/ScheduledTaskList_OLD.java|task_scheduler/ScheduledTaskHolder.java|task_scheduler/AtomicTaskHolder_OLD.java|task_list_OLD/|executors/|task_scheduler/Manager_UNUSED.java" kind="src" path="TaskSchedulerSourceCode"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
