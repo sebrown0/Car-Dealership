@@ -3,7 +3,7 @@
  */
 package people.employees;
 
-import tasks.task_details.ManagerReport;
+import tasks.details.ManagerReport;
 
 /**
  * @author Steve Brown

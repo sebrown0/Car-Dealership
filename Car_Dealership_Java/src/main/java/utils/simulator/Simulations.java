@@ -13,14 +13,14 @@ import enums.DepartmentNames;
 import head_office.HeadOffice;
 import heartbeat.FastHeartbeat;
 import spark.Spark;
-import task_scheduler.TaskManager;
-import tasks.task_details.ScheduledTime;
-import tasks.task_details.TaskSchedule;
-import tasks.task_injectors.ScheduledInjectorTest;
-import tasks.task_injectors.ScheduledInjectorTest2;
-import tasks.task_injectors.ScheduledTaskInjector;
-import tasks.task_injectors.UpdateStockInjector;
-import tasks.task_super_objects.ScheduledTask;
+import tasks.abstract_tasks.ScheduledTask;
+import tasks.details.ScheduledTime;
+import tasks.details.TaskSchedule;
+import tasks.injectors.ScheduledInjectorTest;
+import tasks.injectors.ScheduledInjectorTest2;
+import tasks.injectors.ScheduledTaskInjector;
+import tasks.injectors.UpdateStockInjector;
+import tasks.scheduler.TaskManager;
 import time.Time;
 
 /**

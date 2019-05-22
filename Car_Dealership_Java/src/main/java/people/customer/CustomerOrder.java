@@ -1,7 +1,7 @@
 
 package people.customer;
 
-import departments.order_department.Order;
+import departments.order.Order;
 
 /**
  * @author Steve Brown
