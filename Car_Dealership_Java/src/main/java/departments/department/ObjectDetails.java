@@ -52,6 +52,7 @@ public class ObjectDetails implements PersonDetails, EmployeeDetails, Department
 	}
 
 	//Employee details
+	@Override
 	public void setRole(String role) {
 		this.role = role;
 	}

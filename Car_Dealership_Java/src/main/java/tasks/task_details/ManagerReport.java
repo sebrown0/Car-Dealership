@@ -13,5 +13,6 @@ public interface ManagerReport {
 
 	long getCompletedAt();
 
+	@Override
 	String toString();
 }
