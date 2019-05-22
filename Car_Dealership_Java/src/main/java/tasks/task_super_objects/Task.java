@@ -15,6 +15,10 @@ public abstract class Task implements TaskRunner, Loggable, Comparable<Scheduled
 	public Department getTasksDepartment() {
 		return tasksDepartment;
 	}
+	
+	public String getTasksDeptId() {
+		return tasksDepartment.getDeptID();
+	}
 
 	public void setTasksDepartment(Department tasksDepartment) {
 		this.tasksDepartment = tasksDepartment;

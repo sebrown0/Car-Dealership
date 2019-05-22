@@ -10,5 +10,4 @@ package utils.logger;
  */
 public interface Loggable {
 	default String objectID() {	return "<" + this.getClass().getSimpleName() + ">";	}
-//	String currentTime();
 }
