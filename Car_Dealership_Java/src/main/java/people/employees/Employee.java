@@ -6,11 +6,10 @@ package people.employees;
 import departments.department.Department;
 import departments.department.EmployeeDetails;
 import people.Person;
-import task_scheduler.EmployeeTaskReceiver;
-import people.employees.Manager;
-import tasks.task_details.ManagerReport;
-import tasks.task_details.TaskReport.ReportBuilder;
-import tasks.task_super_objects.Task;
+import tasks.abstract_tasks.Task;
+import tasks.details.ManagerReport;
+import tasks.details.TaskReport.ReportBuilder;
+import tasks.scheduler.EmployeeTaskReceiver;
 import utils.logger.Loggable;
 
 /**

@@ -5,13 +5,13 @@ import java.util.concurrent.Executors;
 
 import departments.department.Department;
 import departments.department.EmployeeDetails;
-import task_list.AssignedTaskHolder;
-import task_list.ManagementTaskList;
-import task_list.PendingTaskHolder;
-import task_list.PendingTaskList;
-import task_list.TaskPendingType;
-import tasks.task_details.ManagerReport;
-import tasks.task_super_objects.Task;
+import tasks.abstract_tasks.Task;
+import tasks.details.ManagerReport;
+import tasks.lists.AssignedTaskHolder;
+import tasks.lists.ManagementTaskList;
+import tasks.lists.PendingTaskHolder;
+import tasks.lists.PendingTaskList;
+import tasks.lists.TaskPendingType;
 
 /**
  * @author Steve Brown

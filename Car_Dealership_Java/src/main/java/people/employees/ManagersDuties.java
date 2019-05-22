@@ -3,7 +3,7 @@
  */
 package people.employees;
 
-import tasks.task_super_objects.Task;
+import tasks.abstract_tasks.Task;
 
 /**
  * @author Steve Brown

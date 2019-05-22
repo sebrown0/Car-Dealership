@@ -4,7 +4,7 @@
 package people.customer;
 
 import departments.department.PersonDetails;
-import departments.stock_department.CarDetails;
+import departments.stock.CarDetails;
 import people.Person;
 import people.employees.SalesPerson;
 
