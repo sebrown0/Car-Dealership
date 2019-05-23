@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import database.StoredProcedure;
 import database.StoredProcedure.QueryBuilder;
 import departments.department.Department;
-import departments.department.EmployeeDetails;
-import departments.department.ObjectDetails;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
+import object_details.EmployeeDetails;
+import object_details.ObjectDetails;
 import enums.HRDeptSP;
 
 /**

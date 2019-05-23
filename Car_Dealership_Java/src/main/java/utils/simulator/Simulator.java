@@ -49,14 +49,14 @@ public class Simulator implements Observer, Loggable {
 			} else if(count == 5) {
 				
 			} else if(count == 6) {
-				
+				Simulations.MeetCustomerTest.executeTest(count, 0);
 			} else if(count == 7) {
 				// SIM1/SIM2/SIM3
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.SALES, 1, 8);
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 15);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.SALES, 1, 8);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 15);
 			} else if(count == 8) {
 				// SIM3/SIM5
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 16);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 16);
 				// SIM6
 //				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 5);
 			} else if(count == 9) {
@@ -65,9 +65,9 @@ public class Simulator implements Observer, Loggable {
 //				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 14);
 //				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 11);
 				// SIM2/SIM3
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 14);
-				Simulations.StockCheckTest.executeTest(1, 14);
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 11);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 14);
+//				Simulations.StockCheckTest.executeTest(1, 14);
+//				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 11);
 				// SIM4/SIM5/SIM6
 //				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.HR, 1, 2);
 //				Simulations.StockCheckTest.executeTest(1, 4);

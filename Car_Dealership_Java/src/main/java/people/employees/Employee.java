@@ -4,7 +4,7 @@
 package people.employees;
 
 import departments.department.Department;
-import departments.department.EmployeeDetails;
+import object_details.EmployeeDetails;
 import people.Person;
 import tasks.abstract_tasks.Task;
 import tasks.details.ManagerReport;
@@ -68,7 +68,7 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 		manager.giveReport(createReport(t));
 	}
 	
-	private ManagerReport createReport(Task t) {
+	protected ManagerReport createReport(Task t) {
 		return new ReportBuilder()
 				.with(r -> {
 					r.setCompletedAt(department.currentTime());

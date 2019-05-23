@@ -1,7 +1,7 @@
 package departments.hr;
 
 import departments.department.Department;
-import departments.department.EmployeeDetails;
+import object_details.EmployeeDetails;
 import people.employees.Clerk;
 import tasks.abstract_tasks.Task;
 

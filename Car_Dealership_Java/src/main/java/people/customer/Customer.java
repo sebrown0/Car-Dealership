@@ -3,8 +3,8 @@
  */
 package people.customer;
 
-import departments.department.PersonDetails;
 import departments.stock.CarDetails;
+import object_details.PersonDetails;
 import people.Person;
 import people.employees.SalesPerson;
 
@@ -14,55 +14,60 @@ import people.employees.SalesPerson;
  * 
  * Holds info about the customer and their order/requirements.
  */
-public class Customer extends Person {
+public class Customer extends Person implements CustomerDetails {
 
-	private Requirements customerRequirements = new Requirements();
+	private CustomerRequirements customerRequirements = new Requirements();
 	private SalesPerson assignedSalesPerson;
 	
 	public Customer(PersonDetails personDetails) {
 		super(personDetails);
 	}
 		
+	@Override
 	public SalesPerson getSalesPerson() {
 		return assignedSalesPerson;
 	}
 
+	@Override
 	public void setSalesPerson(SalesPerson salesPerson) {
 		this.assignedSalesPerson = salesPerson;
 	}
 
-	public Requirements getCustomerRequirements() {
+	@Override
+	public CustomerRequirements getCustomerRequirements() {
 		return customerRequirements;
 	}
 
-	public void setCustomerRequirements(Requirements customerRequirements) {
+	@Override
+	public void setCustomerRequirements(CustomerRequirements customerRequirements) {
 		this.customerRequirements = customerRequirements;
 	}
-
 	
 	/*
 	 * Customer's requirements when looking for a car.
 	 */
-	public class Requirements{
+	public class Requirements implements CustomerRequirements{
 		private double budget;
 		private CarDetails carDetails;
 			
+		@Override
 		public CarDetails getCarDetails() {
 			return carDetails;
 		}
 
+		@Override
 		public void setCarDetails(CarDetails carDetails) {
 			this.carDetails = carDetails;
 		}
 
+		@Override
 		public double getBudget() {
 			return budget;
 		}
 
+		@Override
 		public void setBudget(double budget) {
 			this.budget = budget;
 		}
 	}
-
-	
 }
