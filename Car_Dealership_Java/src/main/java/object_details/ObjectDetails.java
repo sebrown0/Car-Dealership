@@ -1,4 +1,4 @@
-package departments.department;
+package object_details;
 
 public class ObjectDetails implements PersonDetails, EmployeeDetails, DepartmentDetails {
 
@@ -78,6 +78,7 @@ public class ObjectDetails implements PersonDetails, EmployeeDetails, Department
 		this.deptID = deptID;
 	}
 	
+	@Override
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
 	}

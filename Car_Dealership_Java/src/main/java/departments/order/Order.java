@@ -3,6 +3,7 @@ package departments.order;
 import departments.stock.CarDetails;
 import enums.OrderStatus;
 import people.customer.Customer;
+import people.customer.CustomerDetails;
 
 /*
  * Wrapper class for orders: OrderListTable.
@@ -14,7 +15,7 @@ public class Order {
 	private CarDetails carDetails;
 	private Customer customer;
 	
-	public Customer getCustomer() {
+	public CustomerDetails getCustomer() {
 		return customer;
 	}
 

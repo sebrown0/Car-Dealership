@@ -3,50 +3,53 @@ package tasks.concrete;
 import departments.department.Department;
 import departments.hr.DepartmentStaff;
 import departments.sales.SalesDepartment;
+import object_details.ObjectDetails;
+import object_details.PersonDetails;
 import people.Person;
+import people.customer.Customer;
+import people.customer.CustomerDetails;
+import people.customer.CustomerRequirements;
+import people.employees.Employee;
 import people.employees.SalesPerson;
 import tasks.abstract_tasks.AtomicTask;
 import tasks.strategy.TaskListVisitor;
+import tasks.visitors.SalesTaskVisitor;
 
 /**
  * @author Steve Brown
  *
  * Responsible for handling a customer enquiry.
  */
-public class MeetCustomer extends AtomicTask {
+public class MeetCustomer extends AtomicTask {//implements SalesTaskVisitor {
 	
-	private SalesDepartment department = null;
-	private DepartmentStaff salesTeam = null;
-	private Person person = null;
+//	private SalesDepartment department = null;
+//	private DepartmentStaff salesTeam = null;
+//	private Person person = null;
 //	private Customer customer = null;
+	private SalesPerson salesPerson;
 
 	public MeetCustomer(Department tasksDepartment) {
 		super(tasksDepartment);
 	}
-	
-//	public MeetCustomer(Person person) {
-//		super();
-//		this.salesTeam = this.department.idleStaff();	
-////		this.department = dept;
-//		this.objId = "<" + this.department.deptName() + ">" + " <" + this.getClass().getSimpleName() + ">";
-//		department.setObjId("<" + this.department.getDeptId() + ">" + " <" + this.getClass().getSimpleName());
-//		this.person = person;
-//	}
-	
+		
 	/* 
 	 * A person has walked into the show room. 
 	 * Introduce them to the next available salesperson and make them a Customer.
 	 */
 	private void meetCustomer() {		
 
-		department.log().logEntry(this, "New lead: " + person.getFirstName() + " " + person.getLastName());
+		tasksDepartment.log().logEntry(this, "New lead: " );//+ person.getFirstName() + " " + person.getLastName());
+		
+		// This should be passed already !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		PersonDetails person = new ObjectDetails();
+		person.setFirstName("Elvis");
+
+		// Starts as a person then becomes a customer.
+		CustomerDetails customer = new Customer(person);
 		
 		// 'Assign' salesperson to customer.
-		SalesPerson sp = (SalesPerson) salesTeam.nextEmployee();
-		sp.customersSalesPerson(person);
-
+		customer.setSalesPerson(salesPerson);
 		
-		// If all goes well........new task......
 		
 		// Get the new customer's details and requirements.
 //		customersDetails();
@@ -69,7 +72,14 @@ public class MeetCustomer extends AtomicTask {
 	public <T extends TaskListVisitor> void accept(T taskList) {
 		taskList.allocateTask(this);
 	}
+
+	@Override
+	public void visit(Employee employee) {
+		this.salesPerson = (SalesPerson) employee;
+		executeTask();
+	}
 	
+		
 //	private void customersSalesPerson(SalesPerson sp, Customer customer) {
 //		department.log().logEntry(objId, 
 //				sp.getFirstName() + " " + sp.getLastName()

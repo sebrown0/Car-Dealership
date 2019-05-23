@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import departments.department.Department;
-import departments.department.EmployeeDetails;
+import object_details.EmployeeDetails;
 import people.Person;
 import people.employees.SalesPerson;
 import tasks.abstract_tasks.Task;

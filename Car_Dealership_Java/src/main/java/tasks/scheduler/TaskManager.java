@@ -24,6 +24,7 @@ import tasks.lists.ExecutableTaskHolder;
 import tasks.lists.ExecutableTaskList;
 import tasks.lists.ScheduledTaskHolder;
 import tasks.lists.ScheduledTaskList;
+import tasks.lists.TaskList;
 import tasks.strategy.TaskAllocator;
 import timer.Timer;
 import utils.logger.Log;
@@ -153,13 +154,13 @@ public class TaskManager implements Beatable, Observer, Loggable { //Manager_UNU
 			log.logEntry(this, "No department manager available to receive task: " + task.objectID() );		
 	}
 	
-	public void logTaskList(ScheduledTaskList schList) {
-		if(schList.isNotEmpty()) {
+	public <T extends TaskList> void logTaskList(T taskList) {
+		if(taskList.isNotEmpty()) {
 			List<Task> tempList = new ArrayList<>();
-			tempList.addAll(schList.getTaskList());
+			tempList.addAll(taskList.getTaskList());
 			int i = 1;
 			for(Task t : tempList) 
-				log.logEntry(this, "Task (" + i++ + ") in scheduled list = " + t.objectID());
+				log.logEntry(this, String.format("Task num[%d] in task list is [%s]", i++, t.objectID()));
 		}
 	}
 	
@@ -222,10 +223,11 @@ public class TaskManager implements Beatable, Observer, Loggable { //Manager_UNU
 
 	public <T extends Task> void giveTask(T t) {
 		t.accept(taskAllocator);
-		if(t instanceof ScheduledTask) {
-			ScheduledTask s = (ScheduledTask) t;
-			log.logEntry(this, "TM Accepting task -> " + s.objectID() + " to run at -> " + s.getStartTime() );
+		if(t instanceof ScheduledTask) 
 			logTaskList(scheduledTasks);
-		}
+		else if(t instanceof AtomicTask) 
+			logTaskList(executableTasks);
+		
+		log.logEntry(this, "TM Accepting task -> " + t.objectID());// + " to run at -> " + s.getStartTime() );
 	}
 }

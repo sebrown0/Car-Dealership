@@ -3,7 +3,7 @@
  */
 package people;
 
-import departments.department.PersonDetails;
+import object_details.PersonDetails;
 
 /**
  * @author Steve Brown

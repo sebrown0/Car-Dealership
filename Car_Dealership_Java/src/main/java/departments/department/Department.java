@@ -7,6 +7,8 @@ import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
 import dealer_management.DealerDAO;
 import departments.hr.DepartmentStaff;
+import object_details.DepartmentDetails;
+import object_details.EmployeeDetails;
 import people.employees.DepartmentManager;
 import people.employees.Employee;
 import tasks.abstract_tasks.Task;
@@ -30,7 +32,6 @@ public abstract class Department implements Loggable, DepartmentTaskReceiver{
 	
 	protected DepartmentStaff idleStaff = new DepartmentStaff();
 	protected DepartmentStaff workingStaff = new DepartmentStaff();
-	protected Messenger deptMessanger = null;
 	protected Log log;
 	protected Timer timer;
 	

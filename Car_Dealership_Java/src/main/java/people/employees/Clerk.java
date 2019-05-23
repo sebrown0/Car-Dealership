@@ -4,7 +4,7 @@
 package people.employees;
 
 import departments.department.Department;
-import departments.department.EmployeeDetails;
+import object_details.EmployeeDetails;
 
 /**
  * @author Steve Brown

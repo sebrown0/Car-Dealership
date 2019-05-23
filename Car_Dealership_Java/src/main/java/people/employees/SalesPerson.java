@@ -3,10 +3,14 @@
  */
 package people.employees;
 
-import departments.department.EmployeeDetails;
+import departments.department.Department;
 import departments.sales.SalesDepartment;
+import object_details.EmployeeDetails;
 import people.Person;
 import people.customer.Customer;
+import tasks.abstract_tasks.Task;
+import tasks.visitors.SalesTaskVisitor;
+import tasks.visitors.VisitableBySalesTasks;
 
 /**
  * @author Steve Brown
@@ -16,27 +20,34 @@ import people.customer.Customer;
  */
 
 //public class SalesPerson extends Employee implements NewCustomer, CustomerOrder {
-public class SalesPerson extends Employee { // TODO - Staffmember
+public class SalesPerson extends Employee {//implements VisitableBySalesTasks { // TODO - Staffmember
 	
-	private Customer customer = null;
-	private SalesDepartment department = null;
+//	private Customer customer = null;
+//	private SalesDepartment department = null;
 		
-	public SalesPerson(EmployeeDetails employeeDetails, SalesDepartment department) {
+	public SalesPerson(EmployeeDetails employeeDetails, Department department) {
 		super(employeeDetails, department);
-		this.department = department;
+	}
+	
+	@Override
+	public <T extends Task> void accept(T t, Manager manager) {
+		employeeLogEntry(this, this.empDetails.getFullName() + " is executing task: " + t.objectID());
+		t.visit(this);
+//		t.executeTask();
+		manager.giveReport(createReport(t));
 	}
 
-	public SalesPerson customersSalesPerson(Person newLead) {
-		this.customer = (Customer) newLead;
-		department.log().logEntry(this, 
-				this.getFirstName() + " " + this.getLastName()
-				+ " greets new lead " + customer.getFirstName());
+//	public SalesPerson customersSalesPerson(Person newLead) {
+//		this.customer = (Customer) newLead;
+//		department.log().logEntry(this, 
+//				this.getFirstName() + " " + this.getLastName()
+//				+ " greets new lead " + customer.getFirstName());
+//		
+//		customer.setSalesPerson(this);
+//		
+//		return this;
+//	}
 		
-		customer.setSalesPerson(this);
-		
-		return this;
-	}
-	
 //	@Override
 //	public void sendOrder() {
 //		// TODO Auto-generated method stub

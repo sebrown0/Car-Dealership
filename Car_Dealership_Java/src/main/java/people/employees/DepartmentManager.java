@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import departments.department.Department;
-import departments.department.EmployeeDetails;
+import object_details.EmployeeDetails;
 import tasks.abstract_tasks.Task;
 import tasks.details.ManagerReport;
 import tasks.lists.AssignedTaskHolder;

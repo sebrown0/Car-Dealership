@@ -13,9 +13,12 @@ import enums.DepartmentNames;
 import head_office.HeadOffice;
 import heartbeat.FastHeartbeat;
 import spark.Spark;
+import tasks.abstract_tasks.AtomicTask;
 import tasks.abstract_tasks.ScheduledTask;
 import tasks.details.ScheduledTime;
 import tasks.details.TaskSchedule;
+import tasks.injectors.AtomicTaskInjector;
+import tasks.injectors.MeetCustomerInjector;
 import tasks.injectors.ScheduledInjectorTest;
 import tasks.injectors.ScheduledInjectorTest2;
 import tasks.injectors.ScheduledTaskInjector;
@@ -80,7 +83,7 @@ public class Simulations {
 		}	
 	}
 		
-	public static class StockCheckTest{
+	public static class StockCheckTest {
 		protected static void executeTest(int testNum, int timeOffset) {
 			int timeNow = headOffice.timer().currentTime();
 			int scheduledStart = timeNow + timeOffset;
@@ -98,4 +101,19 @@ public class Simulations {
 		}			
 	}
 	
+	public static class MeetCustomerTest {
+		protected static void executeTest(int testNum, int timeOffset) {
+						
+			CarDealer dealer = headOffice.getDealerByName(dealerName);
+			if(dealer != null) {
+				Department dept = dealer.getDepartmentByName(DepartmentNames.SALES.value());
+				if(dept != null) {
+					AtomicTaskInjector injector = new MeetCustomerInjector();
+					AtomicTask task = injector.getNewTask(dept);
+					headOffice.getTaskManager().giveTask(task);
+				}
+			}
+		}			
+	}
+
 }

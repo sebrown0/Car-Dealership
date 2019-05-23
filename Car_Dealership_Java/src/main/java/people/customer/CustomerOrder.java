@@ -8,5 +8,5 @@ import departments.order.Order;
  * Rules for creating a new customer order.
  */
 public interface CustomerOrder {
-	Order takeOrder(Customer customer, Order customersOrder);
+	Order takeOrder(CustomerDetails customer, Order customersOrder);
 }
