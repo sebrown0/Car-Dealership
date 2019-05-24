@@ -3,24 +3,25 @@
  */
 package people.customer;
 
-import departments.stock.CarDetails;
+import departments.stock.Car;
 import object_details.PersonDetails;
 import people.Person;
 import people.employees.SalesPerson;
 
 /**
  * @author Steve Brown
- * Wrapper class for Customer.
  * 
- * Holds info about the customer and their order/requirements.
+ * Holds info about a customer and their requirements.
  */
 public class Customer extends Person implements CustomerDetails {
 
 	private CustomerRequirements customerRequirements = new Requirements();
 	private SalesPerson assignedSalesPerson;
+	private PersonDetails personDetails;
 	
 	public Customer(PersonDetails personDetails) {
 		super(personDetails);
+		this.personDetails = personDetails;
 	}
 		
 	@Override
@@ -29,13 +30,13 @@ public class Customer extends Person implements CustomerDetails {
 	}
 
 	@Override
-	public void setSalesPerson(SalesPerson salesPerson) {
-		this.assignedSalesPerson = salesPerson;
-	}
-
-	@Override
 	public CustomerRequirements getCustomerRequirements() {
 		return customerRequirements;
+	}
+	
+	@Override
+	public void setSalesPerson(SalesPerson salesPerson) {
+		this.assignedSalesPerson = salesPerson;
 	}
 
 	@Override
@@ -43,20 +44,25 @@ public class Customer extends Person implements CustomerDetails {
 		this.customerRequirements = customerRequirements;
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("Customer: [name %s]", personDetails.getFullName());
+	}
+	
 	/*
 	 * Customer's requirements when looking for a car.
 	 */
-	public class Requirements implements CustomerRequirements{
+	public static class Requirements implements CustomerRequirements{
 		private double budget;
-		private CarDetails carDetails;
+		private Car carDetails;
 			
 		@Override
-		public CarDetails getCarDetails() {
+		public Car getCarDetails() {
 			return carDetails;
 		}
 
 		@Override
-		public void setCarDetails(CarDetails carDetails) {
+		public void setCarDetails(Car carDetails) {
 			this.carDetails = carDetails;
 		}
 

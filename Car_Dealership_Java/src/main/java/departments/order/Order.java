@@ -1,6 +1,6 @@
 package departments.order;
 
-import departments.stock.CarDetails;
+import departments.stock.Car;
 import enums.OrderStatus;
 import people.customer.Customer;
 import people.customer.CustomerDetails;
@@ -12,7 +12,7 @@ import people.customer.CustomerDetails;
 public class Order {
 
 	private OrderListTable orderListTable = new OrderListTable();
-	private CarDetails carDetails;
+	private Car carDetails;
 	private Customer customer;
 	
 	public CustomerDetails getCustomer() {
@@ -31,7 +31,7 @@ public class Order {
 		return orderListTable;
 	}
 
-	public CarDetails getCarDetails() {
+	public Car getCarDetails() {
 		return carDetails;
 	}
 

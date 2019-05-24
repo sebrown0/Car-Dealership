@@ -1,12 +1,12 @@
 package people.customer;
 
-import departments.stock.CarDetails;
+import departments.stock.Car;
 
 public interface CustomerRequirements {
 
-	CarDetails getCarDetails();
+	Car getCarDetails();
 
-	void setCarDetails(CarDetails carDetails);
+	void setCarDetails(Car carDetails);
 
 	double getBudget();
 
