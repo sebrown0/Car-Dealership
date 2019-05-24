@@ -3,7 +3,11 @@ package tasks.details;
 import people.employees.Employee;
 import tasks.abstract_tasks.Task;
 
-public interface ManagerReport {
+/**
+ * @author Steve Brown
+ *
+ */
+public interface ManagersTaskReport {
 
 	Employee getEmployee();
 

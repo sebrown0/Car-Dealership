@@ -11,7 +11,7 @@ import tasks.abstract_tasks.Task;
  *
  * A report on a Task's execution.
  */
-public class TaskReport implements ManagerReport {
+public class TaskReport implements ManagersTaskReport {
 	private Employee employee;
 	private Task task;
 	private boolean taskComplete = false;
@@ -57,7 +57,7 @@ public class TaskReport implements ManagerReport {
 			return this;
 		}
 
-		public ManagerReport create() {
+		public ManagersTaskReport create() {
 		  return new TaskReport(employee, task, taskComplete, completedAt);
 		}
 

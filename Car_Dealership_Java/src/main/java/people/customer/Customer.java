@@ -46,7 +46,7 @@ public class Customer extends Person implements CustomerDetails {
 	
 	@Override
 	public String toString() {
-		return String.format("Customer: [name %s]", personDetails.getFullName());
+		return String.format("name [%s] ID[%d]", personDetails.getFullName(), personDetails.getID());
 	}
 	
 	/*

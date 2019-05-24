@@ -7,7 +7,7 @@ import departments.department.Department;
 import object_details.EmployeeDetails;
 import people.Person;
 import tasks.abstract_tasks.Task;
-import tasks.details.ManagerReport;
+import tasks.details.ManagersTaskReport;
 import tasks.details.TaskReport.ReportBuilder;
 import tasks.scheduler.EmployeeTaskReceiver;
 import utils.logger.Loggable;
@@ -20,6 +20,7 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 
 	protected Department department;
 	protected EmployeeDetails empDetails;
+	protected boolean isBusy;
 
 	public Employee(EmployeeDetails employeeDetails, Department department) {
 		super(employeeDetails);
@@ -31,6 +32,14 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 		department.log().logEntry(logData, logEntry);
 	}
 
+	protected void setEmployeeIsBusy(boolean isBusy) {
+		this.isBusy = isBusy;
+	}
+	
+	protected boolean isEmployeeBusy() {
+		return isBusy;
+	}
+	
 	@Override
 	public String getRole() {
 		return empDetails.getRole();
@@ -63,12 +72,13 @@ public abstract class Employee extends Person implements EmployeeDetails, Loggab
 
 	@Override
 	public <T extends Task> void accept(T t, Manager manager) {
+		isBusy = true;
 		employeeLogEntry(this, this.empDetails.getFullName() + " is executing task: " + t.objectID());
 		t.executeTask();
 		manager.giveReport(createReport(t));
 	}
 	
-	protected ManagerReport createReport(Task t) {
+	protected ManagersTaskReport createReport(Task t) {
 		return new ReportBuilder()
 				.with(r -> {
 					r.setCompletedAt(department.currentTime());

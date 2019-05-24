@@ -24,7 +24,7 @@ public class ConnectionPool {
 	private static HikariDataSource ds = null;
 	
 	static {
-        config.setJdbcUrl(MySqlConn.URL_AND_SCHEMA.value());
+        config.setJdbcUrl(MySqlConn.URL_AND_SCHEMA.value() + "?useSSL=false");
         config.setUsername(MySqlConn.USERNAME.value());
         config.setPassword(MySqlConn.PASSWORD.value());
 		config.addDataSourceProperty("serverName", MySqlConn.URL.value());

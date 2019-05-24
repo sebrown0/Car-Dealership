@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="spark/SparkDataFrame.java|spark/SparkDfTable.java|department_tasks/TaskCreateDepartments.java|department_tasks/TaskCreateDepartments_NOBP.java|tasks/InjectorTemplate.java|tasks/task_objects/unimplemented/|utils/ContinuousTasksProducer_old.java|utils/ContinuousTasksConsumer_old.java|application/Day_OLD.java|tasks/task_creators/TaskDetails_OLD.java|tasks/task_creators/ScheduledTaskDetails.java|tasks/task_creators/ScheduledTasksDetails.java|tasks/task_creators/DepartmentTaskRunner.java|tasks/task_creators/DepartmentTaskInjector.java|tasks/task_creators/AtomicTaskRunner.java|tasks/task_creators/ScheduledTaskRunner.java|tasks/task_creators/Task_OLD.java|tasks/task_creators/TaskConsumer_OLD.java|tasks/task_objects/AtomicTask.java|tasks/task_objects/ScheduledTask.java|tasks/task_creators/TypeOfTask.java|a_NewTaskRunner/|tasks/task_reciever/TaskReceiver.java|tasks/task_reciever/|tasks/concrete/unimplemented/" kind="src" output="target/classes" path="src/main/java">
+	<classpathentry excluding="spark/SparkDataFrame.java|spark/SparkDfTable.java|department_tasks/TaskCreateDepartments.java|department_tasks/TaskCreateDepartments_NOBP.java|tasks/InjectorTemplate.java|tasks/task_objects/unimplemented/|utils/ContinuousTasksProducer_old.java|utils/ContinuousTasksConsumer_old.java|application/Day_OLD.java|tasks/task_creators/TaskDetails_OLD.java|tasks/task_creators/ScheduledTaskDetails.java|tasks/task_creators/ScheduledTasksDetails.java|tasks/task_creators/DepartmentTaskRunner.java|tasks/task_creators/DepartmentTaskInjector.java|tasks/task_creators/AtomicTaskRunner.java|tasks/task_creators/ScheduledTaskRunner.java|tasks/task_creators/Task_OLD.java|tasks/task_creators/TaskConsumer_OLD.java|tasks/task_objects/AtomicTask.java|tasks/task_objects/ScheduledTask.java|tasks/task_creators/TypeOfTask.java|a_NewTaskRunner/|tasks/task_reciever/TaskReceiver.java|tasks/task_reciever/|tasks/concrete/unimplemented/|tasks/status/" kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
@@ -32,6 +32,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>

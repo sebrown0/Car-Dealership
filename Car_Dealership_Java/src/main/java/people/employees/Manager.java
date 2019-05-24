@@ -3,7 +3,7 @@
  */
 package people.employees;
 
-import tasks.details.ManagerReport;
+import tasks.details.ManagersTaskReport;
 
 /**
  * @author Steve Brown
@@ -11,5 +11,5 @@ import tasks.details.ManagerReport;
  * 
  */
 public interface Manager {
-	void giveReport(ManagerReport report);
+	void giveReport(ManagersTaskReport report);
 }

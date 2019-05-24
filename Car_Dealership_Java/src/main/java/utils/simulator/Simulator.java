@@ -22,7 +22,7 @@ public class Simulator implements Observer, Loggable {
 
 	private int count = 0;
 	private boolean alreadyStoppingSimulator = false;
-	private static final int MAX_COUNT = 30;
+	private static final int MAX_COUNT = 20;
 	private static final String dealerName = "Fiat";
 	private HeadOffice headOffice;
 			
@@ -47,9 +47,9 @@ public class Simulator implements Observer, Loggable {
 			if(count == 3) {
 				Simulations.CreateDealerTest.executeTest();
 			} else if(count == 5) {
-				
+				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 5);
 			} else if(count == 6) {
-				Simulations.MeetCustomerTest.executeTest(count, 0);
+				Simulations.NewLeadTest.executeTest(count, 0);
 			} else if(count == 7) {
 				// SIM1/SIM2/SIM3
 //				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.SALES, 1, 8);

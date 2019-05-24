@@ -1,6 +1,7 @@
 /*
 ** Ad-hoc development/testing querys
 */
+
 select * from departments;
 select * from sales_dept;
 
@@ -21,11 +22,15 @@ select * from manufacturer;
 select * from customers;
 
 select * from model;
+
 select * from model_attributes;
+
 select * from model_enhancements;
 
 select * from stock_list;
+
 select * from stock_status;
+
 select * from stock_updates;
 
 select * from order_list;
@@ -66,7 +71,7 @@ call GetStockList();
 
 call MaxOrderNumber();
 
-call RollCall(8);
+call RollCall(5);
 
 -- DELETE from employees WHERE employees.emp_id = 6;
 

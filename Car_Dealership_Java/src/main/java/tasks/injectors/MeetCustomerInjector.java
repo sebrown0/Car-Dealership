@@ -2,7 +2,7 @@ package tasks.injectors;
 
 import departments.department.Department;
 import tasks.abstract_tasks.AtomicTask;
-import tasks.concrete.MeetCustomer;
+import tasks.concrete.CustomerRequirements;
 
 /**
  * @author Steve Brown
@@ -14,6 +14,6 @@ public class MeetCustomerInjector implements AtomicTaskInjector {
 
 	@Override
 	public AtomicTask getNewTask(Department tasksDepartment) {
-		return new MeetCustomer(tasksDepartment);
+		return new CustomerRequirements(tasksDepartment);
 	}
 }

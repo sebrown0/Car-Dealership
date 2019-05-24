@@ -1,7 +1,6 @@
 package enums;
 
 public enum Schemas {
-	
 	SCHEMA("car_dealership");
 	
 	private String schemaName;

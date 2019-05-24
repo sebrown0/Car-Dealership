@@ -39,6 +39,20 @@ public abstract class Database implements DatabaseDAO, DBProperty {
 	}
 	
 	@Override
+	public void closeConnection(Connection c) {
+		new Thread(() -> {
+			try {
+				Thread.sleep(100);
+				c.close();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+		}).start();
+	}
+	
+	@Override
 	public void setDbProperty(String key, String value) {
 		if (key == "dbtable") // Add the schema name to be sure of correct tbl.
 			this.dbProp.setProperty(key, Schemas.SCHEMA.value() + "." + value);
@@ -58,7 +72,10 @@ public abstract class Database implements DatabaseDAO, DBProperty {
 
 	@Override
 	public StoredProcedure executeSP(String query) {
-		StoredProcedure sp = new StoredProcedure(query, log, getDbConnection());
-		return sp.execute();
+		Connection c = getDbConnection();
+		StoredProcedure sp = new StoredProcedure(query, log, c);
+		sp.execute();
+		closeConnection(c);
+		return sp;
 	}
 }

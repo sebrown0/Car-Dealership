@@ -2,16 +2,33 @@ package tasks.abstract_tasks;
 
 import departments.department.Department;
 import people.employees.Employee;
-import people.employees.SalesPerson;
 import tasks.strategy.TaskListVisitor;
 import utils.logger.Loggable;
 
-public abstract class Task implements TaskRunner, Loggable, Comparable<ScheduledTask> {
+public abstract class Task implements IsNotAnExtendibleTask, TaskRunner, Loggable, Comparable<ScheduledTask> {
 
 	protected Department tasksDepartment;
+	protected Employee assignedEmployee;
+	private Task followOnTask;
 	
 	public Task(Department tasksDepartment) {
 		this.tasksDepartment = tasksDepartment;
+	}
+	
+	public boolean taskHasAnEmployeeAssigned() {
+		return (assignedEmployee == null) ? false : true;
+	}
+	
+	public Employee assignedEmployee() {
+		return assignedEmployee;
+	}
+	
+	public void setThisTasksFollowOnTask(Task t) {
+		this.followOnTask = t;
+	}
+	
+	public Task getThisTasksFollowOnTask() {
+		return followOnTask;
 	}
 	
 	public Department getTasksDepartment() {
@@ -29,7 +46,7 @@ public abstract class Task implements TaskRunner, Loggable, Comparable<Scheduled
 	public abstract <T extends TaskListVisitor> void accept(T taskList);
 	
 	public void visit(Employee employee) {
-		// TODO - Make abstract when all implemented
+		this.assignedEmployee = employee;
 	}
 
 	@Override

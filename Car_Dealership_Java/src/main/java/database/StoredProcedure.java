@@ -38,6 +38,7 @@ public class StoredProcedure implements Loggable{
 	private Connection conn = null;
 	private ErrorCodes eCode = ErrorCodes.NONE;
 	private Log log;
+	private static final int TWO_SECONDS = 2;
 
 	public StoredProcedure(String query, Log log, Connection conn) {
 		this.query = query;
@@ -45,14 +46,15 @@ public class StoredProcedure implements Loggable{
 		this.conn = conn;
 	}
 
-	/*
-	 *  Check if there's a query to run.
-	 */
 	public StoredProcedure execute() {
-		if(query != "") 
-			runTheQuery();
-		else
-			eCode = ErrorCodes.STORED_PROCEDURE;
+		try {
+			if(query != "" && conn.isValid(TWO_SECONDS)) 
+				runTheQuery();
+			else
+				eCode = ErrorCodes.STORED_PROCEDURE;
+		} catch (SQLException e) {
+			log.logEntry(this, String.format("Could not execute the Store Procedue [%s]", query));
+		}
 
 		return this;
 	}

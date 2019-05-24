@@ -12,7 +12,8 @@ public enum TaskPendingType {
 	NO_EMPLOYEE ("No Employee Available"), 
 	DUPLICATE ("Duplicate"), 
 	WRONG_DEPT ("Wrong Department"),
-	FAILED ("Failed");
+	FAILED ("Failed"),
+	FOLLOW_ON_EMP_BUSY("Follow on task. Employee is busy");
 	
 	private String reason;
 	

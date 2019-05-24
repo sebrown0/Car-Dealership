@@ -12,13 +12,15 @@ import departments.department.Department;
 import enums.DepartmentNames;
 import head_office.HeadOffice;
 import heartbeat.FastHeartbeat;
+import object_details.ObjectDetails;
+import object_details.PersonDetails;
 import spark.Spark;
-import tasks.abstract_tasks.AtomicTask;
 import tasks.abstract_tasks.ScheduledTask;
+import tasks.concrete.NewLead;
 import tasks.details.ScheduledTime;
 import tasks.details.TaskSchedule;
 import tasks.injectors.AtomicTaskInjector;
-import tasks.injectors.MeetCustomerInjector;
+import tasks.injectors.NewLeadInjector;
 import tasks.injectors.ScheduledInjectorTest;
 import tasks.injectors.ScheduledInjectorTest2;
 import tasks.injectors.ScheduledTaskInjector;
@@ -101,15 +103,19 @@ public class Simulations {
 		}			
 	}
 	
-	public static class MeetCustomerTest {
+	public static class NewLeadTest {
 		protected static void executeTest(int testNum, int timeOffset) {
 						
 			CarDealer dealer = headOffice.getDealerByName(dealerName);
 			if(dealer != null) {
 				Department dept = dealer.getDepartmentByName(DepartmentNames.SALES.value());
 				if(dept != null) {
-					AtomicTaskInjector injector = new MeetCustomerInjector();
-					AtomicTask task = injector.getNewTask(dept);
+					AtomicTaskInjector injector = new NewLeadInjector();
+					NewLead task = (NewLead) injector.getNewTask(dept);
+					PersonDetails newLead = new ObjectDetails();
+					newLead.setFirstName("Bob");
+					newLead.setLastName("Marley");
+					task.details(newLead);
 					headOffice.getTaskManager().giveTask(task);
 				}
 			}

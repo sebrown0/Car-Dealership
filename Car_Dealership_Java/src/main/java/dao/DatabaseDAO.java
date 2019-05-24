@@ -15,6 +15,8 @@ import database.StoredProcedure;
 public interface DatabaseDAO extends DBProperty{
 			
 	Connection getDbConnection();
+	
+	void closeConnection(Connection c);
 		
 	StoredProcedure executeSP(String query);		
 }

@@ -15,7 +15,7 @@ import tasks.abstract_tasks.Task;
  */
 
 //public class SalesPerson extends Employee implements NewCustomer, CustomerOrder {
-public class SalesPerson extends Employee {//implements VisitableBySalesTasks { // TODO - Staffmember
+public class SalesPerson extends Employee {
 	
 //	private Customer customer = null;
 //	private SalesDepartment department = null;
