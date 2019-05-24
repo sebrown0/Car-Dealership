@@ -11,7 +11,7 @@ import object_details.PersonDetails;
  */
 public abstract class Person implements PersonDetails {
 
-	private PersonDetails details;
+	protected PersonDetails details;
 
 	public Person(PersonDetails personDetails) {
 		this.details = personDetails;

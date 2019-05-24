@@ -1,19 +1,14 @@
 package tasks.concrete;
 
 import departments.department.Department;
-import departments.hr.DepartmentStaff;
-import departments.sales.SalesDepartment;
 import object_details.ObjectDetails;
 import object_details.PersonDetails;
-import people.Person;
 import people.customer.Customer;
 import people.customer.CustomerDetails;
-import people.customer.CustomerRequirements;
 import people.employees.Employee;
 import people.employees.SalesPerson;
 import tasks.abstract_tasks.AtomicTask;
 import tasks.strategy.TaskListVisitor;
-import tasks.visitors.SalesTaskVisitor;
 
 /**
  * @author Steve Brown

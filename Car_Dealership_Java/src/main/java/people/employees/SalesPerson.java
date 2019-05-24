@@ -4,13 +4,8 @@
 package people.employees;
 
 import departments.department.Department;
-import departments.sales.SalesDepartment;
 import object_details.EmployeeDetails;
-import people.Person;
-import people.customer.Customer;
 import tasks.abstract_tasks.Task;
-import tasks.visitors.SalesTaskVisitor;
-import tasks.visitors.VisitableBySalesTasks;
 
 /**
  * @author Steve Brown
