@@ -6,6 +6,7 @@ import org.apache.spark.sql.Row;
 import dao.DatabaseDAO;
 import dao.SparkSessionDAO;
 import dealer_management.DealerDAO;
+import departments.stock.helpers.ReadStockFile;
 import enums.DbProperties;
 import enums.ErrorCodes;
 import enums.ErrorCodes.ErrorHandler;
@@ -38,29 +39,30 @@ public class StockDelivery implements Loggable{
 	public ErrorCodes readStockFile(String stockFile) {
 		ErrorCodes eCode = ErrorCodes.NONE;
 		
-		// Read the new stock file into a Spark DF
-		log.logEntry(this, "Reading stock file");
-		SparkDfReadInterface dfCars = new SparkDfReader(spark);
-		dfCars.readFile(stockFile, "json");
-
-		// Get local ref to car df.
-		Dataset<Row> carStockDf = dfCars.getDataFrame(); 
-
-		// Get the extras from the sub category
-		Dataset<Row> extrasDf =	carStockDf.select(carStockDf.col("vin"), 
-				carStockDf.col("extras.alloy_wheels"), 
-				carStockDf.col("extras.ac"), 
-				carStockDf.col("extras.sunroof"));
-
-		// Merge the extras with the car
-		carStockDf.drop("extras.*");
-		carStockDf = carStockDf.join(extrasDf, 
-				extrasDf.col("vin").equalTo(carStockDf.col("vin")))
-				.drop(extrasDf.col("vin"))
-				.drop(carStockDf.col("extras"));
+//		// Read the new stock file into a Spark DF
+//		log.logEntry(this, "Reading stock file");
+//		SparkDfReadInterface dfCars = new SparkDfReader(spark);
+//		dfCars.readFile(stockFile, "json");
+//
+//		// Get local ref to car df.
+//		Dataset<Row> carStockDf = dfCars.getDataFrame(); 
+//
+//		// Get the extras from the sub category
+//		Dataset<Row> extrasDf =	carStockDf.select(carStockDf.col("vin"), 
+//				carStockDf.col("extras.alloy_wheels"), 
+//				carStockDf.col("extras.ac"), 
+//				carStockDf.col("extras.sunroof"));
+//
+//		// Merge the extras with the car
+//		carStockDf.drop("extras.*");
+//		carStockDf = carStockDf.join(extrasDf, 
+//				extrasDf.col("vin").equalTo(carStockDf.col("vin")))
+//				.drop(extrasDf.col("vin"))
+//				.drop(carStockDf.col("extras"));
 
 		try {
-			eCode = writeData(carStockDf);
+//			eCode = writeData(carStockDf);
+			eCode = writeData(ReadStockFile.readCarDataFile(stockFile, spark));
 		} catch (Throwable e) {
 			eCode = (ErrorHandler.checkError(ErrorCodes.DUPLICATE_ENTRY, e.getMessage(), log));
 		}
