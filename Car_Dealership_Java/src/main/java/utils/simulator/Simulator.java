@@ -47,7 +47,7 @@ public class Simulator implements Observer, Loggable {
 			if(count == 3) {
 				Simulations.CreateDealerTest.executeTest();
 			} else if(count == 5) {
-				Simulations.ScheduledTaskTest.executeTest(DepartmentNames.IT, 1, 5);
+				Simulations.StockCheckTest.executeTest(1, 4);
 			} else if(count == 6) {
 				Simulations.NewLeadTest.executeTest(count, 0);
 			} else if(count == 7) {
