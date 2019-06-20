@@ -8,7 +8,7 @@ SELECT
 FROM 
 	human_resources hr
 JOIN
-	employees emp
+	employee emp
 ON
 	emp.emp_id = hr.hr_emp_id
 JOIN 
@@ -16,7 +16,7 @@ JOIN
 ON
 	hr.role_and_seniority_id = ras.role_and_seniority_id
 JOIN
-	seniorities sen
+	seniority sen
 ON 
 	ras.seniority_id = sen.seniority_id
 JOIN 

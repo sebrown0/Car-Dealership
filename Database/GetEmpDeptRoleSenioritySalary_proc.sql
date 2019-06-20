@@ -1,7 +1,3 @@
-DELIMITER $$
-/*
-** Get all empolyees' dept, role, seniority and salary.
-*/
 CREATE PROCEDURE `GetEmpDeptRoleSenioritySalary`()
 BEGIN
 	SELECT 
@@ -13,11 +9,11 @@ BEGIN
 	FROM 
 		human_resources hr
 	INNER JOIN
-		employees emp
+		employee emp
 	ON
 		emp.emp_id = hr.hr_emp_id
 	INNER JOIN
-		departments dept
+		department dept
 	ON
 		dept.dept_id = emp.dept_id
 	INNER JOIN
@@ -25,8 +21,7 @@ BEGIN
 	ON
 		ras.role_and_seniority_id = hr.role_and_seniority_id
 	INNER JOIN
-		seniorities sen
+		seniority sen
 	ON
 		sen.seniority_id = ras.seniority_id;
 END;
-DELIMITER ;

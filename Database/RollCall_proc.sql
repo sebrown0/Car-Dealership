@@ -1,45 +1,42 @@
 CREATE DEFINER=`root`@`localhost` PROCEDURE `RollCall`(IN department_id INT)
 BEGIN
 SELECT 
-	hr_emp_id, first_name, last_name, emp.dept_id, sen.seniority, sen.seniority_id, ras.role_name, ras.role_id
+	emp.* -- emp.first_name, emp.last_name, dept.dept_name, sen.seniority, r.role_name
 FROM 
-	human_resources hr
-JOIN
-	employees emp
+	employee emp
+JOIN 
+	department dept
 ON
-	emp.emp_id = hr.hr_emp_id
+	emp.dept_id = dept.dept_id
 JOIN 
 	role_and_seniority ras
 ON
-	hr.role_and_seniority_id = ras.role_and_seniority_id
+	ras.ras_id = emp.ras_id
 JOIN
-	seniorities sen
+	seniority sen
 ON 
 	ras.seniority_id = sen.seniority_id
+JOIN
+	role r
+ON
+	r.role_id = ras.role_id
 WHERE
 	emp.dept_id = department_id
 AND
-	hr.hr_emp_id NOT IN (
+	emp.emp_id NOT IN (
 		SELECT 
-			hr_emp_id AS emp_id
-		FROM 
-			human_resources hr
+			emp.emp_id
+		FROM
+			employee emp
 		JOIN
-			employees emp
+			absent_year abs_yr
 		ON
-			emp.emp_id = hr.hr_emp_id
+			abs_yr.emp_id = emp.emp_id AND abs_yr.year = (SELECT year(now()))
 		JOIN
-			employee_attendance att
+			employee_absent emp_abs
 		ON
-			att.att_emp_id = emp.emp_id
-		JOIN
-			employee_holiday hol
-		ON
-			hol.emp_hol_rec_id = att.att_emp_id
-		WHERE
-			hol.hol_rec_year = (select date_format(curdate(), '%Y')) -- Only interested in current year
-		AND
-			(SELECT curdate()) > hol.hol_start_date AND (SELECT curdate()) < hol.hol_end_date -- Only interested in those on holiday
+			emp_abs.absent_year_emp_id = abs_yr.emp_id
+		WHERE		
+			(SELECT curdate()) >= emp_abs.absent_start_date AND (SELECT curdate()) <= emp_abs.absent_end_date 
 		);
-
 END

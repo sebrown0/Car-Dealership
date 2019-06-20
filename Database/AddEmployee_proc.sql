@@ -1,67 +1,61 @@
-DELIMITER $$
 /*
-** Adds and employee to employees, human_resources employee_attendance and  tbls.
-** employee_attendance has holiday entitlement calculated form seniority.
+*	Add an employee and update the HR
+*	and Employee Renumeration tables.
 */
 CREATE PROCEDURE `AddEmployee`(
-	IN d_name VARCHAR(45),		-- Name of the department where the emp will work.
-    IN first_name VARCHAR(45),	-- Emp's first name
-    IN last_name VARCHAR(45),	-- Emp's last name
-    IN role_name VARCHAR(25),	-- Emp's role i.e. salesman
-    IN seniority VARCHAR(25),	-- Emp's seniority i.e. Associate, Manager etc
-    IN salary DECIMAL(10,2))	-- Salary
+	IN d_name VARCHAR(45),
+    IN first_name VARCHAR(45),
+    IN last_name VARCHAR(45),
+    IN r_name VARCHAR(25),
+    IN snrty VARCHAR(25),
+    IN salary DECIMAL(10,2),
+    IN ssn VARCHAR(45),
+    IN dob DATE,
+    IN hire_date DATE)
 BEGIN
 	DECLARE employee_id INT;
-    DECLARE emp_role_id INT;
+    DECLARE renum_id INT;
+    DECLARE ras_id INT;
     DECLARE holiday_ent TINYINT(1);
-  
-	INSERT INTO 
-		employees
-			(`dept_id`, `first_name`, `last_name`)
-	VALUES 
-		((SELECT dept_id FROM departments WHERE dept_name = d_name ), first_name, last_name);
         
-    COMMIT; -- so we can get the max id to insert into employees    
-	SET employee_id = (SELECT MAX(emp_id) from employees);
-    
-    SET emp_role_id = (
+    -- Get RAS ID for the given seniority and role    
+    SET ras_id = (
 		SELECT 
-			rs.role_and_seniority_id
+			ras.ras_id
 		FROM 
-			role_and_seniority rs
-        INNER JOIN 
-			seniorities s
-        ON 
-			s.seniority_id = rs.seniority_id
+			role_and_seniority ras
+		INNER JOIN 
+			seniority s
+		ON 
+			s.seniority_id = ras.seniority_id
+		INNER JOIN
+			role r
+		ON 
+			r.role_id = ras.role_id
 		WHERE 
-			s.seniority_id = rs.seniority_id
+			s.seniority = snrty
 		AND 
-			s.seniority = seniority 
-        AND 
-			rs.role_name = role_name
+			r.role_name = r_name
 		);
-    
-	SET holiday_ent = 
-		(SELECT 
-			holiday_entitlement 
+        
+	-- get anuual leave for a RAS.
+	SET holiday_ent = (
+	SELECT 
+			sen.holiday_entitlement 
 		FROM 
 			role_and_seniority ras
 		INNER JOIN
-			salary_bands sb
+			seniority sen
 		ON 
-			ras.seniority_id = sb.seniority_id
+			ras.seniority_id = sen.seniority_id
 		WHERE 
-			ras.role_and_seniority_id = emp_role_id);
-        
-    INSERT INTO 
-        human_resources (hr_emp_id, salary, role_and_seniority_id)
-	VALUE
-		(employee_id, salary, emp_role_id);
-  
-	INSERT INTO 
-		employee_attendance (att_emp_id, att_year, annual_leave_remaining, sick_days, annual_leave)
+			ras.ras_id = ras_id
+	);
+    
+	INSERT INTO employee
+		(`dept_id`, `ras_id`, `first_name`, `last_name`, `salary`, 
+        `annual_leave`, `ssn`, `dob`, `hire_date`)
 	VALUES 
-		( employee_id, (select year(now())) , holiday_ent, 0 ,holiday_ent);
-	
+		((SELECT dept_id FROM department WHERE dept_name = d_name ), 
+        ras_id, first_name, last_name, salary, holiday_ent, ssn, dob, hire_date);
 END;
-DELIMITER;

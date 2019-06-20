@@ -2,20 +2,36 @@
 ** Ad-hoc development/testing querys
 */
 
-select * from departments;
+select * from department;
+
+select * from department_manager;
+
 select * from sales_dept;
 
-select * from employees;
-select * from employee_data;
-select * from employee_attendance;
-select * from employee_holiday;
+select * from employee order by dept_id;
 
-select * from human_resources;
+select sum(e.num_days) from employee_absent e join absent_year a on a.absent_id = e.absent_year_id
+where a.emp_id = 1 and a.year = '2019' and e.reason = 'annual leave';
 
-select * from roles;
-select * from role_and_seniority;
-select * from salary_bands;
-select * from seniorities;
+select * from employee_absent e join absent_year a on a.absent_id = e.absent_year_id
+where a.emp_id = 1 and a.year = '2019';
+
+select * from employee_absent order by absent_year_emp_id;
+
+select * from absent_year order by emp_id;
+
+select * from absent_year where emp_id =1 and year = 2019;
+
+select * from Absent_Reason;
+
+select * from role;
+
+select * from seniority;
+
+select * from role_and_seniority ras 
+inner join employee emp on emp.ras_id = ras.ras_id 
+inner join seniority sen on sen.seniority_id = ras.seniority_id
+inner join role rle on rle.role_id = ras.role_id;
 
 select * from manufacturer;
 
@@ -48,8 +64,9 @@ delete from customers;
 INSERT INTO `stock_updates`	(`update_id`, `file_name`) VALUES (0,  'car_stock_0.json');		
 
 INSERT INTO `Customers` (`first_name`,`last_name`) VALUES ('Steve','Brown');    
--- RESET END
 
+insert into absent_year (`emp_id`, `year`) values (1, '2020');
+-- RESET END
 
 select DATE(now());
 
@@ -58,10 +75,6 @@ call FindAnEmployeesManager(3);
 call GetEmpDeptRoleSenioritySalary();
 call JoinEmployeesOnManagers();
 call UpdateDepartmentManager (6,3); -- ( man_id,dept_id)
-call BookHoliday(1,'2019-01-01','2019-01-04');
-
-call BookHoliday(12,'2019-02-17','2019-02-22');
-call BookHoliday(4,'2019-02-07','2019-04-14');
 
 call GetModelDetails('Ford', 'Focus');
 
@@ -71,15 +84,20 @@ call GetStockList();
 
 call MaxOrderNumber();
 
-call RollCall(5);
+call UpdateEmployeeAbsent(10, '2019-06-19', '2019-06-20', 2, 'Sick'); 
 
--- DELETE from employees WHERE employees.emp_id = 6;
+call RollCall(1);
 
--- SELECT * from employee_holiday;
--- select date_format(curdate(), '%Y');
-/*
-INSERT INTO 
-	employee_holiday (`emp_hol_rec_id`, `hol_rec_year`, `hol_start_date`, `hol_end_date`)
-VALUES
-	('5',  '2019', '2019-02-15', '2019-02-28');
-*/
+delete from employee_absent;
+
+select sum(eabs.num_days) from employee_absent eabs 
+join absent_year a on a.emp_id = eabs.emp_id where eabs.emp_id = 1 and a.year = '2019';
+
+drop trigger Absent_Year_BEFORE_INSERT;
+
+-- call RollCall(1, @emp_id); select @emp_id;
+/*CREATE DEFINER = CURRENT_USER TRIGGER `car_dealership`.`Absent_Year_BEFORE_INSERT` 
+BEFORE INSERT ON `Absent_Year` FOR EACH ROW
+BEGIN
+ SET NEW.year = YEAR(NOW());
+END*/

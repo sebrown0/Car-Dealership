@@ -3,7 +3,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `NewCustomer`(
     IN last_name VARCHAR(45))
 BEGIN
 	INSERT INTO 
-		customers (first_name, last_name)
+		customer (first_name, last_name)
 	VALUE
 		(first_name, last_name);
         
