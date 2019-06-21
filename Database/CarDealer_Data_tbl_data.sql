@@ -1,43 +1,41 @@
-/*
-** Initial data for the schema.
-*/
-/**************** CAR DATA ****************/
+-- Initial data for the schema.
+
+/**************** CAR DATA START****************/
 INSERT INTO `manufacturer`
 	(`manufacturer_name`)
 VALUES
 	('Ford'),
     ('Volkswagen');
-    
-INSERT INTO `model`
-	(`model_vin`,`manufacturer_id`, `model_name`, `retail_price`, `date_of_manufacture`)
-VALUES
-	('FD95219PKV', 1, 'Focus', 22000, '2019-01-01');			-- Ford
-    
-INSERT INTO `model_attributes`
-	(`model_vin`, `colour`, `transmission`, `horsepower`)
-VALUES
-	('FD95219PKV', 'Red', 'Auto', 2000);	
-    
-INSERT INTO `model_enhancements`
-	(`model_vin`, `sunroof`, `alloy_wheels`, `ac`)
-VALUES
-	('FD95219PKV', 0, 1, 1);	
 
 INSERT INTO `stock_status`
-	(`status`)
+	(`status_id`, `status`)
 VALUES
-	('Order'),					-- New order
-	('Awaiting Preparation'),	-- Car has just arrived so can't be viewed or sold
-    ('Forecourt'),				-- Can be sold
-    ('Test'),					-- On a test drive
-    ('Sold'),					-- Sold awaiting delivery
-    ('Delivered');				-- Car has been delivered to customer
+	(1, 'Unknown'),					-- The status of the car has not been set
+	(2, 'Order'),					-- New order
+	(3, 'Awaiting Preparation'),	-- Car has just arrived so can't be viewed or sold
+    (4, 'Forecourt'),				-- Can be sold
+    (5, 'Test'),					-- On a test drive
+    (6, 'Sold'),					-- Sold awaiting delivery
+    (7, 'Delivered');				-- Car has been delivered to customer
+    
+INSERT INTO `Stock_List` (`date_added`, `fk_stock_status_id`) VALUES ((select DATE(now())), 3);
 
 INSERT INTO `stock_updates`
-	(`update_id`, `file_name`)
+	(`update_id`, `file_name`, `date_of_last_update`, `fk_stock_list_id`)
 VALUES
-	(0,  'car_stock_0.json');		
+	(0,  'car_stock_0.json', (select DATE(now())), 1);		
     
+INSERT INTO `model`
+	(`model_vin`,`fk_manufacturer_id`, `model_name`, `retail_price`, `date_of_manufacture`, 
+		`colour`, `transmission`, `horsepower`,
+        `sunroof`, `alloy_wheels`, `ac`)
+VALUES
+	('FD95219PKV', 1, 'Focus', 22000, '2019-01-01',
+		'Red', 'Auto', 2000, 
+        0, 1, 1);
+/**************** CAR DATA END****************/
+
+/**************** HR DATA START****************/
 INSERT INTO `Customer` 
 	(`first_name`,`last_name`)
 VALUES
@@ -211,4 +209,4 @@ VALUES
     
 call UpdateEmployeeAbsent(1, (select DATE(now())), (select DATE(now())), 1, 'Annual Leave');
 call UpdateEmployeeAbsent(2, '2020-06-21', '2020-06-24', 3, 'Sick');
-call UpdateEmployeeAbsent(1, '2019-06-21', '2019-06-22', 1, 'Sick'); 
+/**************** HR DATA END****************/
