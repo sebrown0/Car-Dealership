@@ -31,11 +31,11 @@ AND
 		JOIN
 			absent_year abs_yr
 		ON
-			abs_yr.emp_id = emp.emp_id AND abs_yr.year = (SELECT year(now()))
+			abs_yr.fk_emp_id = emp.emp_id AND abs_yr.year = (SELECT year(now()))
 		JOIN
 			employee_absent emp_abs
 		ON
-			emp_abs.absent_year_emp_id = abs_yr.emp_id
+			emp_abs.emp_absent_id = abs_yr.fk_emp_id
 		WHERE		
 			(SELECT curdate()) >= emp_abs.absent_start_date AND (SELECT curdate()) <= emp_abs.absent_end_date 
 		);

@@ -9,16 +9,16 @@ BEGIN
 	SET abs_year = (SELECT EXTRACT(YEAR FROM start_date));
     
     IF ((SELECT `Absent_Year`.`year` FROM Absent_Year 
-			WHERE `Absent_Year`.`year` = abs_year AND `Absent_Year`.`emp_id` = emp_id)) IS NULL THEN
+			WHERE `Absent_Year`.`year` = abs_year AND `Absent_Year`.`fk_emp_id` = emp_id)) IS NULL THEN
             
-		INSERT INTO `Absent_Year` (`emp_id`, `year`) VALUE (emp_id, abs_year);
+		INSERT INTO `Absent_Year` (`fk_emp_id`, `year`) VALUE (emp_id, abs_year);
     END IF;
     COMMIT;
     
-    SET abs_year_id = (SELECT y.absent_id FROM absent_year y WHERE y.emp_id = emp_id AND y.year = abs_year);
+    SET abs_year_id = (SELECT y.absent_id FROM absent_year y WHERE y.fk_emp_id = emp_id AND y.year = abs_year);
     
 	INSERT INTO `car_dealership`.`Employee_Absent` 
-		(`absent_start_date`, `absent_end_date`, `num_days`, `reason`, `absent_year_id`, `absent_year_emp_id`) 
+		(`absent_start_date`, `absent_end_date`, `num_days`, `reason`, `emp_absent_id`) 
 	VALUES 
-		(start_date, end_date, num_days, reason, abs_year_id, emp_id);
+		(start_date, end_date, num_days, reason, abs_year_id);
 END;

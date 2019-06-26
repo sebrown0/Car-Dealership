@@ -18,9 +18,9 @@ VALUES
     (6, 'Sold'),					-- Sold awaiting delivery
     (7, 'Delivered');				-- Car has been delivered to customer
     
-INSERT INTO `Stock_List` (`date_added`, `fk_stock_status_id`) VALUES ((select DATE(now())), 3);
+INSERT INTO `Stock_List` (`date_updated`, `fk_stock_status_id`) VALUES ((select DATE(now())), 3);
 
-INSERT INTO `stock_updates`
+INSERT INTO `stock_file`
 	(`update_id`, `file_name`, `date_of_last_update`, `fk_stock_list_id`)
 VALUES
 	(0,  'car_stock_0.json', (select DATE(now())), 1);		
@@ -30,9 +30,12 @@ INSERT INTO `model`
 		`colour`, `transmission`, `horsepower`,
         `sunroof`, `alloy_wheels`, `ac`)
 VALUES
-	('FD95219PKV', 1, 'Focus', 22000, '2019-01-01',
+	('FD95219FCS', 1, 'Focus', 22000, '2019-01-01',
 		'Red', 'Auto', 2000, 
-        0, 1, 1);
+        0, 1, 1),
+	('FD95273FST', 1, 'Fiesta', 12000, '2019-05-04',
+		'Blue', 'Manual', 1400, 
+        0, 0, 0);
 /**************** CAR DATA END****************/
 
 /**************** HR DATA START****************/
@@ -162,7 +165,7 @@ VALUES
 -- salary
 -- SSN
 -- DOB
-call AddEmployee('HR','Mary','Queen Of Scots','HR', 'Associate', 20000, '1821-QS-1969', '1969-06-29',(select DATE(now()))); 	
+call AddEmployee('HR','Mary','Queen Of Scots','HR', 'Manager', 30000, '1821-QS-1969', '1969-06-29',(select DATE(now()))); 	
 call AddEmployee('HR', 'Sid', 'James','HR', 'Manager', 32000, '5434-SJ-1957', '1957-12-18', (select DATE(now()))); 
 call AddEmployee('Accounts', 'Marge', 'Simpson','Seceratary', 'Associate', 21222, '7910-MS-1980', '1980-08-27', (select DATE(now())));  			
 call AddEmployee('Accounts', 'Ben', 'Stokes','Accountant', 'Manager', 50000, '7613-BS-1991', '1991-08-16', (select DATE(now())));
@@ -200,7 +203,7 @@ call UpdateDepartmentManager (17, 'Stock');
 call UpdateDepartmentManager (18, 'Order');
 
 INSERT INTO `absent_year`
-	(`emp_id`, `year`)
+	(`fk_emp_id`, `year`)
 VALUES
 	(1, '2019'),
     (1, '2020'),

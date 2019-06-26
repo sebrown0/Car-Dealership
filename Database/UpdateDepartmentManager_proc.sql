@@ -1,12 +1,13 @@
 /*
 ** Update the department table with a valid manager/emp id.
-** i.e. the employee's seniority must = 'Manager'
+** i.e. the employee's seniority must = 'Manager' and the must belong to the department
 */
-CREATE PROCEDURE `UpdateDepartmentManager`(IN employee_id INT, IN dept_name_in VARCHAR(45))
+CREATE PROCEDURE `UpdateDepartmentManager`(IN new_manager_id INT, IN dept_name_in VARCHAR(45))
 BEGIN
-	DECLARE employee_seniority VARCHAR(25);
-    DECLARE existing_dept_name VARCHAR(45);
-    
+	DECLARE employee_seniority VARCHAR(25); -- Manager, Associate etc
+    DECLARE department_id INT(11);			-- The department being updated
+    DECLARE new_manager_dept_id INT(11);	-- The department id of the new manager.
+        
     SET employee_seniority = ( 
 		SELECT  
 			sen.seniority
@@ -21,26 +22,14 @@ BEGIN
 		ON
 			sen.seniority_id = ras.seniority_id 
 		WHERE 
-			emp.emp_id = employee_id
+			emp.emp_id = new_manager_id
 	);
-
-	IF employee_seniority = 'Manager' THEN
-		
-        SET existing_dept_name = 
-			(SELECT dept_name FROM Department_Manager WHERE Department_Manager.dept_name = dept_name_in);
-        
-        IF existing_dept_name IS NULL THEN
-			INSERT INTO 
-				Department_Manager (`manager_id`, `dept_id`, `dept_name`) 
-			VALUES 
-				(employee_id, (SELECT dept_id FROM department d WHERE d.dept_name = dept_name_in), dept_name_in);
-        ELSE        
-			UPDATE 
-				Department_Manager
-			SET	
-				manager_id = employee_id
-			WHERE 
-				Department_Manager.dept_name = dept_name_in;
-		END IF;
+    
+	SET department_id = (SELECT dept_id FROM department WHERE dept_name = dept_name_in);
+    SET new_manager_dept_id = (SELECT dept_id FROM employee WHERE emp_id = new_manager_id);
+	
+    -- Update only if the employee is a Manager and is in the department.
+    IF employee_seniority = 'Manager' AND department_id = new_manager_dept_id THEN
+		UPDATE employee SET manager_id = new_manager_id WHERE dept_id = department_id;
 	END IF;
 END;
